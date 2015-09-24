@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = " - Carga";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SystranHorizonte.Models.Carga
+
+<h2>Modificar</h2>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form action="@Url.Action("Modificar", "Cargas")" method="post">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Peso</label>
+                            <input type="text" name="Peso" class="form-control" value="@Model.Peso" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="text" name="Precio" class="form-control" value="@Model.Precio" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control" name="TipoString">
+                                <option value="Encomiendas">Encomiendas</option>
+                                <option value="Pasajes">Pasajes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <button class="btn btn-danger btn-lg" type="submit">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

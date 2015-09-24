@@ -1,0 +1,40 @@
+﻿
+
+<tr>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdCliente" value="@Model.Id" />
+        @Model.DniRuc
+    </td>
+    <td>
+        <input type="hidden" value="@Model.Id" />
+        @Model.Nombre
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
+        @ViewBag.Asiento.Asiento
+    </td>
+    <td>
+        @ViewBag.EstOrigen.EstacionesT
+    </td>
+    <td>
+        @ViewBag.EstDestino.EstacionesT
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdCarga" value="@ViewBag.IdCarga" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
+    </td>
+    <td>
+        <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
+    </td>
+</tr>
+
+<script>
+    function EliminarDetalle(id) {
+        $('#VentaTBody').remove(@ViewBag.Indice);
+    }
+</script>

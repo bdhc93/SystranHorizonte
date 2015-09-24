@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = " - Carga";
+}
+
+<h2>AddCarga</h2>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form action="@Url.Action("AddCarga", "Cargas")" method="post">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Peso</label>
+                            <input type="text" name="Peso" class="form-control" placeholder="0 - 10 kg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="text" name="Precio" class="form-control" placeholder="10.5" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select class="form-control" name="TipoString">
+                                <option value="Encomiendas">Encomiendas</option>
+                                <option value="Pasajes">Pasajes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <button class="btn btn-danger btn-lg" type="submit">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

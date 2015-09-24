@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{424E14F3-C521-4A7D-84A8-4B8000A7AF44}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SystranHorizonte.Repository</RootNamespace>
+    <AssemblyName>SystranHorizonte.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mapping\CargaMap.cs" />
+    <Compile Include="Mapping\ClienteMap.cs" />
+    <Compile Include="Mapping\EmpleadoMap.cs" />
+    <Compile Include="Mapping\EstacionesMap.cs" />
+    <Compile Include="Mapping\HorarioMap.cs" />
+    <Compile Include="Mapping\ReservaMap.cs" />
+    <Compile Include="Mapping\VehiculosMap.cs" />
+    <Compile Include="Mapping\VentaAsientosMap.cs" />
+    <Compile Include="Mapping\VentaEncomiendaMap.cs" />
+    <Compile Include="Mapping\VentaMap.cs" />
+    <Compile Include="Mapping\VentaPasajeMap.cs" />
+    <Compile Include="MasterRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystranHorizonteContext.cs" />
+    <Compile Include="Ventas\Datos\CargaRepository.cs" />
+    <Compile Include="Ventas\Datos\ClienteRepository.cs" />
+    <Compile Include="Ventas\Datos\EmpleadoRepository.cs" />
+    <Compile Include="Ventas\Datos\EstacionRepository.cs" />
+    <Compile Include="Ventas\Datos\HorarioRepository.cs" />
+    <Compile Include="Ventas\Datos\VehiculoRepository.cs" />
+    <Compile Include="Ventas\Datos\VentaAsientoRepository.cs" />
+    <Compile Include="Ventas\Datos\VentaEncomiendaRepository.cs" />
+    <Compile Include="Ventas\Datos\VentaPasajeRepository.cs" />
+    <Compile Include="Ventas\Datos\VentaRepository.cs" />
+    <Compile Include="Ventas\Interfaces\ICargaRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IClienteRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IEmpleadoRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IEstacionRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IHorarioRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IVehiculoRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IVentaAsientoRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IVentaEncomiendaRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IVentaPasajeRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IVentaRepository.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SystranHorizonte.Models\SystranHorizonte.Models.csproj">
+      <Project>{7b9aab78-0d9d-44a3-9183-bbb1574a6d16}</Project>
+      <Name>SystranHorizonte.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Datos\Datos.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

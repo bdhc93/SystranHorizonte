@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Modificar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SystranHorizonte.Models.Vehiculo
+
+<h2>Modificar</h2>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form action="@Url.Action("Modificar", "Vehiculo")" method="post">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>TarjetaPropiedad</label>
+                        <input type="text" name="TarjetaPropiedad" class="form-control" value="@Model.TarjetaPropiedad" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>NroPlaca</label>
+                        <input type="text" name="NroPlaca" class="form-control" value="@Model.NroPlaca" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>FechaSoat</label>
+                        <input type="text" name="FechaSoat" class="form-control" value="@Model.FechaSoat" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>FechaRevisionTecnica</label>
+                        <input type="text" name="FechaRevisionTecnica" class="form-control" value="@Model.FechaRevisionTecnica" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Ancho</label>
+                        <input type="text" name="Ancho" class="form-control" value="@Model.Ancho" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Largo</label>
+                        <input type="text" name="Largo" class="form-control" value="@Model.Largo" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Asientos</label>
+                        <input type="text" name="Asientos" id="txtasientos" class="form-control" value="@Model.Asientos" maxlength="2" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-danger btn-lg" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#txtasientos").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: Ctrl+C
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                // Allow: Ctrl+X
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>DniRuc</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DniRuc</td>
+                <td>@item.Nombre</td>
+                <td>@item.Apellidos</td>
+                <td>@item.Direccion</td>
+                <td>@item.Telefono</td>
+                <td><a href="@Url.Action("Modificar", "Cliente", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

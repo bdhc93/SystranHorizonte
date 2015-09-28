@@ -24,11 +24,14 @@
                 <tr>
                     <th>TarjetaPropiedad</th>
                     <th>NroPlaca</th>
-                    <th>FechaSoat</th>
-                    <th>FechaRevisionTecnica</th>
+                    <th>Soat</th>
+                    <th>SoatFin</th>
+                    <th>RevisionTecnica</th>
+                    <th>RevisionTecnicaFin</th>
                     <th>Ancho</th>
                     <th>Largo</th>
                     <th>Asientos</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -39,10 +42,13 @@
                         <td>@item.TarjetaPropiedad</td>
                         <td>@item.NroPlaca</td>
                         <td>@item.FechaSoat</td>
+                        <td>@item.FechaSoatFin</td>
                         <td>@item.FechaRevisionTecnica</td>
+                        <td>@item.FechaRevisionTecnicaFin</td>
                         <td>@item.Ancho</td>
                         <td>@item.Largo</td>
                         <td>@item.Asientos</td>
+                        <td>@item.EstadoMostrar</td>
                         <td><a href="@Url.Action("Modificar", "Vehiculo",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }

@@ -35,6 +35,14 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label>FechaSoatFin</label>
+                        <input type="date" name="FechaSoatFin" class="form-control" value="@ViewBag.FechaSoat" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label>FechaRevisionTecnica</label>
                         <input type="date" name="FechaRevisionTecnica" class="form-control" value="@ViewBag.FechaRevisionTecnica" />
                     </div>
@@ -43,8 +51,16 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label>FechaRevisionTecnicaFin</label>
+                        <input type="date" name="FechaRevisionTecnicaFin" class="form-control" value="@ViewBag.FechaRevisionTecnica" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label>Ancho</label>
-                        <input type="text" name="Ancho" class="form-control" placeholder="3.5" />
+                        <input type="text" name="Ancho" class="form-control" placeholder="3,5" />
                     </div>
                 </div>
             </div>
@@ -52,7 +68,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Largo</label>
-                        <input type="text" name="Largo" class="form-control" placeholder="1.5" />
+                        <input type="text" name="Largo" class="form-control" placeholder="1,5" />
                     </div>
                 </div>
             </div>
@@ -61,6 +77,29 @@
                     <div class="form-group">
                         <label>Asientos</label>
                         <input type="text" name="Asientos" id="txtasientos" class="form-control" placeholder="20" maxlength="2" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select class="form-control" name="Tipo">
+                            <option value=1>Tipo 1</option>
+                            <option value=2>Tipo 2</option>
+                            <option value=3>Tipo 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select class="form-control" name="Estado">
+                            <option value=true>Activo</option>
+                            <option value=false>Inactivo</option>
+                        </select>
                     </div>
                 </div>
             </div>

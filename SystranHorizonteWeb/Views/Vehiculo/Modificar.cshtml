@@ -36,8 +36,24 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label>FechaSoat</label>
+                        <input type="text" name="FechaSoatFin" class="form-control" value="@Model.FechaSoat" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label>FechaRevisionTecnica</label>
                         <input type="text" name="FechaRevisionTecnica" class="form-control" value="@Model.FechaRevisionTecnica" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>FechaRevisionTecnicaFin</label>
+                        <input type="text" name="FechaRevisionTecnicaFin" class="form-control" value="@Model.FechaRevisionTecnica" />
                     </div>
                 </div>
             </div>
@@ -62,6 +78,29 @@
                     <div class="form-group">
                         <label>Asientos</label>
                         <input type="text" name="Asientos" id="txtasientos" class="form-control" value="@Model.Asientos" maxlength="2" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select class="form-control" name="Tipo">
+                            <option value=1>Tipo 1</option>
+                            <option value=2>Tipo 2</option>
+                            <option value=3>Tipo 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select class="form-control" name="Estado">
+                            <option value=true>Activo</option>
+                            <option value=false>Inactivo</option>
+                        </select>
                     </div>
                 </div>
             </div>

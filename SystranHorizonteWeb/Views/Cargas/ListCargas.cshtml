@@ -30,6 +30,7 @@
                     <th>Peso</th>
                     <th>Precio</th>
                     <th>Tipo</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -40,6 +41,7 @@
                         <td>@item.Peso</td>
                         <td>@item.Precio</td>
                         <td>@item.TipoMostrar</td>
+                        <td>@item.EstadoMostrar</td>
                         <td><a href="@Url.Action("Modificar", "Cargas", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }

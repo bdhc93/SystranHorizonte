@@ -24,6 +24,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Asientos).IsRequired();
             this.Property(p => p.Tipo).IsRequired();
             this.Property(p => p.Estado).IsRequired();
+            this.Ignore(p => p.EstadoMostrar);
 
 
             this.ToTable("Vehiculo");

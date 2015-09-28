@@ -21,6 +21,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Ignore(p => p.EstacionesT);
 
             this.Property(p => p.Estado).IsRequired();
+            this.Ignore(p => p.EstadoMostrar);
 
             this.ToTable("Estacion");
             this.Property(c => c.Id).HasColumnName("Id");

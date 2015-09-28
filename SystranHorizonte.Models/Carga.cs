@@ -20,6 +20,8 @@ namespace SystranHorizonte.Models
 
         public String TipoMostrar { get { if (!Tipo) return "Encomiendas"; return "Pasajes"; } }
 
+        public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
+
         public String TipoString { get; set; }
 
         public List<VentaEncomienda> VentaEncomiendas { get; set; }

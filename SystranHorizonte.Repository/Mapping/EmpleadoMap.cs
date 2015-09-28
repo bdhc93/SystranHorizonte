@@ -19,6 +19,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Cargo).IsRequired();
             this.Property(p => p.Comentario).IsOptional();
             this.Property(p => p.Estado).IsRequired();
+            this.Ignore(p => p.EstadoMostrar);
 
             this.ToTable("Empleado");
             this.Property(c => c.Id).HasColumnName("Id");

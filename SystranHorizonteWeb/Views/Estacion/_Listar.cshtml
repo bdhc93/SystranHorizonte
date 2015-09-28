@@ -6,6 +6,7 @@
             <th>Provincia</th>
             <th>Direccion</th>
             <th>Telefono</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -18,6 +19,7 @@
                 <td>@item.Provincia</td>
                 <td>@item.Direccion</td>
                 <td>@item.Telefono</td>
+                <td>@item.EstadoMostrar</td>
                 <td><a href="@Url.Action("Modificar", "Estacion",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
             </tr>
         }

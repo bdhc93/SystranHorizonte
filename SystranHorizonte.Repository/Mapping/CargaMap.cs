@@ -18,6 +18,7 @@ namespace SystranHorizonte.Repository.Mapping
 
             this.Ignore(p => p.TipoMostrar);
             this.Ignore(p => p.TipoString);
+            this.Ignore(p => p.EstadoMostrar);
 
             this.ToTable("Carga");
             this.Property(c => c.Id).HasColumnName("Id");

@@ -27,6 +27,7 @@
                     <th>Telefono</th>
                     <th>Cargo</th>
                     <th>Comentario</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -39,6 +40,7 @@
                         <td>@item.Telefono</td>
                         <td>@item.Cargo</td>
                         <td>@item.Comentario</td>
+                        <td>@item.EstadoMostrar</td>
                         <td><a href="@Url.Action("Modificar", "Empleado",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }

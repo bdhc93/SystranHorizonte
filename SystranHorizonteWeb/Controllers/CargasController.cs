@@ -47,6 +47,7 @@ namespace SystranHorizonteWeb.Controllers
             {
                 model.Tipo = true;
             }
+            
             cargaService.GuardarCarga(model);
 
             return Redirect("ListCargas");

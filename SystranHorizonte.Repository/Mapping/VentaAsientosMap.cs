@@ -34,7 +34,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.HasRequired(h => h.Horario)
                 .WithMany(h => h.VentaAsientoss)
                 .HasForeignKey(p => p.IdHorario)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             this.HasRequired(h => h.Vehiculo)
                 .WithMany(h => h.VentaAsientoss)

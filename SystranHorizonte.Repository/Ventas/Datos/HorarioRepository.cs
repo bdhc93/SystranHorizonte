@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using SystranHorizonte.Models;
 using SystranHorizonte.Repository.Ventas.Interfaces;
@@ -22,29 +23,62 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 return new List<Horario> { };
             else
                 query = from p in query
-                        where p.OrigenId.Equals(idEstacion) && p.DestinoId.Equals(idDestino)
+                        where p.OrigenId.Equals(idEstacion) && p.DestinoId.Equals(idDestino) && p.Estado == true
                         select p;
             return query.ToList();
         }
 
         public void GuardarHorario(Horario horario)
         {
-            throw new NotImplementedException();
+            Context.Horarios.Add(horario);
+
+            Context.SaveChanges();
+
+            var ventaasientos = new VentaAsientos { Fecha = DateTime.Today, IdHorario =  horario.Id, IdVehiculo = horario.VehiculoId};
+
+            for (int i = 0; i < horario.Asientos; i++)
+            {
+                ventaasientos.Asiento = i + 1;
+                ventaasientos.Libre = true;
+                Context.VentaAsientos.Add(ventaasientos);
+                Context.SaveChanges();
+            }
         }
 
         public void ModificarHorario(Horario horario)
         {
-            throw new NotImplementedException();
+            Context.Entry(horario).State = EntityState.Modified;
+            Context.SaveChanges();
         }
 
         public void EliminarHorario(int id)
         {
-            throw new NotImplementedException();
+            var elim = ObtenerClientePorId(id);
+
+            Context.Horarios.Remove(elim);
+            Context.SaveChanges();
         }
 
         public IEnumerable<Horario> ObtenerHorarios()
         {
-            return Context.Horarios.ToList();
+            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino").Include("Empleados")
+                        select p;
+            
+            return query.ToList();
+        }
+
+        public IEnumerable<Horario> ObtenerHorariosPorEstacionNoVacio(int idEstacion, int idDestino)
+        {
+            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino").Include("Empleados")
+                        select p;
+
+            if (idEstacion == 0 || idDestino == 0)
+                return query;
+            else
+                query = from p in query
+                        where p.OrigenId.Equals(idEstacion) && p.DestinoId.Equals(idDestino) && p.Estado == true
+                        select p;
+            return query.ToList();
         }
     }
 }

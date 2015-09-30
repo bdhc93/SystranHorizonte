@@ -12,10 +12,16 @@ namespace SystranHorizonteWeb.Controllers
     public class HorarioController : Controller
     {
         public IHorarioService horarioService { get; set; }
+        public IEmpleadoService empleadoService { get; set; }
+        public IEstacionService estacionService { get; set; }
+        public IVehiculoService vehiculoService { get; set; }
 
-        public HorarioController(IHorarioService horarioService)
+        public HorarioController(IHorarioService horarioService, IEmpleadoService empleadoService, IEstacionService estacionService, IVehiculoService vehiculoService)
         {
             this.horarioService = horarioService;
+            this.empleadoService = empleadoService;
+            this.estacionService = estacionService;
+            this.vehiculoService = vehiculoService;
         }
 
         public ActionResult Index()
@@ -27,17 +33,23 @@ namespace SystranHorizonteWeb.Controllers
         public ActionResult ListHorarios()
         {
             var result = horarioService.ObtenerHorarios();
+            ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
+
             return View(result);
         }
 
         [HttpGet]
-        public ActionResult AddHorarios()
+        public ActionResult AddHorario()
         {
+            ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
+            ViewBag.Empleado = empleadoService.ObtenerEmpleadoPorCriterio("Conductor");
+            ViewBag.Vehiculo = vehiculoService.ObtenerVehiculosPorCriterio("");
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddHorarios(Horario model)
+        public ActionResult AddHorario(Horario model)
         {
             horarioService.GuardarHorario(model);
 
@@ -64,7 +76,19 @@ namespace SystranHorizonteWeb.Controllers
         public ActionResult Modificar(Int32 id)
         {
             var result = horarioService.ObtenerClientePorId(id);
+            ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
+            ViewBag.Empleado = empleadoService.ObtenerEmpleadoPorCriterio("Conductor");
+            ViewBag.Vehiculo = vehiculoService.ObtenerVehiculosPorCriterio("");
 
+            if (result.HoraText.Substring(6, 2) == "AM")
+            {
+                ViewBag.Hora = result.HoraText.Substring(0, 5);
+            }
+            else
+            {
+                ViewBag.Hora = (Int32.Parse(result.HoraText.Substring(0, 2)) + 12) + result.HoraText.Substring(2, 3);
+            }
+            
             return View(result);
         }
 
@@ -74,6 +98,43 @@ namespace SystranHorizonteWeb.Controllers
             horarioService.ModificarHorario(model);
 
             return Redirect(Url.Action("ListHorarios"));
+        }
+
+        [HttpGet]
+        public ActionResult AsientosVehiculo(Int32? idVehiculo)
+        {
+            int id = 0;
+
+            if (idVehiculo != null)
+            {
+                id = Int32.Parse(idVehiculo.ToString());
+            }
+
+            var vehiculo = vehiculoService.ObtenerVehiculoPorId(id);
+
+            ViewBag.asientos = vehiculo.Asientos;
+
+            return PartialView("_AddHorarios");
+        }
+
+        [HttpGet]
+        public ActionResult HorariosEstacionOrigen(Int32? idEstacion, Int32? idDestino)
+        {
+            Int32 inicio = 0;
+            Int32 fin = 0;
+
+            if (idEstacion != null)
+            {
+                inicio = Int32.Parse(idEstacion.ToString());
+            }
+            if (idDestino != null)
+            {
+                fin = Int32.Parse(idDestino.ToString());
+            }
+
+            var result = horarioService.ObtenerHorariosPorEstacionNoVacio(inicio, fin);
+
+            return PartialView("_ListHorarios", result);
         }
     }
 }

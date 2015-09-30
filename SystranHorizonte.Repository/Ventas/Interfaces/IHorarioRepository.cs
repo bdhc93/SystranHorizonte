@@ -8,6 +8,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
     {
         Horario ObtenerClientePorId(Int32 id);
         IEnumerable<Horario> ObtenerHorariosPorEstacion(Int32 idEstacion, Int32 idDestino);
+        IEnumerable<Horario> ObtenerHorariosPorEstacionNoVacio(Int32 idEstacion, Int32 idDestino);
         IEnumerable<Horario> ObtenerHorarios();
 
         void GuardarHorario(Horario horario);

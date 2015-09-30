@@ -37,8 +37,8 @@
                             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ListarEstacion" ? "active" : "")"><a href="@Url.Action("ListarEstacion", "Estacion")">Listar Estaciones</a></li>
                             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AgregarEstacion" ? "active" : "")"><a href="@Url.Action("AgregarEstacion", "Estacion")">Nuevo Estancion</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Listar Horarios</a></li>
-                            <li><a href="#">Nuevo Horario</a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ListHorarios" ? "active" : "")"><a href="@Url.Action("ListHorarios", "Horario")">Listar Horarios</a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AddHorario" ? "active" : "")"><a href="@Url.Action("AddHorario", "Horario")">Nuevo Horario</a></li>
                             <li role="separator" class="divider"></li>
                             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ListarVehiculo" ? "active" : "")"><a href="@Url.Action("ListarVehiculo", "Vehiculo")">Listar Vehiculos</a></li>
                             <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AgregarVehiculo" ? "active" : "")"><a href="@Url.Action("AgregarVehiculo", "Vehiculo")">Nuevo Vehiculo</a></li>

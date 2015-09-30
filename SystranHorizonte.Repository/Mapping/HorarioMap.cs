@@ -23,15 +23,20 @@ namespace SystranHorizonte.Repository.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             this.Property(p => p.Hora).IsRequired();
+            this.Property(p => p.Asientos).IsRequired();
             this.Property(p => p.Estado).IsRequired();
             this.Property(p => p.Costo).IsRequired().HasPrecision(9, 2);
+            this.Ignore(p => p.EstadoMostrar);
+            this.Ignore(p => p.VehiculoId);
 
-            this.Ignore(p => p.Asientos);
+            this.Property(p => p.Asientos).IsRequired();
 
             this.ToTable("Horario");
             this.Property(c => c.Id).HasColumnName("Id");
             this.Property(c => c.OrigenId).HasColumnName("OrigenId");
             this.Property(c => c.DestinoId).HasColumnName("DestinoId");
+            this.Property(c => c.EmpleadoId).HasColumnName("EmpleadoId");
+            this.Property(c => c.Asientos).HasColumnName("Asientos");
             this.Property(c => c.Hora).HasColumnName("Hora");
             this.Property(c => c.Costo).HasColumnName("Costo");
             this.Property(c => c.Estado).HasColumnName("Estado");

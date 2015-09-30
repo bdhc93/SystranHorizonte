@@ -318,11 +318,16 @@
     <Content Include="Views\Venta\DetalleVenta.cshtml" />
     <Content Include="Views\Venta\EliminarVenta.cshtml" />
     <Content Include="Views\Venta\ListarVentas.cshtml" />
+    <Content Include="Views\Horario\ListHorarios.cshtml" />
+    <Content Include="Views\Horario\AddHorario.cshtml" />
+    <Content Include="Views\Horario\_AddHorarios.cshtml" />
+    <Content Include="Views\Horario\Eliminar.cshtml" />
+    <Content Include="Views\Horario\_ListHorarios.cshtml" />
+    <Content Include="Views\Horario\Modificar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Horario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

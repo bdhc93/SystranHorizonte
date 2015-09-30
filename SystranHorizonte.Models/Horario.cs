@@ -28,7 +28,36 @@ namespace SystranHorizonte.Models
         public Int32 EmpleadoId { get; set; }
         public Empleado Empleados { get; set; }
 
+        public Int32 VehiculoId { get; set; }
+
         public Boolean Estado { get; set; }
+
+        public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
+
+        public String HoraText { get {
+                try
+                {
+                    if (Int32.Parse(Hora.ToString().Substring(11, 2)) <= 12)
+                    {
+                        return Hora.ToString().Substring(11, 5) + " AM";
+                    }
+                    else
+                    {
+                        var temp = Int32.Parse(Hora.ToString().Substring(11, 2)) - 12;
+                        if (temp < 10)
+                        {
+                            return "0" + temp + "" + Hora.ToString().Substring(13, 3) + " PM";
+                        }
+                        return temp + "" + Hora.ToString().Substring(13, 3) + " PM";
+                    }
+                }
+                catch (Exception)
+                {
+                    return "0" + Hora.ToString().Substring(11, 4) + " AM";
+                }
+                
+
+            } }
 
         public List<VentaPasaje> VentaPasajes { get; set; }
         public List<Reserva> Reservas { get; set; }

@@ -10,14 +10,17 @@
         @Model.Nombre
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
-        @ViewBag.Asiento.Asiento
-    </td>
-    <td>
         @ViewBag.EstOrigen.EstacionesT
     </td>
     <td>
         @ViewBag.EstDestino.EstacionesT
+    </td>
+    <td>
+        @ViewBag.Pago
+    </td>
+    
+    <td>
+        <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
     </td>
     <td>
         <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
@@ -29,12 +32,16 @@
         <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
     </td>
     <td>
-        <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
     </td>
 </tr>
 
 <script>
     function EliminarDetalle(id) {
-        $('#VentaTBody').remove(@ViewBag.Indice);
+        $("#VentaTBody tr").on("click", function () {
+            $(this).remove();
+            return false;
+        });
     }
+
 </script>

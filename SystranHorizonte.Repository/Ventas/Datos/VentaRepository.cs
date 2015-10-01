@@ -21,20 +21,20 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public void GuardarVenta(Venta venta)
         {
-            foreach (var item in venta.VentaPasajes)
-            {
-                var asientos = Context.VentaAsientos.Find(item.Asiento);
+            //foreach (var item in venta.VentaPasajes)
+            //{
+            //    var asientos = Context.VentaAsientos.Find(item.Asiento);
 
-                asientos.Libre = false;
+            //    asientos.Libre = false;
 
-                Context.Entry(asientos).State = EntityState.Modified;
+            //    Context.Entry(asientos).State = EntityState.Modified;
 
-                item.Asiento = asientos.Asiento;
+            //    item.Asiento = asientos.Asiento;
 
-                //Context.SaveChanges();
-            }
-            Context.Ventas.Add(venta);
-            Context.SaveChanges();
+            //    //Context.SaveChanges();
+            //}
+            //Context.Ventas.Add(venta);
+            //Context.SaveChanges();
         }
 
         public void ModificarVenta(Venta venta)

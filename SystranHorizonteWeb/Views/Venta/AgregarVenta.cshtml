@@ -1,9 +1,4 @@
-﻿@{
-    ViewBag.Title = " - Venta";
-}
-
-
-<div class="row">
+﻿<div class="row">
     <form action="@Url.Action("AgregarVenta", "Venta")" method="post">
         <fieldset>
             <legend>Nueva Venta</legend>
@@ -73,16 +68,16 @@
         <br />
 
         <fieldset>
-            <legend>Nueva Venta</legend>
+            <legend>Detalle Venta</legend>
             <a class="btn btn-link pull-right" onclick="abrirModalPasajes()">Agregar Pasaje</a>
             <table class="table">
                 <thead>
                     <tr>
                         <th>DniRuc</th>
                         <th>Nombre</th>
-                        <th>N Asiento</th>
                         <th>Origen</th>
                         <th>Destino</th>
+                        <th>Precio</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

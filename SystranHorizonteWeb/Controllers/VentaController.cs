@@ -84,11 +84,11 @@ namespace SystranHorizonteWeb.Controllers
             {
                 if (carg != null)
                 {
-                    ViewBag.Total = hor.Costo + carg.Precio;
+                    ViewBag.Pago = hor.Costo + carg.Precio;
                 }
                 else
                 {
-                    ViewBag.Total = hor.Costo;
+                    ViewBag.Pago = hor.Costo;
                 }
             }
 
@@ -112,7 +112,7 @@ namespace SystranHorizonteWeb.Controllers
         [HttpGet]
         public ActionResult AgregarDetalle(Int32? indice, Int32? idHorario,
             Int32? idEstacion, Int32? idDestino, Int32? idAsiento, Int32? idCarga,
-            Decimal? pago, String lbdni, String Nombres, String Apellidos,
+            String pago, String lbdni, String Nombres, String Apellidos,
             String Telefono, String Direccion)
         {
             var clienbor = clienteService.ObtenerClientePorRucDni(lbdni);

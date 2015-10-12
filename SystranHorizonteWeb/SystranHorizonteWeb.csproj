@@ -304,6 +304,8 @@
     <Content Include="Views\Horario\Eliminar.cshtml" />
     <Content Include="Views\Horario\_ListHorarios.cshtml" />
     <Content Include="Views\Horario\Modificar.cshtml" />
+    <Content Include="Views\Venta\_Pago.cshtml" />
+    <Content Include="Views\Venta\_Clientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

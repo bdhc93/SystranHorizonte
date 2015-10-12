@@ -10,7 +10,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label></label>
-            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Venta")" id="btnBuscar">...</a>
+            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Venta")" id="btnBuscar2">...</a>
         </div>
     </div>
     <div id="idnombres">
@@ -102,7 +102,7 @@
 </div>
 
 <script>
-    $("#btnBuscar").click(function (e) {
+    $("#btnBuscar2").click(function (e) {
         e.preventDefault();
         $.get(this.href, { dni: $("#lbdni").val() }).
             success(function (resultado) { $("#idnombres").html(resultado); })
@@ -136,6 +136,15 @@
         })
         .success(function (respuesta) {
             $('#VentaTBody').append(respuesta);
+        });
+
+        $.get("CajaTotalPago", {
+            pago: $("#Pago").val(),
+            totalVenta: $("#TotalVenta").val(),
+            estado: true
+        })
+        .success(function (response) {
+            $('#TotalPrecio').html(response);
         });
     }
 </script>

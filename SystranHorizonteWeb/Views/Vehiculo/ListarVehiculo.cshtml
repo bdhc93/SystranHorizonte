@@ -79,16 +79,6 @@
                 $('#Ver').modal('show');
             })
     }
-</script>
-
-<script>
-    function abrirmodalelim(idve) {
-        $.get("Eliminar", { idve: idve }).
-            success(function (resultado) {
-                $("#Detalle").html(resultado);
-                $('#Ver').modal('show');
-            })
-    }
 
     function buscarCriterio() {
         var criterio = $('#txtBuscar').val();

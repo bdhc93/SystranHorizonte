@@ -44,5 +44,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             return ventaRepository.ObtenerVentas();
         }
+
+        public int ObtenerNroVenta()
+        {
+            return ventaRepository.ObtenerNroVenta();
+        }
     }
 }

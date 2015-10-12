@@ -41,14 +41,17 @@ namespace SystranHorizonteWeb.Controllers
             ViewBag.Fecha = MostrarFecha();
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
             var result = ventaService.ObtenerVentas();
+
             return View(result);
         }
 
         [HttpGet]
         public ActionResult AgregarVenta()
         {
+            ViewBag.NroVenta = ventaService.ObtenerNroVenta();
             ViewBag.Fecha = MostrarFecha();
             ViewBag.RucDni = "";
+            ViewBag.TotalPago = "";
             return View();
         }
 
@@ -57,7 +60,7 @@ namespace SystranHorizonteWeb.Controllers
         {
             var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
             model.IdCliente = clien.Id;
-
+            model.Fecha = DateTime.Now;
             ventaService.GuardarVenta(model);
 
             return View();
@@ -175,7 +178,13 @@ namespace SystranHorizonteWeb.Controllers
 
             return PartialView();
         }
-
+        
+        [HttpGet]
+        public ActionResult ClientesPrin(String dni)
+        {
+            Cliente result = clienteService.ObtenerClientePorRucDni(dni);
+            return PartialView("_Clientes", result);
+        }
 
         [HttpGet]
         public ActionResult Clientes(String dni)
@@ -232,6 +241,42 @@ namespace SystranHorizonteWeb.Controllers
             }
 
             return DateTime.Now.Year + "-" + mes + "-" + dia;
+        }
+
+        [HttpGet]
+        public ActionResult CajaTotalPago(String pago, String totalVenta, Boolean estado)
+        {
+            Decimal pagod = 0;
+            Decimal totalventad = 0;
+
+            if (estado)
+            {
+                if (!String.IsNullOrEmpty(pago))
+                {
+                    pagod = Decimal.Parse(pago);
+                }
+                if (!String.IsNullOrEmpty(totalVenta))
+                {
+                    totalventad = Decimal.Parse(totalVenta);
+                }
+
+                ViewBag.TotalPago = totalventad + pagod;
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(pago))
+                {
+                    pagod = Decimal.Parse(pago);
+                }
+                if (!String.IsNullOrEmpty(totalVenta))
+                {
+                    totalventad = Decimal.Parse(totalVenta);
+                }
+
+                ViewBag.TotalPago = totalventad - pagod;
+            }
+            
+            return PartialView("_Pago");
         }
     }
 }

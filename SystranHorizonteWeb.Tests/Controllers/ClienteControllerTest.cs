@@ -1,32 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SystranHorizonte.Repository.Ventas.Datos;
 using SystranHorizonte.Models;
+using SystranHorizonte.Services.Ventas.Interfaces;
+using SystranHorizonteWeb.Controllers;
 
 namespace SystranHorizonteWeb.Tests.Controllers
 {
     [TestClass]
     public class ClienteControllerTest
     {
-        public ClienteRepository clienteRepository { get; set; }
-        
+        public IClienteService clienteService { get; set; }
+
         [TestMethod]
-        public void ClienteRepGuardar()
+        public void ClienteControllerGuardar()
         {
-            Cliente cliente = new Cliente {
-                DniRuc = "73136701",
-                Nombre = "Billy Davis",
-                Apellidos = "Prueba",
-                Direccion = "Direccion Prueba",
-                Telefono = "9797997"
+            ClienteController controller = new ClienteController(clienteService);
+
+            Carga model = new Carga
+            {
+                Estado = true,
+                Peso = "0 kg Prueba",
+                Precio = 10,
+                Tipo = true,
+                TipoString = "Encomiendas"
             };
 
-            clienteRepository.GuardarCliente(cliente);
+            ViewResult result = controller.Agregar() as ViewResult;
         }
-        
+
+        [TestMethod]
+        public void ClienteControllerModificar()
+        {
+            ClienteController controller = new ClienteController(clienteService);
+
+            ViewResult result = controller.Agregar() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void ClienteControllerEliminar()
+        {
+            ClienteController controller = new ClienteController(clienteService);
+
+            ViewResult result = controller.Agregar() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
     }
 }

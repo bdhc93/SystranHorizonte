@@ -32,126 +32,71 @@ namespace SystranHorizonteWeb.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
-        public ActionResult ListVehiculos()
+        public ActionResult ListEstacion(String ciudad)
         {
+            if (!String.IsNullOrEmpty(ciudad))
+            {
+                if (ciudad== "--Todas--")
+                {
+                    var estaciones = estacionService.ObtenerEstacionsPorCriterio("");
+                    return this.Json(new
+                    {
+                        Estaciones = (from obj in estaciones
+                                      select new
+                                      {
+                                          EstacionesT = obj.EstacionesT,
+                                          Provincia = obj.Provincia,
+                                          Direccion = obj.Direccion,
+                                          Telefono = obj.Telefono,
+                                          Codigo = obj.Codigo
+                                      })
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var estaciones = estacionService.ObtenerEstacionsPorCriterio(ciudad);
+                    return this.Json(new
+                    {
+                        Estaciones = (from obj in estaciones
+                                      select new
+                                      {
+                                          EstacionesT = obj.EstacionesT,
+                                          Provincia = obj.Provincia,
+                                          Direccion = obj.Direccion,
+                                          Telefono = obj.Telefono,
+                                          Codigo = obj.Codigo
+                                      })
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
 
-            var estaciones = vehiculoService.ObtenerVehiculosPorCriterio("");
             return this.Json(new
             {
-                Estaciones = (from obj in estaciones
-                              select new
-                              {
-                                  Id = obj.Id,
-                                  TarjetaPropiedad = obj.TarjetaPropiedad,
-                                  NroPlaca = obj.NroPlaca,
-                                  FechaSoat = obj.FechaSoat,
-                                  FechaRevisionTecnica = obj.FechaRevisionTecnica,
-                                  Ancho = obj.Ancho,
-                                  Largo = obj.Largo,
-                                  Asientos = obj.Asientos
-                              })
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ListEstacion()
-        {
-
-            var estaciones = estacionService.ObtenerEstacionsPorCriterio("");
-            return this.Json(new
-            {
-                Estaciones = (from obj in estaciones
-                              select new
-                              {
-                                  Id = obj.Id,
-                                  Ciudad = obj.Ciudad,
-                                  Provincia = obj.Provincia,
-                                  Direccion = obj.Direccion,
-                                  Telefono = obj.Telefono,
-                                  Codigo = obj.Codigo
-                              })
+                Mensaje = "Error en la data"
             }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult ListHorarios()
         {
-
-            var estaciones = horarioService.ObtenerHorarios();
+            //var horarios = horarioService.ObtenerHorariosPorEstacion();
+            var horarios = horarioService.ObtenerHorarios();
             return this.Json(new
             {
-                Estaciones = (from obj in estaciones
-                              select new
+                Horarios = (from obj in horarios
+                            select new
                               {
-                                  Id = obj.Id,
                                   Hora = obj.Hora,
                                   Costo = obj.Costo,
                                   EstacionOrigen = obj.EstacionOrigen.EstacionesT,
                                   EstacionDestino = obj.EstacionDestino.EstacionesT,
-                                  Empleados = obj.Empleados.Nombre + " " + obj.Empleados.Apellidos
+                                  Asientos = obj.Asientos
                               })
             }, JsonRequestBehavior.AllowGet);
         }
-
-        [HttpGet]
-        public ActionResult ListEmpleados()
-        {
-
-            var estaciones = empleadoService.ObtenerEmpleadoPorCriterio("");
-            return this.Json(new
-            {
-                Estaciones = (from obj in estaciones
-                              select new
-                              {
-                                  Id = obj.Id,
-                                  Nombre = obj.Nombre,
-                                  Apellidos = obj.Apellidos,
-                                  Telefono = obj.Telefono,
-                                  Cargo = obj.Cargo,
-                                  Comentario = obj.Comentario
-                              })
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ListClientes()
-        {
-
-            var estaciones = clienteService.ObtenerClientesPorCriterio("");
-            return this.Json(new
-            {
-                Estaciones = (from obj in estaciones
-                              select new
-                              {
-                                  Id = obj.Id,
-                                  DniRuc = obj.DniRuc,
-                                  Nombre = obj.Nombre,
-                                  Apellidos = obj.Apellidos,
-                                  Direccion = obj.Direccion,
-                                  Telefono = obj.Telefono
-                              })
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult ListCarga()
-        {
-
-            var estaciones = cargaService.ObtenerCargasPorCriterio("");
-            return this.Json(new
-            {
-                Estaciones = (from obj in estaciones
-                              select new
-                              {
-                                  Id = obj.Id,
-                                  Peso = obj.Peso,
-                                  Precio = obj.Precio,
-                                  Tipo = obj.TipoMostrar
-                              })
-            }, JsonRequestBehavior.AllowGet);
-        }
-
+        
     }
 }

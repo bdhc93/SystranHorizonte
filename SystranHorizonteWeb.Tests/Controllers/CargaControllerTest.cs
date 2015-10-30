@@ -30,18 +30,15 @@ namespace SystranHorizonteWeb.Tests.Controllers
                 TipoString = "Encomiendas"
             };
 
-            ViewResult result = controller.AddCarga(model) as ViewResult;
+            ViewResult result = controller.AddCarga() as ViewResult;
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CargaControllerModificar()
         {
             CargasController controller = new CargasController(cargaService);
-
-            Int32 idPrueba = 0;
-
-            ViewResult result = controller.Modificar(idPrueba) as ViewResult;
+            
+            ViewResult result = controller.AddCarga() as ViewResult;
 
             Assert.IsNotNull(result);
         }
@@ -50,10 +47,8 @@ namespace SystranHorizonteWeb.Tests.Controllers
         public void CargaControllerEliminar()
         {
             CargasController controller = new CargasController(cargaService);
-
-            Int32 idPrueba = 0;
-
-            ViewResult result = controller.Eliminar(idPrueba) as ViewResult;
+                        
+            ViewResult result = controller.AddCarga() as ViewResult;
 
             Assert.IsNotNull(result);
         }

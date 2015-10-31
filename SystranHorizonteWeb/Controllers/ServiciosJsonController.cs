@@ -38,7 +38,7 @@ namespace SystranHorizonteWeb.Controllers
         {
             if (!String.IsNullOrEmpty(ciudad))
             {
-                if (ciudad== "--Todas--")
+                if (ciudad== "--Seleccionar--")
                 {
                     var estaciones = estacionService.ObtenerEstacionsPorCriterio("");
                     return this.Json(new
@@ -80,22 +80,36 @@ namespace SystranHorizonteWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListHorarios()
+        public ActionResult ListHorarios(String origen, String destino)
         {
-            //var horarios = horarioService.ObtenerHorariosPorEstacion();
-            var horarios = horarioService.ObtenerHorarios();
+            if (destino == "--Seleccionar--")
+            {
+                destino = "";
+            }
+
+            if (origen == "--Seleccionar--")
+            {
+                origen = "";
+            }
+
+            var horarios = horarioService.ObtenerHorariosPorCiudades(origen, destino);
+
             return this.Json(new
             {
                 Horarios = (from obj in horarios
                             select new
-                              {
-                                  Hora = obj.Hora,
-                                  Costo = obj.Costo,
-                                  EstacionOrigen = obj.EstacionOrigen.EstacionesT,
-                                  EstacionDestino = obj.EstacionDestino.EstacionesT,
-                                  Asientos = obj.Asientos
-                              })
+                            {
+                                Hora = obj.HoraText,
+                                Costo = obj.Costo,
+                                Asientos = obj.Asientos,
+                                Origen = obj.EstacionOrigen.Ciudad + " - " + obj.EstacionOrigen.Provincia,
+                                Destino = obj.EstacionDestino.Ciudad + " - " + obj.EstacionDestino.Provincia
+                            })
             }, JsonRequestBehavior.AllowGet);
+
+            //var horarios = horarioService.ObtenerHorariosPorEstacion();
+            //var horarios = horarioService.ObtenerHorarios();
+
         }
         
     }

@@ -80,5 +80,36 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                         select p;
             return query.ToList();
         }
+
+        public IEnumerable<Horario> ObtenerHorariosPorCiudades(string origen, string destino)
+        {
+            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino")
+                        select p;
+
+            if (String.IsNullOrEmpty(origen) && String.IsNullOrEmpty(destino)) {
+                return new List<Horario> { };
+            }
+            else if (String.IsNullOrEmpty(origen))
+            {
+                if (!String.IsNullOrEmpty(destino))
+                {
+                    query = from p in query
+                            where p.EstacionDestino.Ciudad == destino && p.Estado == true
+                            select p;
+                }
+                
+            }else if (String.IsNullOrEmpty(destino)){ 
+                query = from p in query
+                        where p.EstacionOrigen.Ciudad == origen && p.Estado == true
+                        select p;
+            }
+            else
+            {
+                query = from p in query
+                        where p.EstacionOrigen.Ciudad == origen && p.EstacionDestino.Ciudad == destino && p.Estado == true
+                        select p;
+            }
+            return query.ToList();
+        }
     }
 }

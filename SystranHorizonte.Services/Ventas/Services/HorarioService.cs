@@ -49,5 +49,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             return horarioRepository.ObtenerHorariosPorEstacionNoVacio(idEstacion, idDestino);
         }
+
+        public IEnumerable<Horario> ObtenerHorariosPorCiudades(string origen, string destino)
+        {
+            return horarioRepository.ObtenerHorariosPorCiudades(origen, destino);
+        }
     }
 }

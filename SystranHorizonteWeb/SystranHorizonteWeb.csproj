@@ -308,11 +308,11 @@
     <Content Include="Views\Venta\_Pago.cshtml" />
     <Content Include="Views\Venta\_Clientes.cshtml" />
     <Content Include="Views\Venta\ModificarVenta.cshtml" />
-    <Content Include="Views\ServiciosJsonTest\AgregarVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ServiciosJsonTest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

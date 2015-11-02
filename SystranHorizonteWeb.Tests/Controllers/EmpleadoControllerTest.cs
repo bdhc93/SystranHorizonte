@@ -22,7 +22,7 @@ namespace SystranHorizonteWeb.Tests.Controllers
                 Apellidos = "ApellidosTest"
             };
 
-            ViewResult result = controller.AgregarEmpleado(model) as ViewResult;
+            ViewResult result = controller.AgregarEmpleado() as ViewResult;
         }
         
         [TestMethod]

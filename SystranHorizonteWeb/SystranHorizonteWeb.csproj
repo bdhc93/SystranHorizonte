@@ -164,6 +164,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\ServiciosJsonController.cs" />
+    <Compile Include="Controllers\ServiciosJsonTestController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -307,6 +308,7 @@
     <Content Include="Views\Venta\_Pago.cshtml" />
     <Content Include="Views\Venta\_Clientes.cshtml" />
     <Content Include="Views\Venta\ModificarVenta.cshtml" />
+    <Content Include="Views\ServiciosJsonTest\AgregarVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,16 +34,16 @@
 </div>
 
 <script>
-    $("#IdHorario").click(function (e) {
-        $.get("Pagos", { IdHorario: $("#IdHorario").val(), IdCarga: $("#IdCarga").val() }).
+    $("#IdHorario").change(function (e) {
+        $.get('@Url.Action("Pagos", "Venta")', { IdHorario: $("#IdHorario").val(), IdCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdCarga").click(function (e) {
-        $.get("Pagos", { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+    $("#IdCarga").change(function (e) {
+        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdHorario").click(function (e) {
-        $.get("Asientos", { IdHorario: $("#IdHorario").val() }).
+    $("#IdHorario").change(function (e) {
+        $.get('@Url.Action("Asientos", "Venta")', { IdHorario: $("#IdHorario").val() }).
             success(function (resultado) { $("#listAsiento").html(resultado); })
     });
 </script>

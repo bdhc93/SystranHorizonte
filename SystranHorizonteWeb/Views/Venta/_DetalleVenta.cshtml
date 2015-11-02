@@ -39,17 +39,15 @@
 <script>
 
     function EliminarDetalle(id) {
-        
+
         console.log(id);
         var valorelim = 0;
         $("#VentaTBody tr:eq("+ id +")").find('td:eq(4)').each(function () {
-            console.log(id);
             valor = $(this).html();
-            console.log(valor);
             valorelim = parseInt(valor)
         })
 
-        $.get("CajaTotalPago", {
+        $.get('@Url.Action("CajaTotalPago", "Venta")', {
             pago: valorelim,
             totalVenta: $("#TotalVenta").val(),
             estado: false

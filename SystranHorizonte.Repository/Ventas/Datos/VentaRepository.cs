@@ -11,7 +11,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
     {
         public Venta ObtenerVentaPorId(int id)
         {
-            return Context.Ventas.Include("VentaPasajes").Where(p => p.Id.Equals(id)).SingleOrDefault();
+            return Context.Ventas.Include("VentaPasajes").Include("VentaPasajes.Horario").Include("VentaPasajes.Cliente").Include("VentaPasajes.Carga").Include("VentaPasajes.Horario.EstacionOrigen").Include("VentaPasajes.Horario.EstacionDestino").Include("Cliente").Include("VentaEncomiendas").Include("Reseras").Where(p => p.Id.Equals(id)).SingleOrDefault();
         }
 
         public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin)

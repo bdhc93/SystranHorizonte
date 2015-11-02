@@ -61,7 +61,7 @@
                         <td>@item.Cliente.Telefono</td>
                         <td>@item.TotalVenta</td>
                         <td>@item.Fecha</td>
-                        <td><a href="#" id="btnVer">Ver</a> | <a href="#">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+                        <td><a href="#" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Venta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }
             </tbody>

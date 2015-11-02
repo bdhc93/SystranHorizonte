@@ -306,6 +306,7 @@
     <Content Include="Views\Horario\Modificar.cshtml" />
     <Content Include="Views\Venta\_Pago.cshtml" />
     <Content Include="Views\Venta\_Clientes.cshtml" />
+    <Content Include="Views\Venta\ModificarVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +325,9 @@
       <Project>{57ed788f-cc86-4ddc-9cdf-ed6a5679e0ae}</Project>
       <Name>SystranHorizonte.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

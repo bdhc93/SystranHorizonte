@@ -108,25 +108,25 @@
             success(function (resultado) { $("#idnombres").html(resultado); })
     });
     $("#IdOrigen").change(function (e) {
-        $.get("HorariosEstacionOrigen", { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+        $.get('@Url.Action("HorariosEstacionOrigen", "Venta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
             success(function (resultado) { $("#ddlHorarios").html(resultado); })
     });
     $("#IdDestino").change(function (e) {
-        $.get("HorariosEstacionOrigen", { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+        $.get('@Url.Action("HorariosEstacionOrigen", "Venta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
             success(function (resultado) { $("#ddlHorarios").html(resultado); })
     });
-    $("#IdHorario").click(function (e) {
-        $.get("Pagos", { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+    $("#IdHorario").change(function (e) {
+        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdCarga").click(function (e) {
-        $.get("Pagos", { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+    $("#IdCarga").change(function (e) {
+        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
 
     function AgregarPasajeAVenta() {
         var indice = $('#VentaTBody').find('tr').length;
-        $.get("AgregarDetalle", {
+        $.get('@Url.Action("AgregarDetalle", "Venta")', {
             'indice': indice, idHorario: $("#IdHorario").val(),
             idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val(),
             idAsiento: $("#IdAsiento").val(), idCarga: $("#IdCarga").val(),
@@ -138,7 +138,7 @@
             $('#VentaTBody').append(respuesta);
         });
 
-        $.get("CajaTotalPago", {
+        $.get('@Url.Action("CajaTotalPago", "Venta")', {
             pago: $("#Pago").val(),
             totalVenta: $("#TotalVenta").val(),
             estado: true

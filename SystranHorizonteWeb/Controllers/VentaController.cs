@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using SystranHorizonte.Services.Ventas.Services;
 using SystranHorizonte.Services.Ventas.Interfaces;
 using SystranHorizonte.Models;
 
@@ -46,6 +42,22 @@ namespace SystranHorizonteWeb.Controllers
         }
 
         [HttpGet]
+        public ActionResult ModificarVenta(Int32 id)
+        {
+            var result = ventaService.ObtenerVentaPorId(id);
+            ViewBag.Fecha = MostrarFecha();
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarVenta(Venta model)
+        {
+
+            return Redirect("ListarVentas");
+        }
+
+        [HttpGet]
         public ActionResult AgregarVenta()
         {
             ViewBag.NroVenta = ventaService.ObtenerNroVenta();
@@ -63,7 +75,7 @@ namespace SystranHorizonteWeb.Controllers
             model.Fecha = DateTime.Now;
             ventaService.GuardarVenta(model);
 
-            return View();
+            return Redirect("ListarVentas");
         }
 
         [HttpGet]

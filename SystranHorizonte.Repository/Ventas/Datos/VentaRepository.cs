@@ -39,7 +39,35 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public void ModificarVenta(Venta venta)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
+                + venta.Id + "'");
+
+                foreach (var detalle in venta.VentaPasajes)
+                {
+                    String x = detalle.Pago.ToString();
+
+                    Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaPasaje @Pago = '" + decimalAstring(detalle.Pago)
+                    + "', @Asiento = '" + detalle.Asiento
+                    + "', @IdHorario = '" + detalle.IdHorario
+                    + "', @IdCliente = '" + detalle.IdCliente
+                    + "', @IdCarga = '" + detalle.IdCarga
+                    + "', @IdVenta = '" + venta.Id + "'");
+                }
+
+                Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaSUPER @NroVenta = '" + venta.NroVenta
+                    + "', @Tipo = '" + venta.Tipo
+                    + "', @TotalVenta = '" + decimalAstring(venta.TotalVenta)
+                    + "', @IdCliente = '" + venta.IdCliente
+                    + "', @Id = '" + venta.Id + "'");
+
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
 
         public void EliminarVenta(int id)
@@ -81,6 +109,15 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             {
                 return 1;
             }
+        }
+
+        public string decimalAstring(Decimal des)
+        {
+            var final = des.ToString();
+
+            var x = final.Replace(",", ".");
+
+            return x;
         }
     }
 }

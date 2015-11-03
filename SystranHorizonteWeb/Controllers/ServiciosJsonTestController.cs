@@ -50,18 +50,19 @@ namespace SystranHorizonteWeb.Controllers
         {
             try
             {
-                /*Venta venta = new Venta
+                Venta venta = new Venta
                 {
                     NroVenta = nroVenta,
                     Fecha = fecha,
                     Tipo = tipo,
                     TotalVenta = totalVenta,
                     IdCliente = idCliente,
-                    RucDniCliente = rucDniCliente
+                    RucDniCliente = rucDniCliente,
+                    Id = IdVenta
                 };
 
-                ventaService.GuardarVenta(venta);
-                */
+                ventaService.ModificarVenta(venta);
+                
                 return this.Json(new
                 {
                     Mensaje = "Todo ok"

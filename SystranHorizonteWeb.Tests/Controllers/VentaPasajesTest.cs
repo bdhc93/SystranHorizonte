@@ -9,18 +9,18 @@ namespace SystranHorizonteWeb.Tests.Controllers
     [TestClass]
     public class VentaPasajesTest
     {
-        Int32 nroVenta = 55555;
+        Int32 nroVenta = 66666;
         DateTime fecha = DateTime.Now;
         Boolean tipo = true;
-        Decimal totalVenta = 10;
+        Decimal totalVenta = 100;
         Int32 idCliente = 4;
         String rucDniCliente = "7896545";
-        Int32 IdVenta = 1019;
+        Int32 IdVenta = 1028;
 
         [TestMethod]
         public void VentaControllerGuardar()
         {
-            WebRequest request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/AgregarVenta?nroVenta="+ nroVenta +"&fecha="+ fecha+"&tipo="+ tipo+ "&totalVenta="+ totalVenta+"&idCliente="+ idCliente+"&rucDniCliente="+ rucDniCliente);
+            WebRequest request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/AgregarVenta?nroVenta=" + nroVenta + "&fecha=" + fecha + "&tipo=" + tipo + "&totalVenta=" + totalVenta + "&idCliente=" + idCliente + "&rucDniCliente=" + rucDniCliente);
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -40,7 +40,33 @@ namespace SystranHorizonteWeb.Tests.Controllers
             {
                 Assert.Fail();
             }
-            
+
+        }
+
+        [TestMethod]
+        public void VentaControllerModificar()
+        {
+            WebRequest request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/ModificarVenta?nroVenta=" + nroVenta + "&fecha=" + fecha + "&tipo=" + tipo + "&totalVenta=" + totalVenta + "&idCliente=" + idCliente + "&rucDniCliente=" + rucDniCliente + "&IdVenta=" + IdVenta);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+
+            var jsonObject = reader.ReadToEnd();
+
+            MyObject myojb = (MyObject)js.Deserialize(jsonObject, typeof(MyObject));
+
+            if (myojb.Mensaje == "Todo ok")
+            {
+
+            }
+            else if (myojb.Mensaje == "Error en la data")
+            {
+                Assert.Fail();
+            }
+
         }
 
         [TestMethod]

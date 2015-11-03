@@ -53,8 +53,12 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult ModificarVenta(Venta model)
         {
+            var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
+            model.IdCliente = clien.Id;
+            model.Fecha = DateTime.Now;
+            ventaService.ModificarVenta(model);
 
-            return Redirect("ListarVentas");
+            return Redirect(@Url.Action("ListarVentas", "Venta"));
         }
 
         [HttpGet]
@@ -75,7 +79,7 @@ namespace SystranHorizonteWeb.Controllers
             model.Fecha = DateTime.Now;
             ventaService.GuardarVenta(model);
 
-            return Redirect("ListarVentas");
+            return Redirect(@Url.Action("ListarVentas", "Venta"));
         }
 
         [HttpGet]
@@ -174,7 +178,7 @@ namespace SystranHorizonteWeb.Controllers
                 ViewBag.Mensaje = "No se puede eliminar";
             }
 
-            return PartialView("EliminarVenta");
+            return Redirect(@Url.Action("ListarVentas", "Venta")); 
         }
 
         [HttpGet]

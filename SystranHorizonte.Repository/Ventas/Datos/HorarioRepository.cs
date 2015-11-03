@@ -95,18 +95,20 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 {
                     query = from p in query
                             where p.EstacionDestino.Ciudad == destino && p.Estado == true
+                            orderby (p.Hora)
                             select p;
                 }
                 
             }else if (String.IsNullOrEmpty(destino)){ 
                 query = from p in query
-                        where p.EstacionOrigen.Ciudad == origen && p.Estado == true
+                        where p.EstacionOrigen.Ciudad == origen && p.Estado == true orderby(p.Hora)
+                        orderby (p.Hora)
                         select p;
             }
             else
             {
                 query = from p in query
-                        where p.EstacionOrigen.Ciudad == origen && p.EstacionDestino.Ciudad == destino && p.Estado == true
+                        where p.EstacionOrigen.Ciudad == origen && p.EstacionDestino.Ciudad == destino && p.Estado == true orderby(p.Hora)
                         select p;
             }
             return query.ToList();

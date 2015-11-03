@@ -19,7 +19,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             throw new NotImplementedException();
         }
 
-        public void GuardarVenta(Venta venta)
+        public int GuardarVenta(Venta venta)
         {
             foreach (var item in venta.VentaPasajes)
             {
@@ -35,6 +35,8 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             }
             Context.Ventas.Add(venta);
             Context.SaveChanges();
+
+            return venta.Id;
         }
 
         public void ModificarVenta(Venta venta)

@@ -86,9 +86,73 @@ namespace SystranHorizonteWeb.Tests.Controllers
 
             if (myojb.Mensaje == "Todo ok")
             {
-
+                
             }
             else if (myojb.Mensaje == "Error en la data")
+            {
+                Assert.Fail();
+            }
+
+        }
+
+        [TestMethod]
+        public void VentaControllerModulo()
+        {
+            WebRequest request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/AgregarVenta?nroVenta=" + nroVenta + "&fecha=" + fecha + "&tipo=" + tipo + "&totalVenta=" + totalVenta + "&idCliente=" + idCliente + "&rucDniCliente=" + rucDniCliente);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+
+            var jsonObject = reader.ReadToEnd();
+
+            MyObject venta = (MyObject)js.Deserialize(jsonObject, typeof(MyObject));
+
+            if (venta.Mensaje == "Todo ok")
+            {
+                request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/ModificarVenta?nroVenta=" + 56565 + "&fecha=" + fecha + "&tipo=" + false + "&totalVenta=" + totalVenta + "&idCliente=" + idCliente + "&rucDniCliente=" + rucDniCliente + "&IdVenta=" + venta.IdVenta);
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                reader = new StreamReader(response.GetResponseStream());
+
+                js = new JavaScriptSerializer();
+
+                jsonObject = reader.ReadToEnd();
+
+                venta = (MyObject)js.Deserialize(jsonObject, typeof(MyObject));
+
+                if (venta.Mensaje == "Todo ok")
+                {
+                    request = WebRequest.Create("http://localhost/SystranHorizonteWeb/ServiciosJsonTest/EliminarVenta?IdVenta=" + venta.IdVenta);
+
+                    response = (HttpWebResponse)request.GetResponse();
+
+                    reader = new StreamReader(response.GetResponseStream());
+
+                    js = new JavaScriptSerializer();
+
+                    jsonObject = reader.ReadToEnd();
+
+                    venta = (MyObject)js.Deserialize(jsonObject, typeof(MyObject));
+
+                    if (venta.Mensaje == "Todo ok")
+                    {
+
+                    }
+                    else if (venta.Mensaje == "Error en la data")
+                    {
+                        Assert.Fail();
+                    }
+                }
+                else if (venta.Mensaje == "Error en la data")
+                {
+                    Assert.Fail();
+                }
+            }
+            else if (venta.Mensaje == "Error en la data")
             {
                 Assert.Fail();
             }
@@ -99,5 +163,6 @@ namespace SystranHorizonteWeb.Tests.Controllers
     public class MyObject
     {
         public string Mensaje { get; set; }
+        public int IdVenta { get; set; }
     }
 }

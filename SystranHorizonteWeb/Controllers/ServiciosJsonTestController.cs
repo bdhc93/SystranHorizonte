@@ -29,11 +29,11 @@ namespace SystranHorizonteWeb.Controllers
                     RucDniCliente = rucDniCliente
                 };
 
-                ventaService.GuardarVenta(venta);
+                int id = ventaService.GuardarVenta(venta);
 
                 return this.Json(new
                 {
-                    Mensaje = "Todo ok"
+                    Mensaje = "Todo ok", IdVenta = id
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
@@ -65,7 +65,8 @@ namespace SystranHorizonteWeb.Controllers
                 
                 return this.Json(new
                 {
-                    Mensaje = "Todo ok"
+                    Mensaje = "Todo ok",
+                    IdVenta = IdVenta
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

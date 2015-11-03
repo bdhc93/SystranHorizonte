@@ -25,9 +25,9 @@ namespace SystranHorizonte.Services.Ventas.Services
             return ventaRepository.ObtenerVentasPorCriterio(criterio, fechaIni, fechaFin);
         }
 
-        public void GuardarVenta(Venta venta)
+        public int GuardarVenta(Venta venta)
         {
-            ventaRepository.GuardarVenta(venta);
+            return ventaRepository.GuardarVenta(venta);
         }
 
         public void ModificarVenta(Venta venta)

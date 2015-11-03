@@ -12,7 +12,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
 
         Int32 ObtenerNroVenta();
 
-        void GuardarVenta(Venta venta);
+        int GuardarVenta(Venta venta);
         void ModificarVenta(Venta venta);
         void EliminarVenta(Int32 id);
     }

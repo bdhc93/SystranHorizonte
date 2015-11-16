@@ -46,6 +46,8 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
                 + venta.Id + "'");
 
+                decimal totalVenta = 0;
+
                 foreach (var detalle in venta.VentaPasajes)
                 {
                     String x = detalle.Pago.ToString();
@@ -56,11 +58,13 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     + "', @IdCliente = '" + detalle.IdCliente
                     + "', @IdCarga = '" + detalle.IdCarga
                     + "', @IdVenta = '" + venta.Id + "'");
+
+                    totalVenta = totalVenta + detalle.Pago;
                 }
 
                 Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaSUPER @NroVenta = '" + venta.NroVenta
                     + "', @Tipo = '" + venta.Tipo
-                    + "', @TotalVenta = '" + decimalAstring(venta.TotalVenta)
+                    + "', @TotalVenta = '" + decimalAstring(totalVenta)
                     + "', @IdCliente = '" + venta.IdCliente
                     + "', @Id = '" + venta.Id + "'");
 
@@ -97,7 +101,14 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public IEnumerable<Venta> ObtenerVentas()
         {
-            return Context.Ventas.Include("Cliente").ToList();
+            var query = from p in Context.Ventas.Include("Cliente").ToList()
+                        select p;
+
+            query = from p in query
+                    where p.Tipo == 1
+                    select p;
+
+            return query.ToList();
         }
 
         public int ObtenerNroVenta()
@@ -120,6 +131,30 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             var x = final.Replace(",", ".");
 
             return x;
+        }
+
+        public IEnumerable<Venta> ObtenerEncomiendas()
+        {
+            var query = from p in Context.Ventas.Include("Cliente").ToList()
+                        select p;
+
+            query = from p in query
+                    where p.Tipo == 2
+                    select p;
+
+            return query.ToList();
+        }
+
+        public IEnumerable<Venta> ObtenerReservas()
+        {
+            var query = from p in Context.Ventas.Include("Cliente").ToList()
+                        select p;
+
+            query = from p in query
+                    where p.Tipo == 3
+                    select p;
+
+            return query.ToList();
         }
     }
 }

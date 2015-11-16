@@ -29,8 +29,13 @@ namespace SystranHorizonteWeb.Tests.Controllers
         public void EmpleadoControllerModificar()
         {
             EmpleadoController controller = new EmpleadoController(empleadoService);
-            
-            ViewResult result = controller.AgregarEmpleado() as ViewResult;
+
+            Empleado p = new Empleado
+            {
+                Id = 12344,
+            };
+
+            ViewResult result = controller.AgregarEmpleado(p) as ViewResult;
         }
 
         [TestMethod]

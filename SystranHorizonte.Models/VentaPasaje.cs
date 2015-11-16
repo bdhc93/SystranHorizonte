@@ -20,5 +20,15 @@ namespace SystranHorizonte.Models
 
         public Int32? IdVenta { get; set; }
         public Venta Venta { get; set; }
+
+        public Int32 IdClienteTemp { get; set; }
+
+        public String DniRucClienteTemp { get; set; }
+
+        public String NombreClienteTemp { get; set; }
+
+        public String ApellidosClienteTemp { get; set; }
+        public String DireccionClienteTemp { get; set; }
+        public String TelefonoClienteTemp { get; set; }
     }
 }

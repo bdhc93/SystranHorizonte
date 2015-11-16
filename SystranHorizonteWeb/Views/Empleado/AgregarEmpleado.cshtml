@@ -6,24 +6,24 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" name="Nombre" class="form-control" placeholder="Juan" />
+                        <label>Nombre*</label>
+                        <input type="text" name="Nombre" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Juan" required />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" name="Apellidos" class="form-control" placeholder="Albarado" />
+                        <label>Apellidos*</label>
+                        <input type="text" name="Apellidos" pattern="[A-Za-z\sáéíóúñüàè]+" class="form-control" placeholder="Albarado" />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Telefono</label>
-                        <input type="text" name="Telefono" id="txttelefono" class="form-control" placeholder="979211406" maxlength="10" />
+                        <label>Telefono*</label>
+                        <input type="text" name="Telefono" id="txttelefono" class="form-control" placeholder="979211406" maxlength="10" required />
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Estado</label>

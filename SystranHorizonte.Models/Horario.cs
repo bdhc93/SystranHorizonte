@@ -32,6 +32,8 @@ namespace SystranHorizonte.Models
 
         public Boolean Estado { get; set; }
 
+        public String CostoText { get; set; }
+
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
 
         public String HoraText { get {

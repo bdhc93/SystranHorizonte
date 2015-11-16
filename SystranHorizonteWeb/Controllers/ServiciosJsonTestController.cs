@@ -15,7 +15,7 @@ namespace SystranHorizonteWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult AgregarVenta(Int32 nroVenta, DateTime fecha, Boolean tipo, Decimal totalVenta, Int32 idCliente, String rucDniCliente)
+        public ActionResult AgregarVenta(Int32 nroVenta, DateTime fecha, Int32 tipo, Decimal totalVenta, Int32 idCliente, String rucDniCliente)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace SystranHorizonteWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult ModificarVenta(Int32 nroVenta, DateTime fecha, Boolean tipo, Decimal totalVenta, Int32 idCliente, String rucDniCliente, Int32 IdVenta)
+        public ActionResult ModificarVenta(Int32 nroVenta, DateTime fecha, Int32 tipo, Decimal totalVenta, Int32 idCliente, String rucDniCliente, Int32 IdVenta)
         {
             try
             {

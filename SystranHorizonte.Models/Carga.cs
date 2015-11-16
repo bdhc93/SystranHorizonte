@@ -22,6 +22,8 @@ namespace SystranHorizonte.Models
 
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
 
+        public String PrecioText { get; set; }
+
         public String TipoString { get; set; }
 
         public List<VentaEncomienda> VentaEncomiendas { get; set; }

@@ -10,16 +10,16 @@
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Hora</label>
-                            <input type="time" name="Hora" class="form-control" value="@ViewBag.Hora" />
+                            <label>Hora*</label>
+                            <input type="time" name="Hora" class="form-control" value="@ViewBag.Hora" required/>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Precio</label>
-                            <input type="text" name="Costo" class="form-control" placeholder="10,5" value="@Model.Costo" />
+                            <label>Precio*</label>
+                            <input type="number" name="Costo" class="form-control" placeholder="10,5" value="@Model.CostoText" placeholder="10.5" min="1.00" required step="0.01" />
                         </div>
                     </div>
                 </div>

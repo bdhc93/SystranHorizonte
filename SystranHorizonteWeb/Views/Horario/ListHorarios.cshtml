@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -93,5 +93,9 @@
     $("#DestinoId").change(function (e) {
         $.get("HorariosEstacionOrigen", { idEstacion: $("#OrigenId").val(), idDestino: $("#DestinoId").val() }).
             success(function (resultado) { $("#list").html(resultado); })
+    });
+
+    $("#btnCerrarModal").click(function (e) {
+        window.location.href = "ListHorarios";
     });
 </script>

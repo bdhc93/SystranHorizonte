@@ -14,8 +14,11 @@ namespace SystranHorizonte.Models
         }
 
         public Int32 Id { get; set; }
+        
         public String DniRuc { get; set; }
+        
         public String Nombre { get; set; }
+        
         public String Apellidos { get; set; }
         public String Direccion { get; set; }
         public String Telefono { get; set; }

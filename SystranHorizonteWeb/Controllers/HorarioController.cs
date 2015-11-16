@@ -51,6 +51,8 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult AddHorario(Horario model)
         {
+            model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
+
             horarioService.GuardarHorario(model);
 
             return Redirect("ListHorarios");
@@ -88,6 +90,8 @@ namespace SystranHorizonteWeb.Controllers
             {
                 ViewBag.Hora = (Int32.Parse(result.HoraText.Substring(0, 2)) + 12) + result.HoraText.Substring(2, 3);
             }
+
+            result.CostoText = decimalAstring2(result.Costo.ToString());
             
             return View(result);
         }
@@ -95,6 +99,8 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult Modificar(Horario model)
         {
+            model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
+
             horarioService.ModificarHorario(model);
 
             return Redirect(Url.Action("ListHorarios"));
@@ -135,6 +141,21 @@ namespace SystranHorizonteWeb.Controllers
             var result = horarioService.ObtenerHorariosPorEstacionNoVacio(inicio, fin);
 
             return PartialView("_ListHorarios", result);
+        }
+
+        public string decimalAstring(String final)
+        {
+            var x = final.Replace(".", ",");
+
+            return x;
+        }
+
+
+        public string decimalAstring2(String final)
+        {
+            var x = final.Replace(",", ".");
+
+            return x;
         }
     }
 }

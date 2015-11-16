@@ -1,30 +1,32 @@
-﻿<h2>Agregar</h2>
+﻿@model SystranHorizonte.Models.Cliente
+<h2>Agregar</h2>
 <br />
+@Html.ValidationSummary(true)
 <div class="row">
     <div class="col-md-12">
         <form action="@Url.Action("Agregar", "Cliente")" method="post">
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" name="Nombre" class="form-control" placeholder="Carlos" />
+                        <label>Nombre*</label>
+                        <input type="text" name="Nombre" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" name="Apellidos" class="form-control" placeholder="Vargas Gonzales" />
+                        <label>Apellidos*</label>
+                        <input type="text" pattern="[a-zA-Z\sáéíóúñüàè]+" name="Apellidos" class="form-control" placeholder="Vargas Gonzales" required />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>DniRuc</label>
+                        <label>DniRuc*</label>
                         <label style="color: red">@ViewBag.RucDni</label>
-                        <input type="text" name="DniRuc" id="txtDniRuc" class="form-control" placeholder="73136701" maxlength="11" />
+                        <input type="number" name="DniRuc" id="txtDniRuc" class="form-control" placeholder="73136701" maxlength="11" min="10000000" required />
                     </div>
                 </div>
             </div>
@@ -40,7 +42,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Telefono</label>
-                        <input type="text" name="Telefono" id="txttelefono" class="form-control" placeholder="076 365875" maxlength="10" />
+                        <input type="tel" name="Telefono" id="txttelefono" class="form-control" placeholder="076 365875" maxlength="10" />
                     </div>
                 </div>
             </div>

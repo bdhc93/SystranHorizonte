@@ -49,5 +49,15 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             return ventaRepository.ObtenerNroVenta();
         }
+
+        public IEnumerable<Venta> ObtenerEncomiendas()
+        {
+            return ventaRepository.ObtenerEncomiendas();
+        }
+
+        public IEnumerable<Venta> ObtenerReservas()
+        {
+            return ventaRepository.ObtenerReservas();
+        }
     }
 }

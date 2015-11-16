@@ -9,13 +9,13 @@ namespace SystranHorizonteWeb.Tests.Controllers
     [TestClass]
     public class VentaPasajesTest
     {
-        Int32 nroVenta = 66666;
+        Int32 nroVenta = 7777;
         DateTime fecha = DateTime.Now;
         Boolean tipo = true;
-        Decimal totalVenta = 100;
+        Decimal totalVenta = 10;
         Int32 idCliente = 4;
         String rucDniCliente = "7896545";
-        Int32 IdVenta = 1028;
+        Int32 IdVenta = 1038;
 
         [TestMethod]
         public void VentaControllerGuardar()

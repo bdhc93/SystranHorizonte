@@ -28,6 +28,13 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Asiento).IsOptional();
             this.Property(p => p.Pago).IsOptional();
 
+            this.Ignore(p => p.IdClienteTemp);
+            this.Ignore(p => p.DniRucClienteTemp);
+            this.Ignore(p => p.NombreClienteTemp);
+            this.Ignore(p => p.ApellidosClienteTemp);
+            this.Ignore(p => p.DireccionClienteTemp);
+            this.Ignore(p => p.TelefonoClienteTemp);
+
 
             this.ToTable("VentaPasaje");
             this.Property(c => c.Id).HasColumnName("Id");

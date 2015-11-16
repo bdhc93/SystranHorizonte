@@ -160,6 +160,7 @@
     <Compile Include="Controllers\CargasController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\EncomientaController.cs" />
     <Compile Include="Controllers\EstacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
@@ -308,6 +309,12 @@
     <Content Include="Views\Venta\_Pago.cshtml" />
     <Content Include="Views\Venta\_Clientes.cshtml" />
     <Content Include="Views\Venta\ModificarVenta.cshtml" />
+    <Content Include="Views\Encomienta\ListarEncomiendas.cshtml" />
+    <Content Include="Views\Encomienta\AgregarEncomienda.cshtml" />
+    <Content Include="Views\Encomienta\_Clientes.cshtml" />
+    <Content Include="Views\Encomienta\_AddVenta.cshtml" />
+    <Content Include="Views\Encomienta\DetalleVenta.cshtml" />
+    <Content Include="Views\Encomienta\__AddVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

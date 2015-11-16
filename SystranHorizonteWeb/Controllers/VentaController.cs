@@ -56,6 +56,7 @@ namespace SystranHorizonteWeb.Controllers
             var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
             model.IdCliente = clien.Id;
             model.Fecha = DateTime.Now;
+            model.Tipo = 1;
             ventaService.ModificarVenta(model);
 
             return Redirect(@Url.Action("ListarVentas", "Venta"));
@@ -77,6 +78,7 @@ namespace SystranHorizonteWeb.Controllers
             var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
             model.IdCliente = clien.Id;
             model.Fecha = DateTime.Now;
+            model.Tipo = 1;
             ventaService.GuardarVenta(model);
 
             return Redirect(@Url.Action("ListarVentas", "Venta"));

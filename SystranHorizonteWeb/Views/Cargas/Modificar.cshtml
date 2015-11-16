@@ -10,24 +10,24 @@
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Peso</label>
-                            <input type="text" name="Peso" class="form-control" value="@Model.Peso" />
+                            <label>Peso*</label>
+                            <input type="text" name="Peso" class="form-control" value="@Model.Peso" required />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Precio</label>
-                            <input type="text" name="Precio" class="form-control" value="@Model.Precio" />
+                            <label>Precio*</label>
+                            <input type="number" name="PrecioText" class="form-control" value="@Model.PrecioText" required min="0.00" step="0.01" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control" name="TipoString">
+                            <label>Tipo*</label>
+                            <select class="form-control" name="TipoString" required>
                                 <option value="Encomiendas">Encomiendas</option>
                                 <option value="Pasajes">Pasajes</option>
                             </select>
@@ -37,8 +37,8 @@
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Estado</label>
-                            <select class="form-control" name="Estado">
+                            <label>Estado*</label>
+                            <select class="form-control" name="Estado" required>
                                 <option value=true>Activo</option>
                                 <option value=false>Inactivo</option>
                             </select>

@@ -47,6 +47,8 @@ namespace SystranHorizonteWeb.Controllers
             {
                 model.Tipo = true;
             }
+
+            model.Precio = Decimal.Parse(decimalAstring(model.PrecioText));
             
             cargaService.GuardarCarga(model);
 
@@ -74,6 +76,8 @@ namespace SystranHorizonteWeb.Controllers
         {
             var result = cargaService.ObtenerCargaPorId(id);
 
+            result.PrecioText = decimalAstring2(result.Precio.ToString());
+
             return View(result);
         }
 
@@ -88,6 +92,7 @@ namespace SystranHorizonteWeb.Controllers
             {
                 model.Tipo = true;
             }
+            model.Precio = Decimal.Parse(decimalAstring(model.PrecioText));
             cargaService.ModificarCarga(model);
 
             return Redirect(Url.Action("ListCargas"));
@@ -99,6 +104,20 @@ namespace SystranHorizonteWeb.Controllers
             var result = cargaService.ObtenerCargasPorCriterio(criterio);
 
             return PartialView("_ListCargas", result);
+        }
+
+        public string decimalAstring(String final)
+        {
+            var x = final.Replace(".", ",");
+
+            return x;
+        }
+
+        public string decimalAstring2(String final)
+        {
+            var x = final.Replace(",", ".");
+
+            return x;
         }
     }
 }

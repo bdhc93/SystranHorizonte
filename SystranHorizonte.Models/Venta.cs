@@ -15,7 +15,7 @@ namespace SystranHorizonte.Models
         public Int32 Id { get; set; }
         public Int32 NroVenta { get; set; }
         public DateTime Fecha { get; set; }
-        public Boolean Tipo { get; set; }
+        public Int32 Tipo { get; set; }
         public Decimal TotalVenta { get; set; }
 
         public Int32 IdCliente { get; set; }

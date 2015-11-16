@@ -28,6 +28,8 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Costo).IsRequired().HasPrecision(9, 2);
             this.Ignore(p => p.EstadoMostrar);
             this.Ignore(p => p.VehiculoId);
+            this.Ignore(p => p.HoraText);
+            this.Ignore(p => p.CostoText);
 
             this.Property(p => p.Asientos).IsRequired();
 

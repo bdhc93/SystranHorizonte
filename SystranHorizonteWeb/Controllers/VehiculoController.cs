@@ -42,6 +42,9 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult AgregarVehiculo(Vehiculo model)
         {
+            model.Ancho = Decimal.Parse(decimalAstring(model.AnchoText));
+            model.Largo = Decimal.Parse(decimalAstring(model.LargoText));
+
             vehiculoService.GuardarVehiculo(model);
 
             return Redirect("ListarVehiculo");
@@ -68,12 +71,18 @@ namespace SystranHorizonteWeb.Controllers
         {
             var result = vehiculoService.ObtenerVehiculoPorId(id);
 
+            result.AnchoText = decimalAstring2(result.Ancho.ToString());
+            result.LargoText = decimalAstring2(result.Largo.ToString());
+
             return View(result);
         }
 
         [HttpPost]
         public ActionResult Modificar(Vehiculo model)
         {
+            model.Ancho = Decimal.Parse(decimalAstring(model.AnchoText));
+            model.Largo = Decimal.Parse(decimalAstring(model.LargoText));
+
             vehiculoService.ModificarVehiculo(model);
 
             return Redirect(Url.Action("ListarVehiculo"));
@@ -112,6 +121,20 @@ namespace SystranHorizonteWeb.Controllers
             var result = vehiculoService.ObtenerVehiculosPorCriterio(criterio);
 
             return PartialView("_Listar", result);
+        }
+
+        public string decimalAstring(String final)
+        {
+            var x = final.Replace(".", ",");
+
+            return x;
+        }
+
+        public string decimalAstring2(String final)
+        {
+            var x = final.Replace(",", ".");
+
+            return x;
         }
     }
 }

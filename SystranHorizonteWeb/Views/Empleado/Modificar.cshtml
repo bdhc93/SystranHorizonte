@@ -7,24 +7,24 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" name="Nombre" class="form-control" value="@Model.Nombre" />
+                        <label>Nombre*</label>
+                        <input type="text" pattern="[a-zA-Z\sáéíóúñüàè]+" name="Nombre" class="form-control" value="@Model.Nombre" required />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" name="Apellidos" class="form-control" value="@Model.Apellidos" />
+                        <label>Apellidos*</label>
+                        <input type="text" pattern="[a-zA-Z\sáéíóúñüàè]+" name="Apellidos" class="form-control" value="@Model.Apellidos" required />
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Telefono</label>
-                        <input type="text" name="Telefono" id="txttelefono" class="form-control" value="@Model.Telefono" />
+                        <label>Telefono*</label>
+                        <input type="text" name="Telefono" id="txttelefono" class="form-control" value="@Model.Telefono" maxlength="10" required />
                     </div>
                 </div>
             </div>

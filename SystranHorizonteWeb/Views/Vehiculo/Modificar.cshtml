@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>TarjetaPropiedad</label>
-                        <input type="text" name="TarjetaPropiedad" class="form-control" value="@Model.TarjetaPropiedad" />
+                        <input type="text" name="TarjetaPropiedad" class="form-control" value="@Model.TarjetaPropiedad" required/>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>NroPlaca</label>
-                        <input type="text" name="NroPlaca" class="form-control" value="@Model.NroPlaca" />
+                        <input type="text" name="NroPlaca" class="form-control" value="@Model.NroPlaca" required/>
                     </div>
                 </div>
             </div>
@@ -25,15 +25,15 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>FechaSoat</label>
-                        <input type="text" name="FechaSoat" class="form-control" value="@Model.FechaSoat" />
+                        <input id="FechaSoatId" type="text" name="FechaSoat" class="form-control" value="@Model.FechaSoat" required/>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>FechaSoat</label>
-                        <input type="text" name="FechaSoatFin" class="form-control" value="@Model.FechaSoat" />
+                        <label>FechaSoatFin</label>
+                        <input id="FechaSoatFinId" type="text" name="FechaSoatFin" class="form-control" value="@Model.FechaSoat" required/>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>FechaRevisionTecnica</label>
-                        <input type="text" name="FechaRevisionTecnica" class="form-control" value="@Model.FechaRevisionTecnica" />
+                        <input id="FechaRevisionTecnicaId" type="text" name="FechaRevisionTecnica" class="form-control" value="@Model.FechaRevisionTecnica" required/>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>FechaRevisionTecnicaFin</label>
-                        <input type="text" name="FechaRevisionTecnicaFin" class="form-control" value="@Model.FechaRevisionTecnica" />
+                        <input id="FechaRevisionTecnicaFinId" type="text" name="FechaRevisionTecnicaFin" class="form-control" value="@Model.FechaRevisionTecnica" required/>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Ancho</label>
-                        <input type="text" name="Ancho" class="form-control" value="@Model.Ancho" />
+                        <input type="text" name="AnchoText" class="form-control" value="@Model.Ancho" min="1.00" required step="0.01"/>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Largo</label>
-                        <input type="text" name="Largo" class="form-control" value="@Model.Largo" />
+                        <input type="text" name="LargoText" class="form-control" value="@Model.Largo" min="1.00" required step="0.01"/>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Asientos</label>
-                        <input type="text" name="Asientos" id="txtasientos" class="form-control" value="@Model.Asientos" maxlength="2" />
+                        <input type="number" name="Asientos" id="txtasientos" class="form-control" value="@Model.Asientos" maxlength="2" required/>
                     </div>
                 </div>
             </div>
@@ -128,5 +128,13 @@
                 e.preventDefault();
             }
         });
+    });
+    
+    $("#FechaSoatId").change(function (e) {
+        $("#FechaSoatFinId").attr("min", $("#FechaSoatId").val())
+    });
+
+    $("#FechaRevisionTecnicaId").change(function (e) {
+        $("#FechaRevisionTecnicaFinId").attr("min", $("#FechaRevisionTecnicaId").val())
     });
 </script>

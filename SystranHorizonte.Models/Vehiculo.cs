@@ -22,6 +22,9 @@ namespace SystranHorizonte.Models
         public Int32 Asientos { get; set; }
         public Int32 Tipo { get; set; }
 
+        public String AnchoText { get; set; }
+        public String LargoText { get; set; }
+
         public Boolean Estado { get; set; }
 
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }

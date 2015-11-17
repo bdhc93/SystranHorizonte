@@ -22,7 +22,7 @@ namespace SystranHorizonte.Models
 
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
 
-        public String EstacionesT { get { return Codigo + ": " + Ciudad + " - " + Provincia + " - " + Direccion; } }
+        public String EstacionesT { get { return Codigo + ": " + Ciudad + " - " + Provincia; } }
 
         public List<Horario> Horarios { get; set; }
         public List<Horario> Horarioss { get; set; }

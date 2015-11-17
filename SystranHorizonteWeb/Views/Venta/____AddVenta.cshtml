@@ -8,3 +8,10 @@
         @Html.DropDownList("IdAsiento", Asientos, "-- Seleccionar --", new { @class = "form-control" })
     </div>
 </div>
+
+<script>
+    $("#IdAsiento").change(function (e) {
+        $.get('@Url.Action("AsientosPrevio", "Venta")', { idHorario: $("#IdHorario").val(), asiento: $("#IdAsiento").val() }).
+            success(function (resultado) { $("#VistaAsientos").html(resultado); })
+    });
+</script>

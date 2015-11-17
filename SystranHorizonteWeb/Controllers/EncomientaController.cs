@@ -53,7 +53,7 @@ namespace SystranHorizonteWeb.Controllers
 
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
 
-            ViewBag.Asientos = ventaAsientoService.ObtenerVentaAsientosPorHorario(0);
+            ViewBag.Asientos = ventaAsientoService.ObtenerVentaAsientosPorHorario(0,1);
 
             ViewBag.Carga = cargaService.ObtenerCargasPorCriterio("Encomiendas");
 
@@ -76,7 +76,7 @@ namespace SystranHorizonteWeb.Controllers
             }
 
             ViewBag.Horarios = horarioService.ObtenerHorariosPorEstacion(inicio, fin);
-            ViewBag.Asientos = ventaAsientoService.ObtenerVentaAsientosPorHorario(0);
+            ViewBag.Asientos = ventaAsientoService.ObtenerVentaAsientosPorHorario(0,0);
             ViewBag.Carga = cargaService.ObtenerCargasPorCriterio("Encomiendas");
 
             return PartialView("__AddVenta");

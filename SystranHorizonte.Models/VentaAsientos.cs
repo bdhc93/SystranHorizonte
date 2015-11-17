@@ -9,6 +9,8 @@ namespace SystranHorizonte.Models
         public DateTime Fecha { get; set; }
         public Int32 Asiento { get; set; }
         public Boolean Libre { get; set; }
+        public Boolean Falsa { get; set; }
+        public Int32 IdVentaTemp { get; set; }
 
         public Int32 IdHorario { get; set; }
         public Horario Horario { get; set; }

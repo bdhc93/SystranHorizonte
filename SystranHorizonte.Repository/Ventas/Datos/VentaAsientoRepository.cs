@@ -39,10 +39,10 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             Context.SaveChanges();
         }
 
-        public IEnumerable<VentaAsientos> ObtenerVentaAsientosPorHorario(int id)
+        public IEnumerable<VentaAsientos> ObtenerVentaAsientosPorHorario(int id, int eve)
         {
             var query = from p in Context.VentaAsientos.Include("Vehiculo").Include("Horario")
-                        where p.IdHorario == id && p.Libre == true
+                        where p.IdHorario == id && p.Falsa == true
                         orderby p.Asiento
                         select p;
 

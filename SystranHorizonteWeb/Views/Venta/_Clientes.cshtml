@@ -12,7 +12,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Nombre</label>
-            <input type="text" name="Nombre" class="form-control" placeholder="Carlos" value="@Model.Nombre" />
+            <input type="text" name="Nombre" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required value="@Model.Nombre" />
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Telefono</label>
-            <input type="text" name="Telefono" class="form-control" placeholder="076 365458" value="@Model.Telefono" />
+            <input type="tel" name="Telefono" class="form-control" placeholder="076 365458" value="@Model.Telefono" />
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Apellidos</label>
-            <input type="text" name="Apellidos" class="form-control" placeholder="Alberto" value="@Model.Apellidos" />
+            <input type="text" name="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Alberto" required value="@Model.Apellidos" />
         </div>
     </div>
 </div>

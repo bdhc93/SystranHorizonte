@@ -1,8 +1,7 @@
-﻿
+﻿//
 
 <tr>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdCliente" value="@Model.Id" />
         @Model.DniRuc
     </td>
     <td>
@@ -22,6 +21,12 @@
     <td>
         <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
     </td>
+    <td style="display:none">
+        @ViewBag.Asiento.Id
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
+    </td>
     <td>
         <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
     </td>
@@ -32,7 +37,22 @@
         <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdClienteTemp" value="@Model.Id" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DniRucClienteTemp" value="@Model.DniRuc" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].NombreClienteTemp" value="@Model.Nombre" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].ApellidosClienteTemp" value="@Model.Apellidos" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DireccionClienteTemp" value="@Model.Direccion" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].TelefonoClienteTemp" value="@Model.Telefono" />
     </td>
 </tr>
 
@@ -40,17 +60,22 @@
 
     function EliminarDetalle(id) {
 
-        console.log(id);
         var valorelim = 0;
+        var asientoelim = "";
         $("#VentaTBody tr:eq("+ id +")").find('td:eq(4)').each(function () {
             valor = $(this).html();
-            valorelim = parseInt(valor)
+            valorelim = valor+"";
         })
-
+        $("#VentaTBody tr:eq("+ id +")").find('td:eq(6)').each(function () {
+            valor = $(this).html();
+            asientoelim = valor + "";
+        })
         $.get('@Url.Action("CajaTotalPago", "Venta")', {
             pago: valorelim,
             totalVenta: $("#TotalVenta").val(),
-            estado: false
+            estado: false,
+            lbdni: valorelim,
+            asiento: asientoelim
         })
         .success(function (response) {
             $('#TotalPrecio').html(response);

@@ -2,5 +2,14 @@
     <label>Total:</label>
 </div>
 <div class="col-md-1">
-    <input type="text" name="TotalVenta" id="TotalVenta" readonly="true" value="@ViewBag.TotalPago" />
+    <input type="text" name="TotalVenta" id="TotalVenta" readonly value="@ViewBag.TotalPago" />
 </div>
+
+<script>
+    $(function(){
+        $.get('@Url.Action("Asientos", "Venta")', { IdHorario: $("#IdHorario").val() }).
+            success(function (resultado) { $("#listAsiento").html(resultado); }),
+        $.get('@Url.Action("AsientosPrevio", "Venta")', { idHorario: $("#IdHorario").val(), asiento: $("#IdAsiento").val() }).
+            success(function (resultado) { $("#VistaAsientos").html(resultado); })
+    })
+</script>

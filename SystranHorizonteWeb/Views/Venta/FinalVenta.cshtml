@@ -1,0 +1,99 @@
+﻿
+<div class="row">
+    <fieldset>
+        <legend>Datos Venta:</legend>
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Nro Venta</label>
+                        <p>@Model.NroVenta</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <p>@Model.Fecha</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <p>@Model.Cliente.Nombre @Model.Cliente.Apellidos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>DniRuc</label>
+                        <p>@Model.Cliente.DniRuc</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <p>@Model.Cliente.Telefono</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Pasajes:</legend>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>DniRuc</th>
+                    <th>Nombre</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Hora</th>
+                    <th>Asiento</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody id="VentaTBody">
+                @{
+                    Int32 i = 0;
+
+                    foreach (var item in Model.VentaPasajes)
+                    {
+                        <tr>
+                            <td>
+                                @item.Cliente.DniRuc
+                            </td>
+                            <td>
+                                @Model.Cliente.Nombre @Model.Cliente.Apellidos
+                            </td>
+                            <td>
+                                @item.Horario.EstacionOrigen.EstacionesT
+                            </td>
+                            <td>
+                                @item.Horario.EstacionDestino.EstacionesT
+                            </td>
+                            <td>
+                                @item.Horario.HoraText
+                            </td>
+                            <td>
+                                @item.Asiento
+                            </td>
+                            <td>
+                                @item.Pago
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+    </fieldset>
+    <button type="button" class="btn btn-danger pull-right">Imprimir</button>
+</div>

@@ -40,9 +40,9 @@ namespace SystranHorizonte.Services.Ventas.Services
             ventaAsientoRepository.EliminarVentaAsientos(id);
         }
 
-        public IEnumerable<VentaAsientos> ObtenerVentaAsientosPorHorario(int id)
+        public IEnumerable<VentaAsientos> ObtenerVentaAsientosPorHorario(int id, int eve)
         {
-            return ventaAsientoRepository.ObtenerVentaAsientosPorHorario(id);
+            return ventaAsientoRepository.ObtenerVentaAsientosPorHorario(id, eve);
         }
     }
 }

@@ -40,6 +40,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             {
                 ventaasientos.Asiento = i + 1;
                 ventaasientos.Libre = true;
+                ventaasientos.Falsa = true;
                 Context.VentaAsientos.Add(ventaasientos);
                 Context.SaveChanges();
             }

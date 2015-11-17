@@ -1,5 +1,7 @@
 ﻿@model SystranHorizonte.Models.VentaPasaje
-
+@{
+    
+}
 <div class="col-md-6">
     <div class="col-md-10">
         <div class="form-group">
@@ -96,6 +98,11 @@
     </div>
 </div>
 
+<div id="VistaAsientos">
+    
+</div>
+
+
 <div class="col-md-12">
     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
     <button type="button" class="btn btn-default pull-right" onclick="AgregarPasajeAVenta()">Agregar</button>
@@ -133,6 +140,7 @@
             pago: $("#Pago").val(), lbdni: $("#lbdni").val(),
             Nombres: $("#Nombres").val(), Apellidos: $("#Apellidos").val(),
             Telefono: $("#Telefono").val(), Direccion: $("#Direccion").val(),
+            AsientoCache: $("#IdAs").val(), idventa: $("#NroVenta").val(),
         })
         .success(function (respuesta) {
             $('#VentaTBody').append(respuesta);
@@ -141,10 +149,12 @@
         $.get('@Url.Action("CajaTotalPago", "Venta")', {
             pago: $("#Pago").val(),
             totalVenta: $("#TotalVenta").val(),
-            estado: true
+            estado: true,
+            lbdni: $("#lbdni").val()
         })
         .success(function (response) {
             $('#TotalPrecio').html(response);
         });
     }
+
 </script>

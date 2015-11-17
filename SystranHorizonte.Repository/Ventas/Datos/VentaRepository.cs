@@ -26,6 +26,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 var asientos = Context.VentaAsientos.Find(item.Asiento);
 
                 asientos.Libre = false;
+                asientos.Falsa = false;
 
                 Context.Entry(asientos).State = EntityState.Modified;
 
@@ -46,12 +47,30 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
                 + venta.Id + "'");
 
+                foreach (var item in venta.VentaPasajes)
+                {
+                    var asien = Context.VentaAsientos.Where(p => p.IdHorario == item.IdHorario);
+
+                    foreach (var item2 in asien)
+                    {
+                        if (item2.Asiento == item.Asiento)
+                        {
+                            var asientomod = Context.VentaAsientos.Find(item2.Id);
+                            asientomod.Falsa = true;
+                            asientomod.Libre = true;
+                        }
+                    }
+                }
+
+                Context.Ventas.Add(venta);
+                Context.SaveChanges();
+
                 decimal totalVenta = 0;
 
                 foreach (var detalle in venta.VentaPasajes)
                 {
                     String x = detalle.Pago.ToString();
-
+                    
                     Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaPasaje @Pago = '" + decimalAstring(detalle.Pago)
                     + "', @Asiento = '" + detalle.Asiento
                     + "', @IdHorario = '" + detalle.IdHorario
@@ -61,6 +80,21 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
                     totalVenta = totalVenta + detalle.Pago;
                 }
+
+                foreach (var item in venta.VentaPasajes)
+                {
+                    var asientos = Context.VentaAsientos.Find(item.Asiento);
+
+                    asientos.Libre = false;
+                    asientos.Falsa = false;
+
+                    Context.Entry(asientos).State = EntityState.Modified;
+
+                    item.Asiento = asientos.Asiento;
+                }
+
+                Context.Ventas.Add(venta);
+                Context.SaveChanges();
 
                 Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaSUPER @NroVenta = '" + venta.NroVenta
                     + "', @Tipo = '" + venta.Tipo
@@ -89,7 +123,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     if (item2.Asiento == item.Asiento)
                     {
                         var asientomod = Context.VentaAsientos.Find(item2.Id);
-
+                        asientomod.Falsa = true;
                         asientomod.Libre = true;
                     }
                 }

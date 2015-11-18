@@ -10,6 +10,7 @@
             <th>Ancho</th>
             <th>Largo</th>
             <th>Asientos</th>
+            <th>CargaMaxima</th>
             <th>Estado</th>
             <th>Acciones</th>
         </tr>
@@ -27,6 +28,7 @@
                 <td>@item.Ancho</td>
                 <td>@item.Largo</td>
                 <td>@item.Asientos</td>
+                <td>@item.CargaMax</td>
                 <td>@item.EstadoMostrar</td>
                 <td><a href="@Url.Action("Modificar", "Vehiculo", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
             </tr>

@@ -2,6 +2,9 @@
 <div class="row">
     <fieldset>
         <legend>Datos Venta:</legend>
+        <div style="display:none">
+            <input type="hidden" id="IdVenta" name="IdVenta" value="@Model.Id" />
+        </div>
         <div class="col-md-6">
             <div class="col-md-6">
                 <div class="col-md-12">
@@ -44,6 +47,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2 left col-md-push-4">
+            <nav class="navbar-btn" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Desplegar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <ul class="nav nav-justified nav-tabs">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Imprimir <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Report",new {id= "PDF", idventa=Model.Id})">Reporte PDF</a></li>
+                                <li><a href="@Url.Action("Report",new {id= "Excel", idventa=Model.Id})">Reporte Excel</a></li>
+                                <li><a href="@Url.Action("Report",new {id= "Word", idventa=Model.Id})">Reporte Word</a></li>
+                                <li><a href="@Url.Action("Report",new {id= "Image", idventa=Model.Id})">Reporte Imagen</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </fieldset>
     
     <fieldset>
@@ -71,7 +98,7 @@
                                 @item.Cliente.DniRuc
                             </td>
                             <td>
-                                @Model.Cliente.Nombre @Model.Cliente.Apellidos
+                                @item.Cliente.Nombre @item.Cliente.Apellidos
                             </td>
                             <td>
                                 @item.Horario.EstacionOrigen.EstacionesT
@@ -95,5 +122,6 @@
             </tbody>
         </table>
     </fieldset>
-    <button type="button" class="btn btn-danger pull-right">Imprimir</button>
+
+    
 </div>

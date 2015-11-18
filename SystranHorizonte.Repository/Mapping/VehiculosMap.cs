@@ -24,9 +24,15 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Asientos).IsRequired();
             this.Property(p => p.Tipo).IsRequired();
             this.Property(p => p.Estado).IsRequired();
+            this.Property(p => p.CargaMax).IsOptional();
+            this.Property(p => p.CargaActual).IsOptional();
             this.Ignore(p => p.EstadoMostrar);
             this.Ignore(p => p.AnchoText);
             this.Ignore(p => p.LargoText);
+            this.Ignore(p => p.FechaRevisionTecnicaFinMostrar);
+            this.Ignore(p => p.FechaRevisionTecnicaMostrar);
+            this.Ignore(p => p.FechaSoatFinMostrar);
+            this.Ignore(p => p.FechaSoatMostrar);
 
 
             this.ToTable("Vehiculo");
@@ -42,6 +48,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(c => c.Asientos).HasColumnName("Asientos");
             this.Property(c => c.Tipo).HasColumnName("Tipo");
             this.Property(c => c.Estado).HasColumnName("Estado");
+            this.Property(c => c.CargaMax).HasColumnName("CargaMax");
         }
     }
 }

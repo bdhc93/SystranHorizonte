@@ -44,7 +44,7 @@
 
 <div class="col-md-6">
     @{
-        IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "Hora");
+        IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
         IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
         IEnumerable<SelectListItem> Cargas = new SelectList(@ViewBag.Carga, "Id", "Peso");
     }
@@ -131,7 +131,7 @@
             $('#VentaTBody').append(respuesta);
         });
 
-        $.get('@Url.Action("CajaTotalPago", "Venta")', {
+        $.get('@Url.Action("CajaTotalPago", "Encomienta")', {
             pago: $("#Pago").val(),
             totalVenta: $("#TotalVenta").val(),
             estado: true

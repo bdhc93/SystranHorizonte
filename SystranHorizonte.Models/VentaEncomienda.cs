@@ -20,5 +20,7 @@ namespace SystranHorizonte.Models
 
         public Int32? IdVenta { get; set; }
         public Venta Venta { get; set; }
+
+        public String Descripcion { get; set; }
     }
 }

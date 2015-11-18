@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label>Apellidos</label>
+                <label>Apellidos*</label>
                 <input type="text" name="Apellidos" id="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required  />
             </div>
         </div>
@@ -46,7 +46,7 @@
 
 <div class="col-md-6">
     @{
-        IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "Hora");
+        IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
         IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
         IEnumerable<SelectListItem> Asientos = new SelectList(@ViewBag.Asientos, "Id", "Asiento");
         IEnumerable<SelectListItem> Cargas = new SelectList(@ViewBag.Carga, "Id", "Peso");

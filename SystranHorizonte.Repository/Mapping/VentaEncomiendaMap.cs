@@ -27,6 +27,7 @@ namespace SystranHorizonte.Repository.Mapping
 
             this.Property(p => p.Fecha).IsRequired();
             this.Property(p => p.Pago).IsRequired();
+            this.Property(p => p.Descripcion).IsRequired();
 
             this.ToTable("VentaEncomienda");
             this.Property(c => c.Id).HasColumnName("Id");
@@ -36,6 +37,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(c => c.IdVenta).HasColumnName("IdVenta");
             this.Property(c => c.Fecha).HasColumnName("Fecha");
             this.Property(c => c.Pago).HasColumnName("Pago");
+            this.Property(c => c.Descripcion).HasColumnName("Descripcion");
 
             this.HasRequired(h => h.Horario)
                 .WithMany(h => h.VentaEncomiendas)

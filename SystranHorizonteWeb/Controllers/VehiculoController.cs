@@ -45,6 +45,8 @@ namespace SystranHorizonteWeb.Controllers
             model.Ancho = Decimal.Parse(decimalAstring(model.AnchoText));
             model.Largo = Decimal.Parse(decimalAstring(model.LargoText));
 
+            model.CargaActual = 0;
+
             vehiculoService.GuardarVehiculo(model);
 
             return Redirect("ListarVehiculo");

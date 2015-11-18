@@ -46,6 +46,13 @@ namespace SystranHorizonteWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AgregarEncomienda(Venta model)
+        {
+            
+            return View();
+        }
+
         [HttpGet]
         public ActionResult DetalleVenta()
         {
@@ -189,6 +196,41 @@ namespace SystranHorizonteWeb.Controllers
             }
 
             return DateTime.Now.Year + "-" + mes + "-" + dia;
+        }
+        [HttpGet]
+        public ActionResult CajaTotalPago(String pago, String totalVenta, Boolean estado)
+        {
+            Decimal pagod = 0;
+            Decimal totalventad = 0;
+
+            if (estado)
+            {
+                if (!String.IsNullOrEmpty(pago))
+                {
+                    pagod = Decimal.Parse(pago);
+                }
+                if (!String.IsNullOrEmpty(totalVenta))
+                {
+                    totalventad = Decimal.Parse(totalVenta);
+                }
+
+                ViewBag.TotalPago = totalventad + pagod;
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(pago))
+                {
+                    pagod = Decimal.Parse(pago);
+                }
+                if (!String.IsNullOrEmpty(totalVenta))
+                {
+                    totalventad = Decimal.Parse(totalVenta);
+                }
+
+                ViewBag.TotalPago = totalventad - pagod;
+            }
+
+            return PartialView("_Pago");
         }
     }
 }

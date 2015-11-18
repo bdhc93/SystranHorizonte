@@ -24,7 +24,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="col-md-12" style="margin-left:-16px"><label>DniRuc*</label></div>
-                            <div class="col-md-11" style="margin-left:-16px"><input type="text" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" /></div>
+                            <div class="col-md-11" style="margin-left:-16px"><input type="number" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" required min="10000000"/></div>
                             <div class="col-md-1"><a class="btn btn-info" href="@Url.Action("ClientesPrin", "Encomienta")" id="btnBuscar">...</a></div>
                         </div>
                     </div>
@@ -41,8 +41,8 @@
                     <div class="col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" name="Nombre" class="form-control" placeholder="Carlos" />
+                                <label>Nombre*</label>
+                                <input type="text" name="Nombre" class="form-control" placeholder="Carlos" pattern="[a-zA-Z\sáéíóúñüàè]+" required />
                             </div>
                         </div>
                     </div>
@@ -50,15 +50,15 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Telefono</label>
-                                <input type="text" name="Telefono" class="form-control" placeholder="076 365458" />
+                                <input type="tel" name="Telefono" class="form-control" placeholder="076 365458" />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Apellidos</label>
-                                <input type="text" name="Apellidos" class="form-control" placeholder="Alberto" />
+                                <label>Apellidos*</label>
+                                <input type="text" name="Apellidos" class="form-control" placeholder="Alberto" pattern="[a-zA-Z\sáéíóúñüàè]+" required/>
                             </div>
                         </div>
                     </div>

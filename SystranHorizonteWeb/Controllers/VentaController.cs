@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using SystranHorizonte.Services.Ventas.Interfaces;
 using SystranHorizonte.Models;
+using Microsoft.Reporting.WebForms;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SystranHorizonteWeb.Controllers
 {
@@ -80,31 +83,38 @@ namespace SystranHorizonteWeb.Controllers
             model.Fecha = DateTime.Now;
             model.Tipo = 1;
 
-            foreach (var item in model.VentaPasajes)
+            try
             {
-                var clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
-
-                if (clienbor == null)
+                foreach (var item in model.VentaPasajes)
                 {
-                    Cliente cliente = new Cliente
+                    var clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
+
+                    if (clienbor == null)
                     {
-                        DniRuc = item.DniRucClienteTemp,
-                        Nombre = item.NombreClienteTemp,
-                        Apellidos = item.ApellidosClienteTemp,
-                        Telefono = item.TelefonoClienteTemp,
-                        Direccion = item.DireccionClienteTemp
-                    };
+                        Cliente cliente = new Cliente
+                        {
+                            DniRuc = item.DniRucClienteTemp,
+                            Nombre = item.NombreClienteTemp,
+                            Apellidos = item.ApellidosClienteTemp,
+                            Telefono = item.TelefonoClienteTemp,
+                            Direccion = item.DireccionClienteTemp
+                        };
 
-                    clienteService.GuardarCliente(cliente);
+                        clienteService.GuardarCliente(cliente);
 
-                    clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
+                        clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
 
-                    item.IdCliente = clienbor.Id;
+                        item.IdCliente = clienbor.Id;
+                    }
+                    else
+                    {
+                        item.IdCliente = item.IdClienteTemp;
+                    }
                 }
-                else
-                {
-                    item.IdCliente = item.IdClienteTemp;
-                }
+            }
+            catch (Exception)
+            {
+                return Redirect(@Url.Action("ListarVentas", "Venta"));
             }
 
             ventaService.GuardarVenta(model);
@@ -118,7 +128,115 @@ namespace SystranHorizonteWeb.Controllers
             var result = ventaService.ObtenerVentaPorId(id);
             return View(result);
         }
+        
+        public ActionResult Report(string id, Int32? idventa)
+        {
+            LocalReport lr = new LocalReport();
+            
+            Int32 idVenta;
+            string path = Path.Combine(Server.MapPath("~/Reportes"), "Report1.rdlc");
+            if (System.IO.File.Exists(path))
+            {
+                if (idventa != null)
+                {
+                    idVenta = Int32.Parse(idventa.ToString());
+                }
+                else
+                {
+                    return View("ListarVentas");
+                }
 
+                lr.ReportPath = path;
+            }
+            else
+            {
+                return View("ListarVentas");
+            }
+
+            
+            string reportType = id;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+
+
+            string deviceInfo =
+
+            "<DeviceInfo>" +
+            "  <OutputFormat>" + id + "</OutputFormat>" +
+            "  <PageWidth>16cm</PageWidth>" +
+            "  <PageHeight>12cm</PageHeight>" +
+            "  <MarginTop>0.5cm</MarginTop>" +
+            "  <MarginLeft>0.5cm</MarginLeft>" +
+            "  <MarginRight>0.5cm</MarginRight>" +
+            "  <MarginBottom>0.5cm</MarginBottom>" +
+            "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            List<DatosReportVentaPasaje> cm = new List<DatosReportVentaPasaje>();
+            Venta pru = ventaService.ObtenerVentaPorId(idVenta);
+
+            foreach (var item in pru.VentaPasajes)
+            {
+                var datos = new DatosReportVentaPasaje
+                {
+                    DniRuc = item.Cliente.DniRuc,
+                    Nombre = item.Cliente.Nombre + " " + item.Cliente.Apellidos,
+                    OrigenId = item.Horario.EstacionOrigen.Provincia,
+                    DestinoId = item.Horario.EstacionDestino.Provincia,
+                    Hora = item.Horario.HoraText,
+                    Asiento = item.Asiento.ToString(),
+                    Costo = item.Pago
+                };
+
+                cm.Add(datos);
+            }
+
+            ReportDataSource rd = new ReportDataSource("DataSet1", cm);
+            lr.DataSources.Add(rd);
+
+            ReportParameter[] parametros = new ReportParameter[6];
+
+            parametros[0] = new ReportParameter("NroVenta", pru.NroVenta + "");
+            parametros[1] = new ReportParameter("Nombre", pru.Cliente.Nombre + " " + pru.Cliente.Apellidos);
+            parametros[2] = new ReportParameter("Fecha", pru.Fecha + "");
+            parametros[3] = new ReportParameter("DniRuc", pru.Cliente.DniRuc + "");
+            parametros[4] = new ReportParameter("Direccion", pru.Cliente.Direccion + "");
+            parametros[5] = new ReportParameter("Telefono", pru.Cliente.Telefono + "");
+
+            lr.SetParameters(parametros);
+
+            renderedBytes = lr.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+
+            switch (id)
+            {
+                case "PDF":
+                    return File(renderedBytes, mimeType);
+                    //return File(renderedBytes, mimeType, pru.NroVenta + ".pdf");
+                case "Excel":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".xls");
+                case "Word":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".doc");
+                case "Image":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".png");
+                default:
+                    break;
+            }
+
+            return File(renderedBytes, mimeType);
+        }
+        
         [HttpGet]
         public ActionResult Pagos(Int32? IdHorario, Int32? IdCarga)
         {
@@ -570,7 +688,7 @@ namespace SystranHorizonteWeb.Controllers
                 return PartialView("_Pago");
 
             }
-            ViewBag.TotalPago = 0;
+            ViewBag.TotalPago = totalventad;
 
             return PartialView("_Pago");
         }

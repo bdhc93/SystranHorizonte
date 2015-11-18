@@ -9,33 +9,50 @@
         <a class="btn btn-default pull-right" href="@Url.Action("AgregarVenta", "Venta")">Nueva Venta</a><br />
     </div>
     <div class="col-md-12">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>Criterio:</label>
-                <input type="text" class="form-control" id="txtBuscar" onkeyup="buscarVentas()" />
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Criterio:</label>
+                    <input type="text" class="form-control" id="txtBuscar" onkeyup="buscarVentas()" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Fecha Inicio:</label>
+                    <input type="date" class="form-control" id="txtCalendar" onkeyup="buscarVentas()" value="@ViewBag.Fecha" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Reportes:</label><br />
+                <a class="btn btn-default" id="btnreport" href="#">Activar Reportes</a>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Fecha Inicio:</label>
-                <input type="date" class="form-control" id="txtCalendar" onkeyup="buscarVentas()" value="@ViewBag.Fecha" />
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>EstacionOringen:</label>
+                    @Html.DropDownList("IdOrigen", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Fecha Fin:</label>
+                    <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" min="@ViewBag.Fecha" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Seleccionar Tipo de Reporte:</label>
+                <select class="form-control" id="listreport" disabled>
+                    <option value=" ">-- Seleccionar --</option>
+                    <option value="PDF">Reporte PDF</option>
+                    <option value="Excel">Reporte Excel</option>
+                    <option value="Word">Reporte Word</option>
+                    <option value="Image">Reporte Image</option>
+                </select>
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>EstacionOringen:</label>
-                @Html.DropDownList("IdOrigen", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Fecha Fin:</label>
-                <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" />
-            </div>
-        </div>
-    </div>
+    
     <br />
     <br />
     <div class="col-md-12" id="listVentas">
@@ -99,5 +116,15 @@
 
     $("#btnCerrarModal").click(function (e) {
         window.location.href = "ListarVentas";
+    });
+    $(document).ready(function () {
+        $('#btnreport').click(function (e) {
+            e.preventDefault();
+            document.getElementById("listreport").disabled = false;
+        })
+    });
+
+    $("#txtCalendar").change(function (e) {
+        $("#txtCalendar2").attr("min", $("#txtCalendar").val())
     });
 </script>

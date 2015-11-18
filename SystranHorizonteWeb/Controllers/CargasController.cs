@@ -49,7 +49,7 @@ namespace SystranHorizonteWeb.Controllers
             }
 
             model.Precio = Decimal.Parse(decimalAstring(model.PrecioText));
-            
+
             cargaService.GuardarCarga(model);
 
             return Redirect("ListCargas");

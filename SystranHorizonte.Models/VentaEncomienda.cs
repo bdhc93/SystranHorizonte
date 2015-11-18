@@ -14,6 +14,7 @@ namespace SystranHorizonte.Models
 
         public Int32 IdCarga { get; set; }
         public Carga Carga { get; set; }
+        public Decimal CargaEncomienda { get; set; }
 
         public Int32 IdHorario { get; set; }
         public Horario Horario { get; set; }

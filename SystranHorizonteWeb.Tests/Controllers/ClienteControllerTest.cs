@@ -19,7 +19,7 @@ namespace SystranHorizonteWeb.Tests.Controllers
             Carga model = new Carga
             {
                 Estado = true,
-                Peso = "0 kg Prueba",
+                Peso = 0,
                 Precio = 10,
                 Tipo = true,
                 TipoString = "Encomiendas"

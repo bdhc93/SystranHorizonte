@@ -7,11 +7,18 @@
     <div class="col-md-12">
         <form action="@Url.Action("Modificar", "Cargas")" method="post">
             <div class="col-md-6">
-                <div class="col-md-12">
+                <div class="col-md-12" title="Rango de carga: 0 - 15 kg">
                     <div class="col-md-12">
+                        <label>Peso*(Kg)</label>
+                    </div>
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label>Peso*</label>
-                            <input type="text" name="Peso" class="form-control" value="@Model.Peso" required />
+                            <input type="number" name="Peso" class="form-control" placeholder="0" required value="@Model.Peso" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="number" name="Peso2" class="form-control" placeholder="15" required value="@Model.Peso2" />
                         </div>
                     </div>
                 </div>

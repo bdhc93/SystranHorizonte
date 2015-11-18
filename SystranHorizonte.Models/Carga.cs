@@ -13,7 +13,8 @@ namespace SystranHorizonte.Models
         }
 
         public Int32 Id { get; set; }
-        public String Peso { get; set; }
+        public Int32 Peso { get; set; }
+        public Int32 Peso2 { get; set; }
         public Decimal Precio { get; set; }
         public Boolean Tipo { get; set; }
         public Boolean Estado { get; set; }
@@ -22,8 +23,9 @@ namespace SystranHorizonte.Models
 
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
 
-        public String PrecioText { get; set; }
+        public String PesoMostrar { get { return Peso + " - " + Peso2 + " Kg."; } }
 
+        public String PrecioText { get; set; }
         public String TipoString { get; set; }
 
         public List<VentaEncomienda> VentaEncomiendas { get; set; }

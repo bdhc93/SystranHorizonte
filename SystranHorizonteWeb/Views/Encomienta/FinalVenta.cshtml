@@ -80,7 +80,7 @@
             </nav>
         </div>
     </fieldset>
-    
+
     <fieldset>
         <legend>Pasajes:</legend>
         <table class="table">
@@ -90,16 +90,17 @@
                     <th>Nombre</th>
                     <th>Origen</th>
                     <th>Destino</th>
-                    <th>Hora</th>
-                    <th>Asiento</th>
-                    <th>Precio</th>
+                    <th>Hora Envio</th>
+                    <th>Posible LLegada</th>
+                    <th>Estado</th>
+                    <th>Pago</th>
                 </tr>
             </thead>
             <tbody id="VentaTBody">
                 @{
                     Int32 i = 0;
 
-                    foreach (var item in Model.VentaPasajes)
+                    foreach (var item in Model.VentaEncomiendas)
                     {
                         <tr>
                             <td>
@@ -118,7 +119,10 @@
                                 @item.Horario.HoraText
                             </td>
                             <td>
-                                @item.Asiento
+                                @item.FechaRecepcionText
+                            </td>
+                            <td>
+                                @item.EstadoMostrar
                             </td>
                             <td>
                                 @item.Pago
@@ -131,5 +135,5 @@
         </table>
     </fieldset>
 
-    
+
 </div>

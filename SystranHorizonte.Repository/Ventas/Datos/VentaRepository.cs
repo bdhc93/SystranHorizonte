@@ -11,7 +11,16 @@ namespace SystranHorizonte.Repository.Ventas.Datos
     {
         public Venta ObtenerVentaPorId(int id)
         {
-            return Context.Ventas.Include("VentaPasajes").Include("VentaPasajes.Horario").Include("VentaPasajes.Cliente").Include("VentaPasajes.Carga").Include("VentaPasajes.Horario.EstacionOrigen").Include("VentaPasajes.Horario.EstacionDestino").Include("Cliente").Include("VentaEncomiendas").Include("Reseras").Where(p => p.Id.Equals(id)).SingleOrDefault();
+            return Context.Ventas.Include("VentaPasajes").Include("VentaPasajes.Horario")
+                .Include("VentaPasajes.Cliente").Include("VentaPasajes.Carga")
+                .Include("VentaPasajes.Horario.EstacionOrigen")
+                .Include("VentaPasajes.Horario.EstacionDestino")
+                .Include("VentaEncomiendas").Include("VentaEncomiendas.Horario")
+                .Include("VentaEncomiendas.Cliente").Include("VentaEncomiendas.Carga")
+                .Include("VentaEncomiendas.Horario.EstacionOrigen")
+                .Include("VentaEncomiendas.Horario.EstacionDestino")
+                .Include("Cliente")
+                .Include("Reseras").Where(p => p.Id.Equals(id)).SingleOrDefault();
         }
 
         public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin)
@@ -21,23 +30,34 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public int GuardarVenta(Venta venta)
         {
-            foreach (var item in venta.VentaPasajes)
+            try
             {
-                var asientos = Context.VentaAsientos.Find(item.Asiento);
+                if (venta.Tipo < 5)
+                {
+                    foreach (var item in venta.VentaPasajes)
+                    {
+                        //Cambio de Asientos
+                        var asientos = Context.VentaAsientos.Find(item.Asiento);
 
-                asientos.Libre = false;
-                asientos.Falsa = false;
+                        asientos.Libre = false;
+                        asientos.Falsa = false;
 
-                Context.Entry(asientos).State = EntityState.Modified;
+                        Context.Entry(asientos).State = EntityState.Modified;
 
-                item.Asiento = asientos.Asiento;
+                        item.Asiento = asientos.Asiento;
+                        
+                    }
+                }
+                Context.Ventas.Add(venta);
+                Context.SaveChanges();
 
-                //Context.SaveChanges();
+                return venta.Id;
             }
-            Context.Ventas.Add(venta);
-            Context.SaveChanges();
-
-            return venta.Id;
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         public void ModificarVenta(Venta venta)
@@ -173,7 +193,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                         select p;
 
             query = from p in query
-                    where p.Tipo == 2
+                    where p.Tipo == 5
                     select p;
 
             return query.ToList();

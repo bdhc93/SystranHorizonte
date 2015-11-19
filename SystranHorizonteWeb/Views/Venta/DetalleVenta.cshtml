@@ -49,7 +49,6 @@
         IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
         IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
         IEnumerable<SelectListItem> Asientos = new SelectList(@ViewBag.Asientos, "Id", "Asiento");
-        IEnumerable<SelectListItem> Cargas = new SelectList(@ViewBag.Carga, "Id", "Peso");
     }
 
     <div class="col-md-12">
@@ -86,12 +85,6 @@
                 <input type="number" name="cargaPasaje" value="0" class="form-control" disabled/>
             </div>
         </div>
-        @*<div class="col-md-12" style="display:none">
-            <div class="form-group">
-                <label>Carga</label>
-                @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
-            </div>
-        </div>*@
         <div id="txtPago">
             <div class="col-md-12">
                 <div class="form-group">
@@ -132,11 +125,6 @@
         $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdCarga").change(function (e) {
-        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
-            success(function (resultado) { $("#txtPago").html(resultado); })
-    });
-
     function AgregarPasajeAVenta() {
         var indice = $('#VentaTBody').find('tr').length;
         $.get('@Url.Action("AgregarDetalle", "Venta")', {

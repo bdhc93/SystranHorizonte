@@ -351,6 +351,10 @@
     <Content Include="Views\Venta\VentaPasajePDF.cshtml" />
     <Content Include="Views\Encomienta\_DetalleVenta.cshtml" />
     <Content Include="Views\Encomienta\_Pago.cshtml" />
+    <Content Include="Views\Encomienta\___AddVenta.cshtml" />
+    <Content Include="Views\Encomienta\FinalVenta.cshtml" />
+    <Content Include="Views\Venta\Eliminar.cshtml" />
+    <Content Include="Views\Encomienta\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

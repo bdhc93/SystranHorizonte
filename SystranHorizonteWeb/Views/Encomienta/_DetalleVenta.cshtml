@@ -22,31 +22,37 @@
         <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdCarga" value="@ViewBag.IdCarga" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].IdCarga" value="@ViewBag.IdCarga" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdClienteTemp" value="@Model.Id" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].CargaEncomienda" value="@ViewBag.CargaPasaje" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DniRucClienteTemp" value="@Model.DniRuc" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].Descripcion" value="@ViewBag.Descripcion" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].NombreClienteTemp" value="@Model.Nombre" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].IdClienteTemp" value="@Model.Id" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].ApellidosClienteTemp" value="@Model.Apellidos" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].DniRucClienteTemp" value="@Model.DniRuc" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DireccionClienteTemp" value="@Model.Direccion" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].NombreClienteTemp" value="@Model.Nombre" />
     </td>
     <td>
-        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].TelefonoClienteTemp" value="@Model.Telefono" />
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].ApellidosClienteTemp" value="@Model.Apellidos" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].DireccionClienteTemp" value="@Model.Direccion" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaEncomiendas[@ViewBag.Indice].TelefonoClienteTemp" value="@Model.Telefono" />
     </td>
 </tr>
 

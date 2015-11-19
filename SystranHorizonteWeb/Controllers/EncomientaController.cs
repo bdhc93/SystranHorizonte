@@ -13,10 +13,12 @@ namespace SystranHorizonteWeb.Controllers
         public IVentaAsientoService ventaAsientoService { get; set; }
         public ICargaService cargaService { get; set; }
         public IClienteService clienteService { get; set; }
+        public IVehiculoService vehiculoService { get; set; }
 
         public EncomientaController(IVentaService ventaService, IEstacionService estacionService,
             IHorarioService horarioService, IVentaAsientoService ventaAsientoService,
-            ICargaService cargaService, IClienteService clienteService)
+            ICargaService cargaService, IClienteService clienteService,
+            IVehiculoService vehiculoService)
         {
             this.ventaService = ventaService;
             this.estacionService = estacionService;
@@ -24,6 +26,7 @@ namespace SystranHorizonteWeb.Controllers
             this.ventaAsientoService = ventaAsientoService;
             this.cargaService = cargaService;
             this.clienteService = clienteService;
+            this.vehiculoService = vehiculoService;
         }
 
         [HttpGet]
@@ -49,8 +52,70 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult AgregarEncomienda(Venta model)
         {
+            try
+            {
+                var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
+                model.IdCliente = clien.Id;
+                model.Fecha = DateTime.Now;
+                model.Tipo = 5;
+                model.TotalCarga = 0;
+                model.Estado = 5;
+
+                foreach (var item in model.VentaEncomiendas)
+                {
+                    model.TotalCarga = model.TotalCarga + item.CargaEncomienda;
+
+                    var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                    hor.CargaMax = hor.CargaMax + item.CargaEncomienda;
+
+                    horarioService.ModificarHorario(hor);
+
+                    item.Estado = 1;
+
+                    item.FechaRecepcion = DateTime.Parse((hor.Hora.Hour + 5) + ":" + hor.Hora.Minute);
+
+                    var clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
+
+                    if (clienbor == null)
+                    {
+                        Cliente cliente = new Cliente
+                        {
+                            DniRuc = item.DniRucClienteTemp,
+                            Nombre = item.NombreClienteTemp,
+                            Apellidos = item.ApellidosClienteTemp,
+                            Telefono = item.TelefonoClienteTemp,
+                            Direccion = item.DireccionClienteTemp
+                        };
+
+                        clienteService.GuardarCliente(cliente);
+
+                        clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
+
+                        item.IdCliente = clienbor.Id;
+                    }
+                    else
+                    {
+                        item.IdCliente = item.IdClienteTemp;
+                    }
+                }
+
+                ventaService.GuardarVenta(model);
+
+                return Redirect(@Url.Action("FinalVenta", "Encomienta") + "/" + model.Id);
+            }
+            catch (Exception)
+            {
+                return Redirect(@Url.Action("ListarEncomiendas", "Encomienta") + "/" + model.Id);
+            }
             
-            return View();
+        }
+
+        [HttpGet]
+        public ActionResult FinalVenta(Int32 id)
+        {
+            var result = ventaService.ObtenerVentaPorId(id);
+            return View(result);
         }
 
         [HttpGet]
@@ -65,6 +130,12 @@ namespace SystranHorizonteWeb.Controllers
             ViewBag.Carga = cargaService.ObtenerCargasPorCriterio("Encomiendas");
 
             return PartialView();
+        }
+
+        [HttpGet]
+        public ActionResult ModificarEncomienda()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -91,62 +162,108 @@ namespace SystranHorizonteWeb.Controllers
 
         [HttpGet]
         public ActionResult AgregarDetalle(Int32? indice, Int32? idHorario,
-            Int32? idEstacion, Int32? idDestino, Int32? idCarga,
+            Int32? idEstacion, Int32? idDestino, Decimal CargaPasaje,
             String pago, String lbdni, String Nombres, String Apellidos,
-            String Telefono, String Direccion)
+            String Telefono, String Direccion, String descripcion)
         {
-            var clienbor = clienteService.ObtenerClientePorRucDni(lbdni);
-
-            if (clienbor == null)
+            try
             {
-                Cliente cliente = new Cliente
+                var clienbor = clienteService.ObtenerClientePorRucDni(lbdni);
+
+                if (clienbor == null)
                 {
-                    DniRuc = lbdni,
-                    Nombre = Nombres,
-                    Apellidos = Apellidos,
-                    Telefono = Telefono,
-                    Direccion = Direccion
-                };
+                    Cliente cliente = new Cliente
+                    {
+                        DniRuc = lbdni,
+                        Nombre = Nombres,
+                        Apellidos = Apellidos,
+                        Telefono = Telefono,
+                        Direccion = Direccion
+                    };
 
-                clienteService.GuardarCliente(cliente);
+                    clienbor = cliente;
+                }
 
-                clienbor = clienteService.ObtenerClientePorRucDni(lbdni);
+                if (String.IsNullOrEmpty(Nombres) || String.IsNullOrEmpty(Apellidos) || String.IsNullOrEmpty(lbdni))
+                {
+                    return View();
+                }
+
+                ViewBag.EstOrigen = estacionService.ObtenerEstacionPorId(Int32.Parse(idEstacion.ToString()));
+
+                ViewBag.EstDestino = estacionService.ObtenerEstacionPorId(Int32.Parse(idDestino.ToString()));
+
+                ViewBag.Indice = indice;
+                ViewBag.IdHorario = idHorario;
+                ViewBag.IdCarga = CargaPasaje;
+
+                var cargalist = cargaService.ObtenerCargaPorRango(CargaPasaje, false);
+
+                ViewBag.IdCarga = cargalist.Id;
+
+                ViewBag.CargaPasaje = CargaPasaje;
+
+                ViewBag.Pago = pago;
+
+                ViewBag.Descripcion = descripcion;
+
+                return PartialView("_DetalleVenta", clienbor);
             }
-
-            ViewBag.EstOrigen = estacionService.ObtenerEstacionPorId(Int32.Parse(idEstacion.ToString()));
-
-            ViewBag.EstDestino = estacionService.ObtenerEstacionPorId(Int32.Parse(idDestino.ToString()));
-
-            ViewBag.Indice = indice;
-            ViewBag.IdHorario = idHorario;
-            ViewBag.IdCarga = idCarga;
-            ViewBag.Pago = pago;
-
-            return PartialView("_DetalleVenta", clienbor);
+            catch (Exception)
+            {
+                return View();
+            }
+            
         }
 
         [HttpGet]
-        public ActionResult Pagos(Int32? IdHorario, Int32? IdCarga)
+        public ActionResult EliminarVenta(Int32 idve)
+        {
+            try
+            {
+                ventaService.EliminarVenta(idve);
+                ViewBag.Mensaje = "Eliminado Correctamente";
+            }
+            catch (Exception)
+            {
+                ViewBag.Mensaje = "No se puede eliminar";
+            }
+
+            return PartialView("Eliminar");
+        }
+
+        [HttpGet]
+        public ActionResult Pagos(Int32? IdHorario, Decimal? cargaPasaje)
         {
             Int32 idhor = 0;
-            Int32 idcarg = 0;
+            Decimal cargaPas = 0;
 
-            if (IdCarga != null)
+            if (cargaPasaje != null)
             {
-                idcarg = Int32.Parse(IdCarga.ToString());
+                cargaPas = Decimal.Parse(cargaPasaje.ToString());
             }
             if (IdHorario != null)
             {
                 idhor = Int32.Parse(IdHorario.ToString());
             }
             var hor = horarioService.ObtenerClientePorId(idhor);
-            var carg = cargaService.ObtenerCargaPorId(idcarg);
+            var carg = cargaService.ObtenerCargaPorRango(cargaPas, true);
 
             if (hor != null)
             {
                 if (carg != null)
                 {
-                    ViewBag.Pago = hor.Costo + carg.Precio;
+                    var vehi = vehiculoService.ObtenerVehiculoPorId(hor.VehiculoId);
+
+                    if (hor.CargaMax + cargaPas > vehi.CargaMax)
+                    {
+                        ViewBag.Pago = "Carga Superada";
+                    }
+                    else
+                    {
+                        ViewBag.Pago = hor.Costo + carg.Precio;
+                    }
+
                 }
                 else
                 {
@@ -198,36 +315,41 @@ namespace SystranHorizonteWeb.Controllers
             return DateTime.Now.Year + "-" + mes + "-" + dia;
         }
         [HttpGet]
-        public ActionResult CajaTotalPago(String pago, String totalVenta, Boolean estado)
+        public ActionResult CajaTotalPago(String pago, String totalVenta, Boolean estado, String lbdni)
         {
             Decimal pagod = 0;
             Decimal totalventad = 0;
 
-            if (estado)
-            {
-                if (!String.IsNullOrEmpty(pago))
-                {
-                    pagod = Decimal.Parse(pago);
-                }
-                if (!String.IsNullOrEmpty(totalVenta))
-                {
-                    totalventad = Decimal.Parse(totalVenta);
-                }
+            ViewBag.TotalPago = totalventad;
 
-                ViewBag.TotalPago = totalventad + pagod;
-            }
-            else
+            if (!String.IsNullOrEmpty(lbdni))
             {
-                if (!String.IsNullOrEmpty(pago))
+                if (estado)
                 {
-                    pagod = Decimal.Parse(pago);
-                }
-                if (!String.IsNullOrEmpty(totalVenta))
-                {
-                    totalventad = Decimal.Parse(totalVenta);
-                }
+                    if (!String.IsNullOrEmpty(pago))
+                    {
+                        pagod = Decimal.Parse(pago);
+                    }
+                    if (!String.IsNullOrEmpty(totalVenta))
+                    {
+                        totalventad = Decimal.Parse(totalVenta);
+                    }
 
-                ViewBag.TotalPago = totalventad - pagod;
+                    ViewBag.TotalPago = totalventad + pagod;
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(pago))
+                    {
+                        pagod = Decimal.Parse(pago);
+                    }
+                    if (!String.IsNullOrEmpty(totalVenta))
+                    {
+                        totalventad = Decimal.Parse(totalVenta);
+                    }
+
+                    ViewBag.TotalPago = totalventad - pagod;
+                }
             }
 
             return PartialView("_Pago");

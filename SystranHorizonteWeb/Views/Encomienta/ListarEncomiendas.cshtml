@@ -71,11 +71,11 @@
                     <tr>
                         <td>@item.NroVenta</td>
                         <td>@item.Cliente.DniRuc</td>
-                        <td>@item.Cliente.Nombre</td>
+                        <td>@item.Cliente.Nombre @item.Cliente.Apellidos</td>
                         <td>@item.Cliente.Telefono</td>
                         <td>@item.TotalVenta</td>
                         <td>@item.Fecha</td>
-                        <td><a href="#" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Venta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+                        <td><a href="@Url.Action("FinalVenta", "Encomienta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Encomienta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }
             </tbody>
@@ -86,7 +86,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Detalle Encomienda</h4>
+                    <h4 class="modal-title">Detalle</h4>
                 </div>
 
                 <div class="col-md-12">
@@ -103,6 +103,17 @@
 </div>
 
 <script>
+    function abrirmodalelim(idve) {
+        $.get("EliminarVenta", { idve: idve }).
+            success(function (resultado) {
+                $("#Detalle").html(resultado);
+                $('#BuscarVenta').modal('show');
+            })
+    }
+
+    $("#btnCerrarModal").click(function (e) {
+        window.location.href = "ListarVentas";
+    });
     $(document).ready(function () {
         $('#btnreport').click(function (e) {
             e.preventDefault();

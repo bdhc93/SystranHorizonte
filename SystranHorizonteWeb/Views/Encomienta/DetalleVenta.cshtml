@@ -10,7 +10,7 @@
     <div class="col-md-2">
         <div class="form-group">
             <label></label>
-            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Venta")" id="btnBuscar2">...</a>
+            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Encomienta")" id="btnBuscar2">...</a>
         </div>
     </div>
     <div id="idnombres">
@@ -46,7 +46,6 @@
     @{
         IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
         IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
-        IEnumerable<SelectListItem> Cargas = new SelectList(@ViewBag.Carga, "Id", "Peso");
     }
 
     <div class="col-md-12">
@@ -74,18 +73,25 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Carga</label>
-                @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+                <input type="number" name="cargaPasaje" value="0" class="form-control" disabled />
             </div>
         </div>
         <div id="txtPago">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Pago</label>
-                    <input name="Pago" id="Pago" class="form-control" />
+                    <input name="Pago" id="Pago" class="form-control" readonly />
                 </div>
             </div>
         </div>
 
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.TextArea("Descripcion", new { @class = "form-control" }) 
+        </div>
     </div>
 </div>
 
@@ -112,20 +118,16 @@
         $.get('@Url.Action("Pagos", "Encomienta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdCarga").change(function (e) {
-        $.get('@Url.Action("Pagos", "Encomienta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
-            success(function (resultado) { $("#txtPago").html(resultado); })
-    });
-
     function AgregarEncomiendaAVenta() {
         var indice = $('#VentaTBody').find('tr').length;
         $.get('@Url.Action("AgregarDetalle", "Encomienta")', {
             'indice': indice, idHorario: $("#IdHorario").val(),
             idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val(),
-            idCarga: $("#IdCarga").val(),
             pago: $("#Pago").val(), lbdni: $("#lbdni").val(),
             Nombres: $("#Nombres").val(), Apellidos: $("#Apellidos").val(),
             Telefono: $("#Telefono").val(), Direccion: $("#Direccion").val(),
+            CargaPasaje: $("#cargaPasaje").val(),
+            descripcion: $("#Descripcion").val(),
         })
         .success(function (respuesta) {
             $('#VentaTBody').append(respuesta);
@@ -134,7 +136,8 @@
         $.get('@Url.Action("CajaTotalPago", "Encomienta")', {
             pago: $("#Pago").val(),
             totalVenta: $("#TotalVenta").val(),
-            estado: true
+            estado: true,
+            lbdni: $("#lbdni").val()
         })
         .success(function (response) {
             $('#TotalPrecio').html(response);

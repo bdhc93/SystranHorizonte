@@ -63,6 +63,7 @@ namespace SystranHorizonteWeb.Controllers
             model.IdCliente = clien.Id;
             model.Fecha = DateTime.Now;
             model.Tipo = 1;
+            model.Estado = 2;
             ventaService.ModificarVenta(model);
 
             return Redirect(@Url.Action("ListarVentas", "Venta"));
@@ -86,6 +87,7 @@ namespace SystranHorizonteWeb.Controllers
             model.Fecha = DateTime.Now;
             model.Tipo = 1;
             model.TotalCarga = 0;
+            model.Estado = 1;
             try
             {
                 foreach (var item in model.VentaPasajes)
@@ -96,7 +98,7 @@ namespace SystranHorizonteWeb.Controllers
 
                     hor.CargaMax = hor.CargaMax + item.CargaPasaje;
 
-                    horarioService.GuardarHorario(hor);
+                    horarioService.ModificarHorario(hor);
 
                     var clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
 
@@ -525,10 +527,7 @@ namespace SystranHorizonteWeb.Controllers
                         Telefono = Telefono,
                         Direccion = Direccion
                     };
-
-                    //clienteService.GuardarCliente(cliente);
-
-                    //clienbor = clienteService.ObtenerClientePorRucDni(lbdni);
+                    
                     clienbor = cliente;
                 }
 
@@ -547,7 +546,6 @@ namespace SystranHorizonteWeb.Controllers
                 ViewBag.Asiento = asiento;
                 ViewBag.Indice = indice;
                 ViewBag.IdHorario = idHorario;
-                ViewBag.IdCarga = CargaPasaje;
 
                 var cargalist = cargaService.ObtenerCargaPorRango(CargaPasaje, true);
                 
@@ -561,7 +559,7 @@ namespace SystranHorizonteWeb.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return View();
             }
         }
 
@@ -578,7 +576,7 @@ namespace SystranHorizonteWeb.Controllers
                 ViewBag.Mensaje = "No se puede eliminar";
             }
 
-            return Redirect(@Url.Action("ListarVentas", "Venta")); 
+            return PartialView("Eliminar");
         }
 
         [HttpGet]
@@ -664,6 +662,8 @@ namespace SystranHorizonteWeb.Controllers
         {
             Decimal pagod = 0;
             Decimal totalventad = 0;
+            
+            ViewBag.TotalPago = totalventad;
 
             if (!String.IsNullOrEmpty(lbdni))
             {
@@ -710,13 +710,12 @@ namespace SystranHorizonteWeb.Controllers
                 catch (Exception)
                 {
 
-                    throw;
+                    return View();
                 }
 
                 return PartialView("_Pago");
 
             }
-            ViewBag.TotalPago = totalventad;
 
             return PartialView("_Pago");
         }

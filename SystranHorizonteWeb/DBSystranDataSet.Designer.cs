@@ -279,19 +279,19 @@ namespace SystranHorizonteWeb {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DetalleVentaDataTable : global::System.Data.TypedTableBase<DetalleVentaRow> {
             
+            private global::System.Data.DataColumn columnPago;
+            
             private global::System.Data.DataColumn columnAsiento;
             
-            private global::System.Data.DataColumn columnHora;
+            private global::System.Data.DataColumn columnApellidos;
+            
+            private global::System.Data.DataColumn columnDniRuc;
             
             private global::System.Data.DataColumn columnOrigenId;
             
             private global::System.Data.DataColumn columnDestinoId;
             
-            private global::System.Data.DataColumn columnCosto;
-            
-            private global::System.Data.DataColumn columnDniRuc;
-            
-            private global::System.Data.DataColumn columnNombre;
+            private global::System.Data.DataColumn columnHora;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -328,6 +328,14 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PagoColumn {
+                get {
+                    return this.columnPago;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn AsientoColumn {
                 get {
                     return this.columnAsiento;
@@ -336,9 +344,17 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn HoraColumn {
+            public global::System.Data.DataColumn ApellidosColumn {
                 get {
-                    return this.columnHora;
+                    return this.columnApellidos;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DniRucColumn {
+                get {
+                    return this.columnDniRuc;
                 }
             }
             
@@ -360,25 +376,9 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CostoColumn {
+            public global::System.Data.DataColumn HoraColumn {
                 get {
-                    return this.columnCosto;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DniRucColumn {
-                get {
-                    return this.columnDniRuc;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NombreColumn {
-                get {
-                    return this.columnNombre;
+                    return this.columnHora;
                 }
             }
             
@@ -419,16 +419,16 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DetalleVentaRow AddDetalleVentaRow(int Asiento, System.DateTime Hora, int OrigenId, int DestinoId, decimal Costo, string DniRuc, string Nombre) {
+            public DetalleVentaRow AddDetalleVentaRow(decimal Pago, int Asiento, string Apellidos, string DniRuc, int OrigenId, int DestinoId, System.DateTime Hora) {
                 DetalleVentaRow rowDetalleVentaRow = ((DetalleVentaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        Pago,
                         Asiento,
-                        Hora,
+                        Apellidos,
+                        DniRuc,
                         OrigenId,
                         DestinoId,
-                        Costo,
-                        DniRuc,
-                        Nombre};
+                        Hora};
                 rowDetalleVentaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDetalleVentaRow);
                 return rowDetalleVentaRow;
@@ -451,40 +451,38 @@ namespace SystranHorizonteWeb {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnPago = base.Columns["Pago"];
                 this.columnAsiento = base.Columns["Asiento"];
-                this.columnHora = base.Columns["Hora"];
+                this.columnApellidos = base.Columns["Apellidos"];
+                this.columnDniRuc = base.Columns["DniRuc"];
                 this.columnOrigenId = base.Columns["OrigenId"];
                 this.columnDestinoId = base.Columns["DestinoId"];
-                this.columnCosto = base.Columns["Costo"];
-                this.columnDniRuc = base.Columns["DniRuc"];
-                this.columnNombre = base.Columns["Nombre"];
+                this.columnHora = base.Columns["Hora"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnPago = new global::System.Data.DataColumn("Pago", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPago);
                 this.columnAsiento = new global::System.Data.DataColumn("Asiento", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAsiento);
-                this.columnHora = new global::System.Data.DataColumn("Hora", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnHora);
+                this.columnApellidos = new global::System.Data.DataColumn("Apellidos", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnApellidos);
+                this.columnDniRuc = new global::System.Data.DataColumn("DniRuc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDniRuc);
                 this.columnOrigenId = new global::System.Data.DataColumn("OrigenId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrigenId);
                 this.columnDestinoId = new global::System.Data.DataColumn("DestinoId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDestinoId);
-                this.columnCosto = new global::System.Data.DataColumn("Costo", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCosto);
-                this.columnDniRuc = new global::System.Data.DataColumn("DniRuc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDniRuc);
-                this.columnNombre = new global::System.Data.DataColumn("Nombre", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNombre);
-                this.columnHora.AllowDBNull = false;
-                this.columnOrigenId.AllowDBNull = false;
-                this.columnDestinoId.AllowDBNull = false;
-                this.columnCosto.AllowDBNull = false;
+                this.columnHora = new global::System.Data.DataColumn("Hora", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHora);
+                this.columnApellidos.MaxLength = 2147483647;
                 this.columnDniRuc.AllowDBNull = false;
                 this.columnDniRuc.MaxLength = 2147483647;
-                this.columnNombre.AllowDBNull = false;
-                this.columnNombre.MaxLength = 2147483647;
+                this.columnOrigenId.AllowDBNull = false;
+                this.columnDestinoId.AllowDBNull = false;
+                this.columnHora.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -627,6 +625,22 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Pago {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDetalleVenta.PagoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Pago\' de la tabla \'DetalleVenta\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalleVenta.PagoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int Asiento {
                 get {
                     try {
@@ -643,12 +657,28 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime Hora {
+            public string Apellidos {
                 get {
-                    return ((global::System.DateTime)(this[this.tableDetalleVenta.HoraColumn]));
+                    try {
+                        return ((string)(this[this.tableDetalleVenta.ApellidosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Apellidos\' de la tabla \'DetalleVenta\' es DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableDetalleVenta.HoraColumn] = value;
+                    this[this.tableDetalleVenta.ApellidosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DniRuc {
+                get {
+                    return ((string)(this[this.tableDetalleVenta.DniRucColumn]));
+                }
+                set {
+                    this[this.tableDetalleVenta.DniRucColumn] = value;
                 }
             }
             
@@ -676,35 +706,25 @@ namespace SystranHorizonteWeb {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal Costo {
+            public System.DateTime Hora {
                 get {
-                    return ((decimal)(this[this.tableDetalleVenta.CostoColumn]));
+                    return ((global::System.DateTime)(this[this.tableDetalleVenta.HoraColumn]));
                 }
                 set {
-                    this[this.tableDetalleVenta.CostoColumn] = value;
+                    this[this.tableDetalleVenta.HoraColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string DniRuc {
-                get {
-                    return ((string)(this[this.tableDetalleVenta.DniRucColumn]));
-                }
-                set {
-                    this[this.tableDetalleVenta.DniRucColumn] = value;
-                }
+            public bool IsPagoNull() {
+                return this.IsNull(this.tableDetalleVenta.PagoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Nombre {
-                get {
-                    return ((string)(this[this.tableDetalleVenta.NombreColumn]));
-                }
-                set {
-                    this[this.tableDetalleVenta.NombreColumn] = value;
-                }
+            public void SetPagoNull() {
+                this[this.tableDetalleVenta.PagoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -717,6 +737,18 @@ namespace SystranHorizonteWeb {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAsientoNull() {
                 this[this.tableDetalleVenta.AsientoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsApellidosNull() {
+                return this.IsNull(this.tableDetalleVenta.ApellidosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetApellidosNull() {
+                this[this.tableDetalleVenta.ApellidosColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -879,13 +911,13 @@ namespace SystranHorizonteWeb.DBSystranDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "DetalleVenta";
+            tableMapping.ColumnMappings.Add("Pago", "Pago");
             tableMapping.ColumnMappings.Add("Asiento", "Asiento");
-            tableMapping.ColumnMappings.Add("Hora", "Hora");
+            tableMapping.ColumnMappings.Add("Apellidos", "Apellidos");
+            tableMapping.ColumnMappings.Add("DniRuc", "DniRuc");
             tableMapping.ColumnMappings.Add("OrigenId", "OrigenId");
             tableMapping.ColumnMappings.Add("DestinoId", "DestinoId");
-            tableMapping.ColumnMappings.Add("Costo", "Costo");
-            tableMapping.ColumnMappings.Add("DniRuc", "DniRuc");
-            tableMapping.ColumnMappings.Add("Nombre", "Nombre");
+            tableMapping.ColumnMappings.Add("Hora", "Hora");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -902,8 +934,8 @@ namespace SystranHorizonteWeb.DBSystranDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Asiento, Hora, OrigenId, DestinoId, Costo, DniRuc, Nombre FROM dbo.Detalle" +
-                "Venta";
+            this._commandCollection[0].CommandText = "SELECT Pago, Asiento, Apellidos, DniRuc, OrigenId, DestinoId, Hora FROM dbo.Detal" +
+                "leVenta";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

@@ -30,6 +30,8 @@ namespace SystranHorizonte.Models
 
         public Int32 VehiculoId { get; set; }
 
+        public Decimal CargaMax { get; set; }
+
         public Boolean Estado { get; set; }
 
         public String CostoText { get; set; }

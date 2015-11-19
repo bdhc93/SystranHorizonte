@@ -8,6 +8,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
     {
         Carga ObtenerCargaPorId(Int32 id);
         IEnumerable<Carga> ObtenerCargasPorCriterio(String criterio);
+        Carga ObtenerCargaPorRango(Decimal carga, Boolean tipo);
 
         void GuardarCarga(Carga carga);
         void ModificarCarga(Carga carga);

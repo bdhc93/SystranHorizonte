@@ -40,5 +40,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             cargaRepository.EliminarCarga(id);
         }
+
+        public Carga ObtenerCargaPorRango(decimal carga, bool tipo)
+        {
+            return cargaRepository.ObtenerCargaPorRango(carga, tipo);
+        }
     }
 }

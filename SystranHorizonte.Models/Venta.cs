@@ -21,6 +21,8 @@ namespace SystranHorizonte.Models
         public Int32 IdCliente { get; set; }
         public Cliente Cliente { get; set; }
 
+        public Decimal TotalCarga { get; set; }
+
         public String RucDniCliente { get; set; }
 
         public List<VentaPasaje> VentaPasajes { get; set; }

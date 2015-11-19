@@ -116,6 +116,8 @@ namespace SystranHorizonteWeb.Controllers
             {
                 return Redirect(@Url.Action("ListarVentas", "Venta"));
             }
+            
+
 
             ventaService.GuardarVenta(model);
 
@@ -134,7 +136,7 @@ namespace SystranHorizonteWeb.Controllers
             LocalReport lr = new LocalReport();
             
             Int32 idVenta;
-            string path = Path.Combine(Server.MapPath("~/Reportes"), "Report1.rdlc");
+            string path = Path.Combine(Server.MapPath("~/Reportes"), "ComprobantePago.rdlc");
             if (System.IO.File.Exists(path))
             {
                 if (idventa != null)
@@ -185,18 +187,18 @@ namespace SystranHorizonteWeb.Controllers
                 var datos = new DatosReportVentaPasaje
                 {
                     DniRuc = item.Cliente.DniRuc,
-                    Nombre = item.Cliente.Nombre + " " + item.Cliente.Apellidos,
+                    Apellidos = item.Cliente.Nombre + " " + item.Cliente.Apellidos,
                     OrigenId = item.Horario.EstacionOrigen.Provincia,
                     DestinoId = item.Horario.EstacionDestino.Provincia,
                     Hora = item.Horario.HoraText,
                     Asiento = item.Asiento.ToString(),
-                    Costo = item.Pago
+                    Pago = item.Pago
                 };
 
                 cm.Add(datos);
             }
 
-            ReportDataSource rd = new ReportDataSource("DataSet1", cm);
+            ReportDataSource rd = new ReportDataSource("ComprobantePago", cm);
             lr.DataSources.Add(rd);
 
             ReportParameter[] parametros = new ReportParameter[6];
@@ -238,21 +240,21 @@ namespace SystranHorizonteWeb.Controllers
         }
         
         [HttpGet]
-        public ActionResult Pagos(Int32? IdHorario, Int32? IdCarga)
+        public ActionResult Pagos(Int32? IdHorario, Decimal? cargaPasaje)
         {
             Int32 idhor = 0;
-            Int32 idcarg = 0;
+            Decimal cargaPas = 0;
 
-            if (IdCarga != null)
+            if (cargaPasaje != null)
             {
-                idcarg = Int32.Parse(IdCarga.ToString());
+                cargaPas = Decimal.Parse(cargaPasaje.ToString());
             }
             if (IdHorario != null)
             {
                 idhor = Int32.Parse(IdHorario.ToString());
             }
             var hor = horarioService.ObtenerClientePorId(idhor);
-            var carg = cargaService.ObtenerCargaPorId(idcarg);
+            var carg = cargaService.ObtenerCargaPorRango(cargaPas, true);
 
             if (hor != null)
             {
@@ -486,7 +488,7 @@ namespace SystranHorizonteWeb.Controllers
 
         [HttpGet]
         public ActionResult AgregarDetalle(Int32? indice, Int32? idHorario,
-            Int32? idEstacion, Int32? idDestino, Int32? idAsiento, Int32? idCarga,
+            Int32? idEstacion, Int32? idDestino, Int32? idAsiento, Decimal CargaPasaje,
             String pago, String lbdni, String Nombres, String Apellidos,
             String Telefono, String Direccion, String AsientoCache, String idventa)
         {
@@ -526,7 +528,14 @@ namespace SystranHorizonteWeb.Controllers
                 ViewBag.Asiento = asiento;
                 ViewBag.Indice = indice;
                 ViewBag.IdHorario = idHorario;
-                ViewBag.IdCarga = idCarga;
+                ViewBag.IdCarga = CargaPasaje;
+
+                var cargalist = cargaService.ObtenerCargaPorRango(CargaPasaje, true);
+                
+                ViewBag.IdCarga = cargalist.Id;
+
+                ViewBag.CargaPasaje = CargaPasaje;
+
                 ViewBag.Pago = pago;
                 
                 return PartialView("_DetalleVenta", clienbor);

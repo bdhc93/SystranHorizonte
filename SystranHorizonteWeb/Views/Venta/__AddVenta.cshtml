@@ -21,9 +21,15 @@
 <div class="col-md-12">
     <div class="form-group">
         <label>Carga</label>
-        @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+        <input type="number" name="cargaPasaje" id="cargaPasaje" value="0" class="form-control" />
     </div>
 </div>
+@*<div class="col-md-12">
+    <div class="form-group">
+        <label>Carga</label>
+        @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+    </div>
+</div>*@
 <div id="txtPago">
     <div class="col-md-12">
         <div class="form-group">
@@ -35,11 +41,15 @@
 
 <script>
     $("#IdHorario").change(function (e) {
-        $.get('@Url.Action("Pagos", "Venta")', { IdHorario: $("#IdHorario").val(), IdCarga: $("#IdCarga").val() }).
+        $.get('@Url.Action("Pagos", "Venta")', { IdHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
-    $("#IdCarga").change(function (e) {
+    @*$("#IdCarga").change(function (e) {
         $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+            success(function (resultado) { $("#txtPago").html(resultado); })
+    });*@
+    $("#cargaPasaje").change(function (e) {
+        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
     $("#IdHorario").change(function (e) {

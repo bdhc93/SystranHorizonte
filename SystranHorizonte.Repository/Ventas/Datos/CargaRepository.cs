@@ -56,5 +56,24 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             Context.Cargas.Remove(elim);
             Context.SaveChanges();
         }
+
+        public Carga ObtenerCargaPorRango(decimal carga, bool tipo)
+        {
+            var query = from p in Context.Cargas
+                        select p;
+
+            try
+            {
+                query = from p in query
+                        where carga >= p.Peso && carga <= p.Peso2 && p.Tipo==tipo
+                        select p;
+
+                return query.SingleOrDefault();
+            }
+            catch (Exception)
+            {
+                return new Carga { };
+            }
+        }
     }
 }

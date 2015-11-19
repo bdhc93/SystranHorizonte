@@ -83,14 +83,20 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Carga</label>
-                @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+                <input type="number" name="cargaPasaje" value="0" class="form-control" disabled/>
             </div>
         </div>
+        @*<div class="col-md-12" style="display:none">
+            <div class="form-group">
+                <label>Carga</label>
+                @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+            </div>
+        </div>*@
         <div id="txtPago">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Pago</label>
-                    <input name="Pago" id="Pago" class="form-control" />
+                    <input type="number" name="Pago" id="Pago" class="form-control" disabled/>
                 </div>
             </div>
         </div>
@@ -136,11 +142,13 @@
         $.get('@Url.Action("AgregarDetalle", "Venta")', {
             'indice': indice, idHorario: $("#IdHorario").val(),
             idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val(),
-            idAsiento: $("#IdAsiento").val(), idCarga: $("#IdCarga").val(),
+            idAsiento: $("#IdAsiento").val(),
+            //idCarga: $("#IdCarga").val(),
             pago: $("#Pago").val(), lbdni: $("#lbdni").val(),
             Nombres: $("#Nombres").val(), Apellidos: $("#Apellidos").val(),
             Telefono: $("#Telefono").val(), Direccion: $("#Direccion").val(),
             AsientoCache: $("#IdAs").val(), idventa: $("#NroVenta").val(),
+            CargaPasaje: $("#cargaPasaje").val()
         })
         .success(function (respuesta) {
             $('#VentaTBody').append(respuesta);

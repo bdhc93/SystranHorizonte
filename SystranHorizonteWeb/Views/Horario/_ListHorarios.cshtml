@@ -6,6 +6,7 @@
             <th>Asientos</th>
             <th>EstacionOrigen</th>
             <th>EstacionDestino</th>
+            <th>Carga Vehiculo</th>
             <th>EstadoMostrar</th>
             <th>Acciones</th>
         </tr>
@@ -19,6 +20,7 @@
                 <td>@item.Asientos</td>
                 <td>@item.EstacionOrigen.EstacionesT</td>
                 <td>@item.EstacionDestino.EstacionesT</td>
+                <td>@item.CargaMax</td>
                 <td>@item.EstadoMostrar</td>
                 <td><a href="@Url.Action("Modificar", "Horario", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
             </tr>

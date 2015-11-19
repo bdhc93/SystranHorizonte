@@ -28,7 +28,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.CargaMax).IsRequired();
             this.Property(p => p.Costo).IsRequired().HasPrecision(9, 2);
             this.Ignore(p => p.EstadoMostrar);
-            this.Ignore(p => p.VehiculoId);
+            this.Property(p => p.VehiculoId).IsOptional();
             this.Ignore(p => p.HoraText);
             this.Ignore(p => p.CostoText);
 
@@ -37,6 +37,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.ToTable("Horario");
             this.Property(c => c.Id).HasColumnName("Id");
             this.Property(c => c.OrigenId).HasColumnName("OrigenId");
+            this.Property(c => c.VehiculoId).HasColumnName("VehiculoId");
             this.Property(c => c.DestinoId).HasColumnName("DestinoId");
             this.Property(c => c.EmpleadoId).HasColumnName("EmpleadoId");
             this.Property(c => c.Asientos).HasColumnName("Asientos");

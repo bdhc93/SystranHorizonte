@@ -16,10 +16,12 @@ namespace SystranHorizonteWeb.Controllers
         public IVentaAsientoService ventaAsientoService { get; set; }
         public ICargaService cargaService { get; set; }
         public IClienteService clienteService { get; set; }
+        public IVehiculoService vehiculoService { get; set; }
 
         public VentaController(IVentaService ventaService, IEstacionService estacionService,
             IHorarioService horarioService, IVentaAsientoService ventaAsientoService,
-            ICargaService cargaService, IClienteService clienteService)
+            ICargaService cargaService, IClienteService clienteService,
+            IVehiculoService vehiculoService)
         {
             this.ventaService = ventaService;
             this.estacionService = estacionService;
@@ -27,6 +29,7 @@ namespace SystranHorizonteWeb.Controllers
             this.ventaAsientoService = ventaAsientoService;
             this.cargaService = cargaService;
             this.clienteService = clienteService;
+            this.vehiculoService = vehiculoService;
         }
 
         public ActionResult Index()
@@ -82,11 +85,19 @@ namespace SystranHorizonteWeb.Controllers
             model.IdCliente = clien.Id;
             model.Fecha = DateTime.Now;
             model.Tipo = 1;
-
+            model.TotalCarga = 0;
             try
             {
                 foreach (var item in model.VentaPasajes)
                 {
+                    model.TotalCarga = model.TotalCarga + item.CargaPasaje;
+
+                    var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                    hor.CargaMax = hor.CargaMax + item.CargaPasaje;
+
+                    horarioService.GuardarHorario(hor);
+
                     var clienbor = clienteService.ObtenerClientePorRucDni(item.DniRucClienteTemp);
 
                     if (clienbor == null)
@@ -116,8 +127,6 @@ namespace SystranHorizonteWeb.Controllers
             {
                 return Redirect(@Url.Action("ListarVentas", "Venta"));
             }
-            
-
 
             ventaService.GuardarVenta(model);
 
@@ -260,7 +269,17 @@ namespace SystranHorizonteWeb.Controllers
             {
                 if (carg != null)
                 {
-                    ViewBag.Pago = hor.Costo + carg.Precio;
+                    var vehi = vehiculoService.ObtenerVehiculoPorId(hor.VehiculoId);
+
+                    if (hor.CargaMax + cargaPas > vehi.CargaMax)
+                    {
+                        ViewBag.Pago = "Carga Superada";
+                    }
+                    else
+                    {
+                        ViewBag.Pago = hor.Costo + carg.Precio;
+                    }
+
                 }
                 else
                 {

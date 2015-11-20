@@ -50,14 +50,14 @@ namespace SystranHorizonte.Services.Ventas.Services
             return ventaRepository.ObtenerNroVenta();
         }
 
-        public IEnumerable<Venta> ObtenerEncomiendas()
+        public IEnumerable<Venta> ObtenerEncomiendas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            return ventaRepository.ObtenerEncomiendas();
+            return ventaRepository.ObtenerEncomiendas(criterio, fechaIni, fechaFin, idestacion);
         }
 
-        public IEnumerable<Venta> ObtenerReservas()
+        public IEnumerable<Venta> ObtenerReservas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            return ventaRepository.ObtenerReservas();
+            return ventaRepository.ObtenerReservas(criterio, fechaIni, fechaFin, idestacion);
         }
     }
 }

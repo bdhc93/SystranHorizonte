@@ -36,7 +36,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label>Fecha Fin:</label>
-                <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" />
+                <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" min="@ViewBag.Fecha"/>
             </div>
         </div>
         <div class="col-md-3">
@@ -111,6 +111,33 @@
             })
     }
 
+    $("#txtCalendar").change(function (e) {
+        $("#txtCalendar2").attr("min", $("#txtCalendar").val())
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    });
+    $("#txtCalendar2").change(function (e) {
+        $("#txtCalendar").attr("max", $("#txtCalendar2").val())
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    });
+    $("#IdOrigen").change(function (e) {
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    });
+    function buscarVentas() {
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    }
+
     $("#btnCerrarModal").click(function (e) {
         window.location.href = "ListarVentas";
     });
@@ -119,9 +146,5 @@
             e.preventDefault();
             document.getElementById("listreport").disabled = false;
         })
-    });
-
-    $("#txtCalendar").change(function (e) {
-        $("#txtCalendar2").attr("min", $("#txtCalendar").val())
     });
 </script>

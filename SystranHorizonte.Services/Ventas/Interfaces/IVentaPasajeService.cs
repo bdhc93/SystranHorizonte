@@ -7,7 +7,7 @@ namespace SystranHorizonte.Services.Ventas.Interfaces
     public interface IVentaPasajeService
     {
         VentaPasaje ObtenerVentaPasajePorId(Int32 id);
-        IEnumerable<VentaPasaje> ObtenerVentaPasajesPorCriterio(String criterio);
+        IEnumerable<VentaPasaje> ObtenerVentaPasajesPorCriterio(String criterio, DateTime fechaIni, DateTime fechaFin, Int32 idestacion);
 
         void GuardarVentaPasaje(VentaPasaje venta);
         void ModificarVentaPasaje(VentaPasaje venta);

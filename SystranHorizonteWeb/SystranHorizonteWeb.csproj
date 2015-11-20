@@ -371,6 +371,8 @@
     <Content Include="Views\Encomienta\FinalVenta.cshtml" />
     <Content Include="Views\Venta\Eliminar.cshtml" />
     <Content Include="Views\Encomienta\Eliminar.cshtml" />
+    <Content Include="Views\Venta\_ListVentas.cshtml" />
+    <Content Include="Views\Encomienta\_ListVentas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

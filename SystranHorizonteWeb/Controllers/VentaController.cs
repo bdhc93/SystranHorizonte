@@ -17,11 +17,12 @@ namespace SystranHorizonteWeb.Controllers
         public ICargaService cargaService { get; set; }
         public IClienteService clienteService { get; set; }
         public IVehiculoService vehiculoService { get; set; }
+        public IVentaPasajeService ventaPasajeService { get; set; }
 
         public VentaController(IVentaService ventaService, IEstacionService estacionService,
             IHorarioService horarioService, IVentaAsientoService ventaAsientoService,
             ICargaService cargaService, IClienteService clienteService,
-            IVehiculoService vehiculoService)
+            IVehiculoService vehiculoService, IVentaPasajeService ventaPasajeService)
         {
             this.ventaService = ventaService;
             this.estacionService = estacionService;
@@ -30,6 +31,7 @@ namespace SystranHorizonteWeb.Controllers
             this.cargaService = cargaService;
             this.clienteService = clienteService;
             this.vehiculoService = vehiculoService;
+            this.ventaPasajeService = ventaPasajeService;
         }
 
         public ActionResult Index()
@@ -42,7 +44,7 @@ namespace SystranHorizonteWeb.Controllers
         {
             ViewBag.Fecha = MostrarFecha();
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
-            var result = ventaService.ObtenerVentas();
+            var result = ventaService.ObtenerVentasPorCriterio("", DateTime.Now.Date, DateTime.Now.Date.AddDays(1), 0);
 
             return View(result);
         }
@@ -141,7 +143,15 @@ namespace SystranHorizonteWeb.Controllers
             var result = ventaService.ObtenerVentaPorId(id);
             return View(result);
         }
-        
+
+        [HttpGet]
+        public ActionResult Buscar(string criterio, DateTime fechaini, DateTime fechafin, Int32 EstacionOringen = 0)
+        {
+            var result = ventaService.ObtenerVentasPorCriterio(criterio,fechaini, fechafin, EstacionOringen);
+            
+            return PartialView("_ListVentas", result);
+        }
+
         public ActionResult Report(string id, Int32? idventa)
         {
             LocalReport lr = new LocalReport();
@@ -236,7 +246,6 @@ namespace SystranHorizonteWeb.Controllers
             {
                 case "PDF":
                     return File(renderedBytes, mimeType);
-                    //return File(renderedBytes, mimeType, pru.NroVenta + ".pdf");
                 case "Excel":
                     return File(renderedBytes, mimeType, pru.NroVenta + ".xls");
                 case "Word":
@@ -251,18 +260,26 @@ namespace SystranHorizonteWeb.Controllers
         }
 
 
-        public ActionResult ReportReportesVentas(string id, string criterio, DateTime fechaini, DateTime fechafin, string EstacionOringen)
+        public ActionResult ReportReportesVentas(string id, string criterio, DateTime fechaini, DateTime fechafin, int EstacionOringen=0)
         {
             LocalReport lr = new LocalReport();
+
+            var estmos = "";
+            var pru = ventaService.ObtenerVentasPorCriterio(criterio, fechaini, fechafin, EstacionOringen);
 
             if (String.IsNullOrEmpty(criterio))
             {
                 criterio = "Null";
             }
 
-            if (String.IsNullOrEmpty(EstacionOringen))
+            if (EstacionOringen==0)
             {
-                EstacionOringen = "Null";
+                estmos = "Null";
+            }
+            else
+            {
+                var est = estacionService.ObtenerEstacionPorId(EstacionOringen);
+                estmos = est.EstacionesT;
             }
 
             string path = Path.Combine(Server.MapPath("~/Reportes"), "ReporteVentaPasajes.rdlc");
@@ -300,7 +317,6 @@ namespace SystranHorizonteWeb.Controllers
             byte[] renderedBytes;
 
             List<DatosReportVentaPasaje> cm = new List<DatosReportVentaPasaje>();
-            var pru = ventaService.ObtenerVentas();
 
             foreach (var item in pru)
             {
@@ -331,7 +347,7 @@ namespace SystranHorizonteWeb.Controllers
             ReportParameter[] parametros = new ReportParameter[4];
 
             parametros[0] = new ReportParameter("Cliente", criterio);
-            parametros[1] = new ReportParameter("EstOrigen", EstacionOringen);
+            parametros[1] = new ReportParameter("EstOrigen", estmos);
             parametros[2] = new ReportParameter("FechaInicio", fechaini.Date.Day + "/" + fechaini.Date.Month + "/" + fechaini.Date.Year + "");
             parametros[3] = new ReportParameter("FechaFin", fechafin.Date.Day + "/" + fechafin.Date.Month + "/" + fechafin.Date.Year + "");
 
@@ -350,13 +366,12 @@ namespace SystranHorizonteWeb.Controllers
             {
                 case "PDF":
                     return File(renderedBytes, mimeType);
-                //return File(renderedBytes, mimeType, pru.NroVenta + ".pdf");
                 case "Excel":
-                    return File(renderedBytes, mimeType, "Venta-"+ DateTime.Now.Date + ".xls");
+                    return File(renderedBytes, mimeType, "Venta " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".xls");
                 case "Word":
-                    return File(renderedBytes, mimeType, "Venta-" + DateTime.Now.Date + ".doc");
+                    return File(renderedBytes, mimeType, "Venta " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".doc");
                 case "Image":
-                    return File(renderedBytes, mimeType, "Venta-" + DateTime.Now.Date + ".png");
+                    return File(renderedBytes, mimeType, "Venta " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".png");
                 default:
                     break;
             }

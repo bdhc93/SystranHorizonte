@@ -25,7 +25,10 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            var query = from p in Context.Ventas.Include("Cliente").ToList()
+            var query = from p in Context.VentaPasajes
+                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
+                        .ToList()
                         select p;
 
             if (!string.IsNullOrEmpty(criterio))
@@ -33,24 +36,49 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 if (idestacion == 0)
                 {
                     query = from p in query
-                            where (p.Cliente.Nombre.ToUpper().Contains(criterio) || p.Cliente.Apellidos.ToUpper().Contains(criterio)
-                                || p.Cliente.DniRuc.Equals(criterio) ) && (p.Fecha>= fechaIni && p.Fecha <=fechaFin.AddHours(24)) 
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 1
                             select p;
                 }
                 else
                 {
                     query = from p in query
-                            where (p.Cliente.Nombre.ToUpper().Contains(criterio) || p.Cliente.Apellidos.ToUpper().Contains(criterio)
-                                || p.Cliente.DniRuc.Equals(criterio)) && (p.Fecha >= fechaIni && p.Fecha <= fechaFin.AddHours(24))
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 1 && p.Horario.OrigenId == idestacion
+                            select p;
+                }
+            }
+            else
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 1
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 1 && p.Horario.OrigenId == idestacion
                             select p;
                 }
             }
 
-            query = from p in query
-                    where p.Tipo == 1
-                    select p;
+            List<Venta> ventas = new List<Venta>();
 
-            return query.ToList();
+            var idvent = 0;
+
+            foreach (var item in query)
+            {
+                if (idvent != item.Venta.NroVenta)
+                {
+                    ventas.Add(item.Venta);
+                }
+
+                idvent = item.Venta.NroVenta;
+            } 
+
+            return ventas;
         }
 
         public int GuardarVenta(Venta venta)
@@ -216,28 +244,120 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             return x;
         }
 
-        public IEnumerable<Venta> ObtenerEncomiendas()
+        public IEnumerable<Venta> ObtenerEncomiendas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            var query = from p in Context.Ventas.Include("Cliente").ToList()
+            var query = from p in Context.VentaEncomiendas
+                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
+                        .ToList()
                         select p;
 
-            query = from p in query
-                    where p.Tipo == 5
-                    select p;
+            if (!string.IsNullOrEmpty(criterio))
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 5
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 5 && p.Horario.OrigenId == idestacion
+                            select p;
+                }
+            }
+            else
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 5
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 5 && p.Horario.OrigenId == idestacion
+                            select p;
+                }
+            }
 
-            return query.ToList();
+            List<Venta> ventas = new List<Venta>();
+
+            var idvent = 0;
+
+            foreach (var item in query)
+            {
+                if (idvent != item.Venta.NroVenta)
+                {
+                    ventas.Add(item.Venta);
+                }
+
+                idvent = item.Venta.NroVenta;
+            }
+
+            return ventas;
         }
 
-        public IEnumerable<Venta> ObtenerReservas()
+        public IEnumerable<Venta> ObtenerReservas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            var query = from p in Context.Ventas.Include("Cliente").ToList()
+            var query = from p in Context.Reservas
+                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
+                        .ToList()
                         select p;
 
-            query = from p in query
-                    where p.Tipo == 3
-                    select p;
+            if (!string.IsNullOrEmpty(criterio))
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 3
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Venta.Cliente.Nombre.ToUpper().Contains(criterio.ToUpper()) || p.Venta.Cliente.Apellidos.ToUpper().Contains(criterio.ToUpper())
+                                || p.Venta.Cliente.DniRuc.Contains(criterio.ToUpper())) && (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 3 && p.Horario.OrigenId == idestacion
+                            select p;
+                }
+            }
+            else
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 3
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Venta.Fecha >= fechaIni && p.Venta.Fecha <= fechaFin.AddHours(24)) && p.Venta.Tipo == 3 && p.Horario.OrigenId == idestacion
+                            select p;
+                }
+            }
 
-            return query.ToList();
+            List<Venta> ventas = new List<Venta>();
+
+            var idvent = 0;
+
+            foreach (var item in query)
+            {
+                if (idvent != item.Venta.NroVenta)
+                {
+                    ventas.Add(item.Venta);
+                }
+
+                idvent = item.Venta.NroVenta;
+            }
+
+            return ventas;
         }
     }
 }

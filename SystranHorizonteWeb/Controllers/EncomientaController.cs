@@ -37,7 +37,7 @@ namespace SystranHorizonteWeb.Controllers
         {
             ViewBag.Fecha = MostrarFecha();
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
-            var result = ventaService.ObtenerEncomiendas();
+            var result = ventaService.ObtenerEncomiendas("", DateTime.Now.Date, DateTime.Now.Date.AddDays(1),0);
 
             return View(result);
         }
@@ -50,6 +50,14 @@ namespace SystranHorizonteWeb.Controllers
             ViewBag.RucDni = "";
             ViewBag.TotalPago = "";
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Buscar(string criterio, DateTime fechaini, DateTime fechafin, Int32 EstacionOringen = 0)
+        {
+            var result = ventaService.ObtenerEncomiendas(criterio, fechaini, fechafin, EstacionOringen);
+
+            return PartialView("_ListVentas", result);
         }
 
         [HttpPost]

@@ -126,10 +126,30 @@
 
     $("#txtCalendar").change(function (e) {
         $("#txtCalendar2").attr("min", $("#txtCalendar").val())
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
     });
     $("#txtCalendar2").change(function (e) {
         $("#txtCalendar").attr("max", $("#txtCalendar2").val())
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
     });
+    $("#IdOrigen").change(function (e) {
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    });
+    function buscarVentas() {
+        $.get("Buscar", { criterio: $("#txtBuscar").val(), fechaini: $("#txtCalendar").val(), fechafin: $("#txtCalendar2").val(), EstacionOringen: $("#IdOrigen").val() })
+        .success(function (response) {
+            $('#listVentas').html(response);
+        });
+    }
 
     $("#listreport").change(function (e) {
         var ids = listreport.options[listreport.selectedIndex].value;

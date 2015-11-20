@@ -20,9 +20,9 @@ namespace SystranHorizonte.Services.Ventas.Services
             return ventaPasajeRepository.ObtenerVentaPasajePorId(id);
         }
 
-        public IEnumerable<VentaPasaje> ObtenerVentaPasajesPorCriterio(string criterio)
+        public IEnumerable<VentaPasaje> ObtenerVentaPasajesPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            return ventaPasajeRepository.ObtenerVentaPasajesPorCriterio(criterio);
+            return ventaPasajeRepository.ObtenerVentaPasajesPorCriterio(criterio, fechaIni, fechaFin, idestacion);
         }
 
         public void GuardarVentaPasaje(VentaPasaje venta)

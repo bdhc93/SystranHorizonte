@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using SystranHorizonte.Services.Ventas.Interfaces;
 using SystranHorizonte.Models;
+using Microsoft.Reporting.WebForms;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SystranHorizonteWeb.Controllers
 {
@@ -110,7 +113,7 @@ namespace SystranHorizonteWeb.Controllers
             }
             
         }
-
+                
         [HttpGet]
         public ActionResult FinalVenta(Int32 id)
         {

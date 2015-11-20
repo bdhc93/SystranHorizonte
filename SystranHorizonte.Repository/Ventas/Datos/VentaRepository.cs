@@ -23,9 +23,34 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 .Include("Reseras").Where(p => p.Id.Equals(id)).SingleOrDefault();
         }
 
-        public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin)
+        public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            throw new NotImplementedException();
+            var query = from p in Context.Ventas.Include("Cliente").ToList()
+                        select p;
+
+            if (!string.IsNullOrEmpty(criterio))
+            {
+                if (idestacion == 0)
+                {
+                    query = from p in query
+                            where (p.Cliente.Nombre.ToUpper().Contains(criterio) || p.Cliente.Apellidos.ToUpper().Contains(criterio)
+                                || p.Cliente.DniRuc.Equals(criterio) ) && (p.Fecha>= fechaIni && p.Fecha <=fechaFin.AddHours(24)) 
+                            select p;
+                }
+                else
+                {
+                    query = from p in query
+                            where (p.Cliente.Nombre.ToUpper().Contains(criterio) || p.Cliente.Apellidos.ToUpper().Contains(criterio)
+                                || p.Cliente.DniRuc.Equals(criterio)) && (p.Fecha >= fechaIni && p.Fecha <= fechaFin.AddHours(24))
+                            select p;
+                }
+            }
+
+            query = from p in query
+                    where p.Tipo == 1
+                    select p;
+
+            return query.ToList();
         }
 
         public int GuardarVenta(Venta venta)
@@ -155,7 +180,11 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public IEnumerable<Venta> ObtenerVentas()
         {
-            var query = from p in Context.Ventas.Include("Cliente").ToList()
+            var query = from p in Context.Ventas.Include("Cliente").Include("VentaPasajes")
+                        .Include("VentaPasajes.Horario")
+                .Include("VentaPasajes.Cliente").Include("VentaPasajes.Carga")
+                .Include("VentaPasajes.Horario.EstacionOrigen")
+                .Include("VentaPasajes.Horario.EstacionDestino").ToList()
                         select p;
 
             query = from p in query

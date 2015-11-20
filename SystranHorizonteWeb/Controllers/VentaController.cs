@@ -190,12 +190,12 @@ namespace SystranHorizonteWeb.Controllers
             string[] streams;
             byte[] renderedBytes;
 
-            List<DatosReportVentaPasaje> cm = new List<DatosReportVentaPasaje>();
+            List<DatosReportVentaComprobante> cm = new List<DatosReportVentaComprobante>();
             Venta pru = ventaService.ObtenerVentaPorId(idVenta);
 
             foreach (var item in pru.VentaPasajes)
             {
-                var datos = new DatosReportVentaPasaje
+                var datos = new DatosReportVentaComprobante
                 {
                     DniRuc = item.Cliente.DniRuc,
                     Apellidos = item.Cliente.Nombre + " " + item.Cliente.Apellidos,
@@ -249,7 +249,123 @@ namespace SystranHorizonteWeb.Controllers
 
             return File(renderedBytes, mimeType);
         }
-        
+
+
+        public ActionResult ReportReportesVentas(string id, string criterio, DateTime fechaini, DateTime fechafin, string EstacionOringen)
+        {
+            LocalReport lr = new LocalReport();
+
+            if (String.IsNullOrEmpty(criterio))
+            {
+                criterio = "Null";
+            }
+
+            if (String.IsNullOrEmpty(EstacionOringen))
+            {
+                EstacionOringen = "Null";
+            }
+
+            string path = Path.Combine(Server.MapPath("~/Reportes"), "ReporteVentaPasajes.rdlc");
+            if (System.IO.File.Exists(path))
+            {
+                lr.ReportPath = path;
+            }
+            else
+            {
+                return View("ListarVentas");
+            }
+
+
+            string reportType = id;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+
+
+            string deviceInfo =
+
+            "<DeviceInfo>" +
+            "  <OutputFormat>" + id + "</OutputFormat>" +
+            "  <PageWidth>21cm</PageWidth>" +
+            "  <PageHeight>29.7cm</PageHeight>" +
+            "  <MarginTop>1.54cm</MarginTop>" +
+            "  <MarginLeft>1.54cm</MarginLeft>" +
+            "  <MarginRight>1.54cm</MarginRight>" +
+            "  <MarginBottom>1.54cm</MarginBottom>" +
+            "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            List<DatosReportVentaPasaje> cm = new List<DatosReportVentaPasaje>();
+            var pru = ventaService.ObtenerVentas();
+
+            foreach (var item in pru)
+            {
+                foreach (var item2 in item.VentaPasajes)
+                {
+                    var datos = new DatosReportVentaPasaje
+                    {
+                        NroVenta = item.NroVenta + "",
+                        Fecha = item.Fecha.Day + "/" + item.Fecha.Month + "/" + item.Fecha.Year,
+                        Id = item.TotalVenta + "",
+                        TotalVenta = item.EstadoMostrar,
+
+                        DniRuc = item2.Cliente.DniRuc,
+                        Nombre = item2.Cliente.Nombre,
+                        OrigenId = item2.Horario.EstacionOrigen.Provincia,
+                        DestinoId = item2.Horario.EstacionDestino.Provincia,
+                        Hora = item2.Horario.HoraText,
+                        Pago = item2.Pago
+                    };
+                    cm.Add(datos);
+                }
+                
+            }
+
+            ReportDataSource rd = new ReportDataSource("DataSet1", cm);
+            lr.DataSources.Add(rd);
+
+            ReportParameter[] parametros = new ReportParameter[4];
+
+            parametros[0] = new ReportParameter("Cliente", criterio);
+            parametros[1] = new ReportParameter("EstOrigen", EstacionOringen);
+            parametros[2] = new ReportParameter("FechaInicio", fechaini.Date.Day + "/" + fechaini.Date.Month + "/" + fechaini.Date.Year + "");
+            parametros[3] = new ReportParameter("FechaFin", fechafin.Date.Day + "/" + fechafin.Date.Month + "/" + fechafin.Date.Year + "");
+
+            lr.SetParameters(parametros);
+
+            renderedBytes = lr.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+
+            switch (id)
+            {
+                case "PDF":
+                    return File(renderedBytes, mimeType);
+                //return File(renderedBytes, mimeType, pru.NroVenta + ".pdf");
+                case "Excel":
+                    return File(renderedBytes, mimeType, "Venta-"+ DateTime.Now.Date + ".xls");
+                case "Word":
+                    return File(renderedBytes, mimeType, "Venta-" + DateTime.Now.Date + ".doc");
+                case "Image":
+                    return File(renderedBytes, mimeType, "Venta-" + DateTime.Now.Date + ".png");
+                default:
+                    break;
+            }
+
+            return File(renderedBytes, mimeType);
+        }
+
+
+
         [HttpGet]
         public ActionResult Pagos(Int32? IdHorario, Decimal? cargaPasaje)
         {

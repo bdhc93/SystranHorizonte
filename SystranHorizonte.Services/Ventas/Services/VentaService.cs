@@ -20,9 +20,9 @@ namespace SystranHorizonte.Services.Ventas.Services
             return ventaRepository.ObtenerVentaPorId(id);
         }
 
-        public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin)
+        public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
-            return ventaRepository.ObtenerVentasPorCriterio(criterio, fechaIni, fechaFin);
+            return ventaRepository.ObtenerVentasPorCriterio(criterio, fechaIni, fechaFin, idestacion);
         }
 
         public int GuardarVenta(Venta venta)

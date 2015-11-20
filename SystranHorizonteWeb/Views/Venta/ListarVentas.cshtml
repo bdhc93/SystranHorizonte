@@ -78,7 +78,7 @@
                         <td>@item.Cliente.Telefono</td>
                         <td>@item.TotalVenta</td>
                         <td>@item.Fecha</td>
-                        <td><a href="@Url.Action("FinalVenta", "Venta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarEncomienda", "Venta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+                        <td><a href="@Url.Action("FinalVenta", "Venta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Venta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }
             </tbody>
@@ -126,5 +126,19 @@
 
     $("#txtCalendar").change(function (e) {
         $("#txtCalendar2").attr("min", $("#txtCalendar").val())
+    });
+    $("#txtCalendar2").change(function (e) {
+        $("#txtCalendar").attr("max", $("#txtCalendar2").val())
+    });
+
+    $("#listreport").change(function (e) {
+        var ids = listreport.options[listreport.selectedIndex].value;
+        if(listreport.selectedIndex<1)
+            alert('Seleccionar una opcion');
+        else
+            window.location.href = '@Url.Action("ReportReportesVentas", "Venta")' + "/?" +
+                "id="+ listreport.options[listreport.selectedIndex].value + "&" +
+                "criterio=" + $("#txtBuscar").val() + "&" + "fechaini=" + $("#txtCalendar").val()
+                + "&" + "fechafin=" + $("#txtCalendar2").val() + "&" + "EstacionOringen=" + $("#IdOrigen").val();
     });
 </script>

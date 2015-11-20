@@ -711,7 +711,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Origen Id</Value>
+                              <Value>Origen</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -745,7 +745,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Destino Id</Value>
+                              <Value>Destino</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1124,7 +1124,7 @@
         <Top>7.33637cm</Top>
         <Left>0.41487cm</Left>
         <Height>1.2cm</Height>
-        <Width>13.28463cm</Width>
+        <Width>13.28462cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>

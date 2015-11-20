@@ -1308,8 +1308,8 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>5.95376cm</Top>
         <Left>0.41487cm</Left>
-        <Height>3.46483cm</Height>
-        <Width>16.61817cm</Width>
+        <Height>3.46484cm</Height>
+        <Width>16.61818cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -1405,10 +1405,10 @@
         </Style>
       </Line>
     </ReportItems>
-    <Height>4.05592in</Height>
+    <Height>3.85592in</Height>
     <Style />
   </Body>
-  <Width>7.65776in</Width>
+  <Width>6.81609in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

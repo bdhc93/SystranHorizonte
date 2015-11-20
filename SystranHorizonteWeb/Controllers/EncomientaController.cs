@@ -144,9 +144,46 @@ namespace SystranHorizonteWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult ModificarEncomienda()
+        public ActionResult ModificarEncomienda(Int32 id)
         {
-            return View();
+            var result = ventaService.ObtenerVentaPorId(id);
+            ViewBag.Fecha = MostrarFecha();
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarEncomienda(Venta model)
+        {
+            var ventborrar = ventaService.ObtenerVentaPorId(model.Id);
+
+            foreach (var item in ventborrar.VentaPasajes)
+            {
+                var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                hor.CargaMax = hor.CargaMax - item.CargaPasaje;
+
+                horarioService.ModificarHorario(hor);
+
+            }//Eliminar Carga
+
+            foreach (var item in model.VentaPasajes)
+            {
+                var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                hor.CargaMax = hor.CargaMax + item.CargaPasaje;
+
+                horarioService.ModificarHorario(hor);
+            }//Nueva Carga
+
+            var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
+            model.IdCliente = clien.Id;
+            model.Fecha = DateTime.Now;
+            model.Tipo = 5;
+            model.Estado = 5;
+            ventaService.ModificarVenta(model);
+
+            return Redirect(@Url.Action("ListarVentas", "Venta"));
         }
 
         [HttpGet]
@@ -232,6 +269,17 @@ namespace SystranHorizonteWeb.Controllers
         {
             try
             {
+                var ventborrar = ventaService.ObtenerVentaPorId(idve);
+                foreach (var item in ventborrar.VentaPasajes)
+                {
+                    var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                    hor.CargaMax = hor.CargaMax - item.CargaPasaje;
+
+                    horarioService.ModificarHorario(hor);
+
+                }//Eliminar Carga
+
                 ventaService.EliminarVenta(idve);
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }

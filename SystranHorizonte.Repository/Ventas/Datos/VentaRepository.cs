@@ -115,8 +115,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public void ModificarVenta(Venta venta)
         {
-            try
-            {
+                
                 Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
                 + venta.Id + "'");
 
@@ -135,13 +134,19 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     }
                 }
 
-                Context.Ventas.Add(venta);
+                //Context.Ventas.Add(venta);
                 Context.SaveChanges();
 
                 decimal totalVenta = 0;
+                decimal totalCarga = 0;
 
                 foreach (var detalle in venta.VentaPasajes)
                 {
+                    if (detalle.IdClienteTemp != 0)
+                    {
+                    detalle.IdCliente = detalle.IdClienteTemp;
+                    }
+
                     String x = detalle.Pago.ToString();
                     
                     Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaPasaje @Pago = '" + decimalAstring(detalle.Pago)
@@ -149,9 +154,12 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     + "', @IdHorario = '" + detalle.IdHorario
                     + "', @IdCliente = '" + detalle.IdCliente
                     + "', @IdCarga = '" + detalle.IdCarga
+                    + "', @Carga = '" + decimalAstring(detalle.CargaPasaje)
                     + "', @IdVenta = '" + venta.Id + "'");
 
                     totalVenta = totalVenta + detalle.Pago;
+                    totalCarga = totalCarga + detalle.CargaPasaje;
+                
                 }
 
                 foreach (var item in venta.VentaPasajes)
@@ -166,21 +174,15 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     item.Asiento = asientos.Asiento;
                 }
 
-                Context.Ventas.Add(venta);
+                //Context.Ventas.Add(venta);
                 Context.SaveChanges();
 
                 Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaSUPER @NroVenta = '" + venta.NroVenta
                     + "', @Tipo = '" + venta.Tipo
                     + "', @TotalVenta = '" + decimalAstring(totalVenta)
                     + "', @IdCliente = '" + venta.IdCliente
-                    + "', @Id = '" + venta.Id + "'");
-
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
+                    + "', @Id = '" + venta.Id
+                    + "', @TotalCarga = '" + decimalAstring(totalCarga) + "'");
         }
 
         public void EliminarVenta(int id)

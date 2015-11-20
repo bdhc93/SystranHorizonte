@@ -61,12 +61,35 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult ModificarVenta(Venta model)
         {
+            var ventborrar = ventaService.ObtenerVentaPorId(model.Id);
+
+            foreach (var item in ventborrar.VentaPasajes)
+            {
+                var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                hor.CargaMax = hor.CargaMax - item.CargaPasaje;
+
+                horarioService.ModificarHorario(hor);
+
+            }//Eliminar Carga
+
+
+
             var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
             model.IdCliente = clien.Id;
             model.Fecha = DateTime.Now;
             model.Tipo = 1;
-            model.Estado = 2;
+            model.Estado = 1;
             ventaService.ModificarVenta(model);
+
+            foreach (var item in model.VentaPasajes)
+            {
+                var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                hor.CargaMax = hor.CargaMax + item.CargaPasaje;
+
+                horarioService.ModificarHorario(hor);
+            }//Nueva Carga
 
             return Redirect(@Url.Action("ListarVentas", "Venta"));
         }
@@ -699,6 +722,17 @@ namespace SystranHorizonteWeb.Controllers
         {
             try
             {
+                var ventborrar = ventaService.ObtenerVentaPorId(idve);
+                foreach (var item in ventborrar.VentaPasajes)
+                {
+                    var hor = horarioService.ObtenerClientePorId(item.IdHorario);
+
+                    hor.CargaMax = hor.CargaMax - item.CargaPasaje;
+
+                    horarioService.ModificarHorario(hor);
+
+                }//Eliminar Carga
+
                 ventaService.EliminarVenta(idve);
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }

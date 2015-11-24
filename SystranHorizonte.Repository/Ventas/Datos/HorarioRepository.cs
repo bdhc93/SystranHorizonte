@@ -115,26 +115,52 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             return query.ToList();
         }
 
-        public void GenerarHorarios()
+        public string GenerarHorarios()
         {
-            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino")
-                        where p.Estado == true
-                        select p;
-
-            foreach (var item in query)
+            try
             {
-                var ventaasientos = new VentaAsientos { Fecha = DateTime.Today, IdHorario = item.Id, IdVehiculo = item.VehiculoId };
+                var query1 = from p in Context.VentaAsientos
+                             where p.Fecha >= DateTime.Today
+                             select p;
 
-                for (int i = 0; i < item.Asientos; i++)
+                if (query1.Count() == 0)
                 {
-                    ventaasientos.Asiento = i + 1;
-                    ventaasientos.Libre = true;
-                    ventaasientos.Falsa = true;
-                    Context.VentaAsientos.Add(ventaasientos);
+                    var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino")
+                                where p.Estado == true
+                                select p;
+                    List<Horario> hor = new List<Horario>();
+
+                    foreach (var item in query)
+                    {
+                        Horario newhor = item;
+                        hor.Add(newhor);
+                    }
+
+                    foreach (var item in hor)
+                    {
+                        for (int i = 0; i < item.Asientos; i++)
+                        {
+                            Context.Database.ExecuteSqlCommand("exec dbo.GenerarAsientosHorario @Asiento = '" + (i + 1)
+                                + "', @Libre = '" + true
+                                + "', @Falsa = '" + true
+                                + "', @IdVentaTemp = '" + 0
+                                + "', @IdHorario = '" + item.Id
+                                + "', @IdVehiculo = '" + item.VehiculoId + "'");
+                        }
+                    }
+
+
+                    return "Horarios Generados Correctamente";
+                }
+                else
+                {
+                    return "No se pueden Generar Horarios";
                 }
             }
-
-            Context.SaveChanges();
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

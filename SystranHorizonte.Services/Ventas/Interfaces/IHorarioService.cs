@@ -12,6 +12,8 @@ namespace SystranHorizonte.Services.Ventas.Interfaces
         IEnumerable<Horario> ObtenerHorariosPorEstacionNoVacio(Int32 idEstacion, Int32 idDestino);
         IEnumerable<Horario> ObtenerHorarios();
 
+        String GenerarHorarios();
+
         void GuardarHorario(Horario horario);
         void ModificarHorario(Horario horario);
         void EliminarHorario(Int32 id);

@@ -12,7 +12,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
         IEnumerable<Horario> ObtenerHorariosPorEstacionNoVacio(Int32 idEstacion, Int32 idDestino);
         IEnumerable<Horario> ObtenerHorarios();
 
-        void GenerarHorarios();
+        String GenerarHorarios();
 
         void GuardarHorario(Horario horario);
         void ModificarHorario(Horario horario);

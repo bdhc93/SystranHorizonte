@@ -51,8 +51,7 @@ namespace SystranHorizonteWeb.Controllers
         [HttpGet]
         public ActionResult GenerarHorarios()
         {
-
-            ViewBag.Mensaje = "Horarios creados correctamente";
+            ViewBag.Mensaje = horarioService.GenerarHorarios(); ;
 
             return PartialView("Eliminar");
         }

@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            <a class="btn btn-default pull-right" href="@Url.Action("GenerarHorarios", "Horario")">Generar Horarios</a><br />
+            <a class="btn btn-default pull-right" onclick="abrirmodalGeneraHorario()">Generar Horarios</a><br />
         </div>
     </div>
     <br />
@@ -58,7 +58,7 @@
                         <td>@item.Asientos</td>
                         <td>@item.EstacionOrigen.EstacionesT</td>
                         <td>@item.EstacionDestino.EstacionesT</td>
-                        <td>@item.CargaMax</td>
+                        <td>@item.CargaActual</td>
                         <td>@item.EstadoMostrar</td>
                         <td><a href="@Url.Action("Modificar", "Horario", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
@@ -94,6 +94,14 @@
                 $("#Detalle").html(resultado);
                 $('#Ver').modal('show');
             })
+    }
+
+    function abrirmodalGeneraHorario() {
+        $.get("GenerarHorarios").
+        success(function (resultado) {
+            $("#Detalle").html(resultado);
+            $('#Ver').modal('show');
+        })
     }
 
     $("#OrigenId").change(function (e) {

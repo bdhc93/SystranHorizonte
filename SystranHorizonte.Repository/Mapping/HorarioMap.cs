@@ -26,6 +26,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Asientos).IsRequired();
             this.Property(p => p.Estado).IsRequired();
             this.Property(p => p.CargaMax).IsRequired();
+            this.Property(p => p.CargaActual).IsOptional();
             this.Property(p => p.Costo).IsRequired().HasPrecision(9, 2);
             this.Ignore(p => p.EstadoMostrar);
             this.Property(p => p.VehiculoId).IsOptional();
@@ -45,6 +46,7 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(c => c.Costo).HasColumnName("Costo");
             this.Property(c => c.Estado).HasColumnName("Estado");
             this.Property(c => c.CargaMax).HasColumnName("CargaMax");
+            this.Property(c => c.CargaActual).HasColumnName("CargaActual");
 
             this.HasRequired(h => h.EstacionOrigen)
                 .WithMany(h => h.Horarios)

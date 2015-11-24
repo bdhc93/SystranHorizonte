@@ -59,5 +59,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             return ventaRepository.ObtenerReservas(criterio, fechaIni, fechaFin, idestacion);
         }
+
+        public Venta ObtenerVentaporNroVenta(int nroVenta)
+        {
+            return ventaRepository.ObtenerVentaporNroVenta(nroVenta);
+        }
     }
 }

@@ -1,0 +1,235 @@
+﻿@model SystranHorizonte.Models.Venta
+
+<div class="row">
+    <form action="@Url.Action("AgregarEncomienda", "Encomienta")" method="post">
+        <fieldset>
+            <legend>Nueva Encomienda</legend>
+            <div class="col-md-12">
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Nro Venta</label>
+                            <input type="text" name="NroVenta" class="form-control" placeholder="1345" value="@Model.NroVenta" readonly="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Fecha</label>
+                            <input type="date" name="Fecha" class="form-control" value="@ViewBag.Fecha" readonly="True" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12" style="margin-left:-16px"><label>DniRuc*</label></div>
+                            <div class="col-md-11" style="margin-left:-16px"><input type="number" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" required min="10000000" value="@Model.Cliente.DniRuc" /></div>
+                            <div class="col-md-1"><a class="btn btn-info" href="@Url.Action("ClientesPrin", "Encomienta")" id="btnBuscar">...</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="clients">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <input type="text" name="Direccion" class="form-control" placeholder="Jr. San Miguel 452" value="@Model.Cliente.Direccion" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nombre*</label>
+                                <input type="text" name="Nombre" class="form-control" placeholder="Carlos" pattern="[a-zA-Z\sáéíóúñüàè]+" value="@Model.Cliente.Nombre" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input type="tel" name="Telefono" class="form-control" placeholder="076 365458" value="@Model.Cliente.Telefono" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Apellidos*</label>
+                                <input type="text" name="Apellidos" class="form-control" placeholder="Alberto" pattern="[a-zA-Z\sáéíóúñüàè]+" value="@Model.Cliente.Apellidos" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <br />
+        <br />
+
+        <fieldset>
+            <legend>Detalle Venta</legend>
+            <a class="btn btn-link pull-right" onclick="abrirModalPasajes()">Agregar Encomienda</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>DniRuc</th>
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Precio</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="VentaTBody">
+
+                    @{
+                        int i = 0;
+
+                        foreach (var item in Model.VentaEncomiendas)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Cliente.DniRuc
+                                </td>
+                                <td>
+                                    <input type="hidden" value="@Model.Id" />
+                                    @item.Cliente.Nombre
+                                </td>
+                                <td>
+                                    @item.Horario.EstacionOrigen.EstacionesT
+                                </td>
+                                <td>
+                                    @item.Horario.EstacionDestino.EstacionesT
+                                </td>
+                                <td>
+                                    @item.Pago
+                                </td>
+                                <td>
+                                    @item.Descripcion
+                                </td>
+                                <td>
+                                    <a href="#" onclick="EliminarDetalle(@i)">Eliminar</a>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].IdHorario" value="@item.IdHorario" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].IdCarga" value="@item.IdCarga" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].Pago" value="@item.Pago" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].CargaEncomienda" value="@item.CargaEncomienda" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].Descripcion" value="@item.Descripcion" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].IdClienteTemp" value="@item.IdClienteTemp" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].DniRucClienteTemp" value="@item.DniRucClienteTemp" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].NombreClienteTemp" value="@item.NombreClienteTemp" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].ApellidosClienteTemp" value="@item.ApellidosClienteTemp" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].DireccionClienteTemp" value="@item.DireccionClienteTemp" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="VentaEncomiendas[@i].TelefonoClienteTemp" value="@item.TelefonoClienteTemp" />
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <div class="col-md-12" id="TotalPrecio">
+                <div class="col-md-1 text-right">
+                    <label>Total:</label>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" name="TotalVenta" id="TotalVenta" readonly="true" value="@Model.TotalVenta" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="col-md-12">
+                <button class="btn btn-danger btn-lg" type="submit">Guardar</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+</div>
+
+<div class="modal fade" id="CrearPasaje">
+    <div class="modal-dialog" style="min-width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalle Encomienda</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" id="PasajeTable">
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    function abrirModalPasajes() {
+        $.get('@Url.Action("DetalleVenta", "Encomienta")')
+        .success(function (respuesta) {
+            $('#PasajeTable').html(respuesta);
+            $('#CrearPasaje').modal('show');
+        });
+    }
+
+    $("#btnBuscar").click(function (e) {
+        e.preventDefault();
+        $.get(this.href, { dni: $("#RucDniCliente").val() }).
+            success(function (resultado) { $("#clients").html(resultado); })
+    });
+
+    function EliminarDetalle(id) {
+
+        var valorelim = 0;
+        $("#VentaTBody tr:eq(" + id + ")").find('td:eq(4)').each(function () {
+            valor = $(this).html();
+            valorelim = valor + "";
+        })
+        $.get('@Url.Action("CajaTotalPago", "Encomienta")', {
+            pago: valorelim,
+            totalVenta: $("#TotalVenta").val(),
+            estado: false
+        })
+        .success(function (response) {
+            $('#TotalPrecio').html(response);
+        });
+
+        $("#VentaTBody tr").on("click", function () {
+            $(this).remove();
+            return false;
+        });
+    }
+
+</script>

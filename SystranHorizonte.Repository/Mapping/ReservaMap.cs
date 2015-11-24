@@ -31,6 +31,13 @@ namespace SystranHorizonte.Repository.Mapping
             
             this.Property(p => p.CargaReserva).IsOptional();
 
+            this.Ignore(p => p.IdClienteTemp);
+            this.Ignore(p => p.DniRucClienteTemp);
+            this.Ignore(p => p.NombreClienteTemp);
+            this.Ignore(p => p.ApellidosClienteTemp);
+            this.Ignore(p => p.DireccionClienteTemp);
+            this.Ignore(p => p.TelefonoClienteTemp);
+
             this.ToTable("Reserva");
             this.Property(c => c.Id).HasColumnName("Id");
             this.Property(c => c.IdHorario).HasColumnName("IdHorario");

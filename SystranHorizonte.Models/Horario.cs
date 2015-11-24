@@ -32,6 +32,8 @@ namespace SystranHorizonte.Models
 
         public Decimal CargaMax { get; set; }
 
+        public Decimal CargaActual { get; set; }
+
         public Boolean Estado { get; set; }
 
         public String CostoText { get; set; }

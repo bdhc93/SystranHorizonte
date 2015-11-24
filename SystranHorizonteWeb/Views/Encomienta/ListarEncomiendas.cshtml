@@ -18,7 +18,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label>Fecha Inicio:</label>
-                <input type="date" class="form-control" id="txtCalendar" onkeyup="buscarVentas()" value="@ViewBag.Fecha" />
+                <input type="date" class="form-control" id="txtCalendar" onkeyup="buscarVentas()" value="@ViewBag.Fecha" max="@ViewBag.Fecha" />
             </div>
         </div>
         <div class="col-md-3">
@@ -75,7 +75,7 @@
                         <td>@item.Cliente.Telefono</td>
                         <td>@item.TotalVenta</td>
                         <td>@item.Fecha</td>
-                        <td><a href="@Url.Action("FinalVenta", "Encomienta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Encomienta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+                        <td><a href="@Url.Action("FinalVenta", "Encomienta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarEncomienda", "Encomienta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }
             </tbody>

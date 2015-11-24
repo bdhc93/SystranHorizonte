@@ -4,28 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SystranHorizonte.Services.Ventas.Interfaces;
+using SystranHorizonte.Models;
 
 namespace SystranHorizonteWeb.Controllers
 {
     public class ServiciosJsonController : Controller
     {
-        public IVehiculoService vehiculoService { get; set; }
         public IHorarioService horarioService { get; set; }
         public IEstacionService estacionService { get; set; }
-        public IEmpleadoService empleadoService { get; set; }
-        public IClienteService clienteService { get; set; }
-        public ICargaService cargaService { get; set; }
+        public IVentaService ventaService { get; set; }
 
-        public ServiciosJsonController(IVehiculoService vehiculoService, IHorarioService horarioService,
-            IEstacionService estacionService, IEmpleadoService empleadoService,
-            IClienteService clienteService, ICargaService cargaService)
+        public ServiciosJsonController(IHorarioService horarioService,
+            IEstacionService estacionService, IVentaService ventaService)
         {
-            this.vehiculoService = vehiculoService;
             this.horarioService = horarioService;
             this.estacionService = estacionService;
-            this.empleadoService = empleadoService;
-            this.clienteService = clienteService;
-            this.cargaService = cargaService;
+            this.ventaService = ventaService;
         }
 
         public ActionResult Index()
@@ -111,6 +105,56 @@ namespace SystranHorizonteWeb.Controllers
             //var horarios = horarioService.ObtenerHorarios();
 
         }
-        
+
+        [HttpGet]
+        public ActionResult ListEstado(String nroVenta)
+        {
+            if (!String.IsNullOrEmpty(nroVenta))
+            {
+                int NroVenta = Int32.Parse(nroVenta);
+
+                var venta = ventaService.ObtenerVentaporNroVenta(NroVenta);
+                var ventas = new List<Venta>();
+                ventas.Add(venta);
+
+                var tipo = "";
+
+                switch (venta.Tipo)
+                {
+                    case 1:
+                        tipo = "Pasaje";
+                        break;
+                    case 3:
+                        tipo = "Encomienda";
+                        break;
+                    case 5:
+                        tipo = "Reserva";
+                        break;
+                    default:
+                        break;
+                }
+
+                return this.Json(new
+                {
+                    DetalleVenta = from obj in ventas
+                                   select new
+                                   {
+                                       Fecha = obj.Fecha.Day + "-" + obj.Fecha.Month + "-" + obj.Fecha.Year,
+                                       Estado = obj.EstadoMostrar,
+                                       Tipo = tipo,
+                                       NombreCliente = obj.Cliente.Nombre + " " + obj.Cliente.Apellidos,
+                                       RucDni = obj.Cliente.DniRuc,
+                                       TotalVenta = obj.TotalVenta + ""
+                                   }
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return this.Json(new
+            {
+                Mensaje = "Error en la data"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

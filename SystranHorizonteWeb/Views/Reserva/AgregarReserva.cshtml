@@ -1,14 +1,14 @@
 ﻿<div class="row">
-    <form action="@Url.Action("AgregarEncomienda", "Encomienta")" method="post">
+    <form action="@Url.Action("AgregarReserva", "Reserva")" method="post">
         <fieldset>
-            <legend>Nueva Encomienda</legend>
+            <legend>Nueva Reserva</legend>
             <div class="col-md-12">
 
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nro Venta</label>
-                            <input type="text" name="NroVenta" class="form-control" placeholder="1345" value="@ViewBag.NroVenta" readonly="true" />
+                            <input type="text" name="NroVenta" id="NroVenta" class="form-control" placeholder="1345" value="@ViewBag.NroVenta" readonly />
                         </div>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Fecha</label>
-                            <input type="date" name="Fecha" class="form-control" value="@ViewBag.Fecha" readonly="True" />
+                            <input type="date" name="Fecha" class="form-control" value="@ViewBag.Fecha" readonly />
                         </div>
                     </div>
                 </div>
@@ -24,8 +24,8 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="col-md-12" style="margin-left:-16px"><label>DniRuc*</label></div>
-                            <div class="col-md-11" style="margin-left:-16px"><input type="number" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" required min="10000000"/></div>
-                            <div class="col-md-1"><a class="btn btn-info" href="@Url.Action("ClientesPrin", "Encomienta")" id="btnBuscar">...</a></div>
+                            <div class="col-md-11" style="margin-left:-16px"><input type="number" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" required min="10000000" /></div>
+                            <div class="col-md-1"><a class="btn btn-info" href="@Url.Action("ClientesPrin", "Venta")" id="btnBuscar">...</a></div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Nombre*</label>
-                                <input type="text" name="Nombre" class="form-control" placeholder="Carlos" pattern="[a-zA-Z\sáéíóúñüàè]+" required />
+                                <input type="text" name="Nombre" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required />
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Telefono</label>
-                                <input type="tel" name="Telefono" class="form-control" placeholder="076 365458" />
+                                <input type="tel" name="Telefono" id="txttelefono" class="form-control" placeholder="076 365458" />
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Apellidos*</label>
-                                <input type="text" name="Apellidos" class="form-control" placeholder="Alberto" pattern="[a-zA-Z\sáéíóúñüàè]+" required/>
+                                <input type="text" name="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Alberto" required />
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
 
         <fieldset>
             <legend>Detalle Venta</legend>
-            <a class="btn btn-link pull-right" onclick="abrirModalPasajes()">Agregar Encomienda</a>
+            <a class="btn btn-link pull-right" onclick="abrirModalPasajes()">Agregar Reserva</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -80,12 +80,11 @@
                         <th>Origen</th>
                         <th>Destino</th>
                         <th>Precio</th>
-                        <th>Descripcion</th>
+                        <th>A Cuenta</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="VentaTBody">
-                </tbody>
+                <tbody id="VentaTBody"></tbody>
             </table>
             <div class="col-md-12" id="TotalPrecio">
                 <div class="col-md-1 text-right">
@@ -111,7 +110,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Detalle Encomienda</h4>
+                <h4 class="modal-title">Detalle Pasaje</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -127,8 +126,16 @@
 </div>
 
 <script>
+    var a = 0;
+    $("#ACuenta").keypress(function (e) {
+        a = $("#ACuenta").val();
+        if (a < 0) {
+            console.log(a);
+            e.preventDefault();
+        }
+    });
     function abrirModalPasajes() {
-        $.get('@Url.Action("DetalleVenta", "Encomienta")')
+        $.get('@Url.Action("DetalleVenta", "Reserva")')
         .success(function (respuesta) {
             $('#PasajeTable').html(respuesta);
             $('#CrearPasaje').modal('show');
@@ -139,6 +146,21 @@
         e.preventDefault();
         $.get(this.href, { dni: $("#RucDniCliente").val() }).
             success(function (resultado) { $("#clients").html(resultado); })
+    });
+
+    $(document).ready(function () {
+        $("#txttelefono").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
     });
 
 </script>

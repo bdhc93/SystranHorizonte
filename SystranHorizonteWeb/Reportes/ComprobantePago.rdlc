@@ -1262,14 +1262,33 @@
       </ConnectionProperties>
       <rd:DataSourceID>9cbda592-952f-4650-919e-e6e8e2881a37</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="DBSystranDataSet2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>06457d8c-78ee-4ef8-a445-b753db588bc7</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="ComprobantePago">
       <Query>
-        <DataSourceName>DBSystranDataSet</DataSourceName>
+        <DataSourceName>DBSystranDataSet2</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NroVenta">
+          <DataField>NroVenta</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IdVenta">
+          <DataField>IdVenta</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="Pago">
           <DataField>Pago</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -1278,8 +1297,16 @@
           <DataField>Asiento</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="Costo">
+          <DataField>Costo</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="Apellidos">
           <DataField>Apellidos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DniRuc">
@@ -1300,8 +1327,8 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>DBSystranDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\Repositorios\GitHub\SystranHorizonte\SystranHorizonteWeb\DBSystranDataSet.xsd</rd:SchemaPath>
+        <rd:DataSetName>DBSystranDataSet2</rd:DataSetName>
+        <rd:SchemaPath>D:\Repositorios\GitHub\SystranHorizonte\SystranHorizonteWeb\DBSystranDataSet2.xsd</rd:SchemaPath>
         <rd:TableName>DetalleVenta</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

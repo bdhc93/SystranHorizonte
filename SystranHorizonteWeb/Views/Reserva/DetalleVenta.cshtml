@@ -1,6 +1,6 @@
 ﻿@model SystranHorizonte.Models.VentaPasaje
 @{
-    
+
 }
 <div class="col-md-6">
     <div class="col-md-10">
@@ -12,20 +12,20 @@
     <div class="col-md-2">
         <div class="form-group">
             <label></label>
-            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Venta")" id="btnBuscar2">...</a>
+            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Reserva")" id="btnBuscar2">...</a>
         </div>
     </div>
     <div id="idnombres">
         <div class="col-md-12">
             <div class="form-group">
                 <label>Nombre*</label>
-                <input type="text" name="Nombres" id="Nombres" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required  />
+                <input type="text" name="Nombres" id="Nombres" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required />
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label>Apellidos*</label>
-                <input type="text" name="Apellidos" id="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required  />
+                <input type="text" name="Apellidos" id="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" required />
             </div>
         </div>
         <div class="col-md-12">
@@ -82,23 +82,29 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Carga</label>
-                <input type="number" name="cargaPasaje" value="0" class="form-control" disabled/>
+                <input type="number" name="cargaPasaje" value="0" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>A Cuenta</label>
+                <input type="number" name="ACuenta" id="ACuenta" value="0" class="form-control" disabled/>
             </div>
         </div>
         <div id="txtPago">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Pago</label>
-                    <input type="number" name="Pago" id="Pago" class="form-control" disabled/>
+                    <input type="number" name="Pago" id="Pago" class="form-control" disabled />
                 </div>
             </div>
         </div>
-
     </div>
+    
 </div>
 
 <div id="VistaAsientos">
-    
+
 </div>
 
 
@@ -114,15 +120,15 @@
             success(function (resultado) { $("#idnombres").html(resultado); })
     });
     $("#IdOrigen").change(function (e) {
-        $.get('@Url.Action("HorariosEstacionOrigen", "Venta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+        $.get('@Url.Action("HorariosEstacionOrigen", "Reserva")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
             success(function (resultado) { $("#ddlHorarios").html(resultado); })
     });
     $("#IdDestino").change(function (e) {
-        $.get('@Url.Action("HorariosEstacionOrigen", "Venta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+        $.get('@Url.Action("HorariosEstacionOrigen", "Reserva")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
             success(function (resultado) { $("#ddlHorarios").html(resultado); })
     });
     $("#IdHorario").change(function (e) {
-        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+        $.get('@Url.Action("Pagos", "Reserva")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
 
@@ -181,9 +187,9 @@
 
     function AgregarPasajeAVenta() {
 
-        if ($("#lbdni").val() != "" && $("#Nombres").val() != "" && $("#Apellidos").val() != "" && $("#IdHorario").val() != "" && $("#IdOrigen").val() != "" && $("#IdDestino").val() != "" && $("#IdAsiento").val() != "" && $("#cargaPasaje").val() >= 0 && $("#Pago").val() != "Carga Superada") {
+        if ($("#lbdni").val() != "" && $("#Nombres").val() != "" && $("#Apellidos").val() != "" && $("#IdHorario").val() != "" && $("#IdOrigen").val() != "" && $("#IdDestino").val() != "" && $("#IdAsiento").val() != "" && $("#cargaPasaje").val() >= 0 && $("#Pago").val() != "Carga Superada" && $("#ACuenta").val() >= 0) {
             var indice = $('#VentaTBody').find('tr').length;
-            $.get('@Url.Action("AgregarDetalle", "Venta")', {
+            $.get('@Url.Action("AgregarDetalle", "Reserva")', {
                 'indice': indice, idHorario: $("#IdHorario").val(),
                 idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val(),
                 idAsiento: $("#IdAsiento").val(),
@@ -191,13 +197,13 @@
                 Nombres: $("#Nombres").val(), Apellidos: $("#Apellidos").val(),
                 Telefono: $("#Telefono").val(), Direccion: $("#Direccion").val(),
                 AsientoCache: $("#IdAs").val(), idventa: $("#NroVenta").val(),
-                CargaPasaje: $("#cargaPasaje").val()
+                CargaPasaje: $("#cargaPasaje").val(), Acuenta: $("#ACuenta").val()
             })
             .success(function (respuesta) {
                 $('#VentaTBody').append(respuesta);
             });
 
-            $.get('@Url.Action("CajaTotalPago", "Venta")', {
+            $.get('@Url.Action("CajaTotalPago", "Reserva")', {
                 pago: $("#Pago").val(),
                 totalVenta: $("#TotalVenta").val(),
                 estado: true,
@@ -206,7 +212,7 @@
             .success(function (response) {
                 $('#TotalPrecio').html(response);
             });
-        }        
+        }
     }
 
 </script>

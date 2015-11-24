@@ -176,15 +176,11 @@
     <Compile Include="Controllers\EstacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\ServiciosJsonController.cs" />
     <Compile Include="Controllers\ServiciosJsonTestController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
-    <Compile Include="DBSystranDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBSystranDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DBSystranDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -248,17 +244,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="DBSystranDataSet.xsc">
-      <DependentUpon>DBSystranDataSet.xsd</DependentUpon>
-    </Content>
-    <None Include="DBSystranDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DBSystranDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="DBSystranDataSet.xss">
-      <DependentUpon>DBSystranDataSet.xsd</DependentUpon>
-    </Content>
     <Content Include="DBSystranDataSet2.xsc">
       <DependentUpon>DBSystranDataSet2.xsd</DependentUpon>
     </Content>
@@ -326,12 +311,8 @@
     <Content Include="Views\Estacion\Eliminar.cshtml" />
     <Content Include="Views\Estacion\ListarEstacion.cshtml" />
     <Content Include="Views\Estacion\Modificar.cshtml" />
-    <Content Include="Views\ServiciosJson\ListCarga.cshtml" />
-    <Content Include="Views\ServiciosJson\ListClientes.cshtml" />
-    <Content Include="Views\ServiciosJson\ListEmpleados.cshtml" />
     <Content Include="Views\ServiciosJson\ListEstacion.cshtml" />
     <Content Include="Views\ServiciosJson\ListHorarios.cshtml" />
-    <Content Include="Views\ServiciosJson\ListVehiculos.cshtml" />
     <Content Include="Views\Vehiculo\_Listar.cshtml" />
     <Content Include="Views\Vehiculo\AgregarVehiculo.cshtml" />
     <Content Include="Views\Vehiculo\Eliminar.cshtml" />
@@ -373,6 +354,20 @@
     <Content Include="Views\Encomienta\Eliminar.cshtml" />
     <Content Include="Views\Venta\_ListVentas.cshtml" />
     <Content Include="Views\Encomienta\_ListVentas.cshtml" />
+    <Content Include="Views\Encomienta\ModificarEncomienda.cshtml" />
+    <Content Include="Views\Reserva\ListarReservas.cshtml" />
+    <Content Include="Views\Reserva\AgregarReserva.cshtml" />
+    <Content Include="Views\Reserva\DetalleVenta.cshtml" />
+    <Content Include="Views\Reserva\_Clientes.cshtml" />
+    <Content Include="Views\Reserva\_Asientos.cshtml" />
+    <Content Include="Views\Reserva\_AddVenta.cshtml" />
+    <Content Include="Views\Reserva\__AddVenta.cshtml" />
+    <Content Include="Views\Reserva\___AddVenta.cshtml" />
+    <Content Include="Views\Reserva\____AddVenta.cshtml" />
+    <Content Include="Views\Reserva\_DetalleVenta.cshtml" />
+    <Content Include="Views\Reserva\_Pago.cshtml" />
+    <Content Include="Views\Reserva\FinalReserva.cshtml" />
+    <Content Include="Views\Reserva\_ListVentas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

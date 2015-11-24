@@ -24,12 +24,12 @@
         <input type="number" name="cargaPasaje" id="cargaPasaje" value="0" class="form-control" />
     </div>
 </div>
-@*<div class="col-md-12">
+<div class="col-md-12">
     <div class="form-group">
-        <label>Carga</label>
-        @Html.DropDownList("IdCarga", Cargas, "-- Seleccionar --", new { @class = "form-control" })
+        <label>A Cuenta</label>
+        <input type="number" name="ACuenta" id="ACuenta" value="0" class="form-control" />
     </div>
-</div>*@
+</div>
 <div id="txtPago">
     <div class="col-md-12">
         <div class="form-group">
@@ -41,21 +41,38 @@
 
 <script>
     $("#IdHorario").change(function (e) {
-        $.get('@Url.Action("Pagos", "Venta")', { IdHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
+        $.get('@Url.Action("Pagos", "Reserva")', { IdHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val(), ACuenta: $("#ACuenta").val() }).
+            success(function (resultado) { $("#txtPago").html(resultado); })
+    });
+    $("#ACuenta").change(function (e) {
+        $.get('@Url.Action("Pagos", "Reserva")', { idHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val(), ACuenta: $("#ACuenta").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
     $("#cargaPasaje").change(function (e) {
-        $.get('@Url.Action("Pagos", "Venta")', { idHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
+        $.get('@Url.Action("Pagos", "Reserva")', { idHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val(), ACuenta: $("#ACuenta").val() }).
             success(function (resultado) { $("#txtPago").html(resultado); })
     });
     $("#IdHorario").change(function (e) {
-        $.get('@Url.Action("Asientos", "Venta")', { IdHorario: $("#IdHorario").val() }).
+        $.get('@Url.Action("Asientos", "Reserva")', { IdHorario: $("#IdHorario").val() }).
             success(function (resultado) { $("#listAsiento").html(resultado); }),
-        $.get('@Url.Action("AsientosPrevio", "Venta")', { IdHorario: $("#IdHorario").val() }).
+        $.get('@Url.Action("AsientosPrevio", "Reserva")', { IdHorario: $("#IdHorario").val() }).
             success(function (resultado) { $("#VistaAsientos").html(resultado); })
     });
     $("#IdAsiento").change(function (e) {
-        $.get('@Url.Action("AsientosPrevio", "Venta")', { idHorario: $("#IdHorario").val(), asiento: $("#IdAsiento").val() }).
+        $.get('@Url.Action("AsientosPrevio", "Reserva")', { idHorario: $("#IdHorario").val(), asiento: $("#IdAsiento").val() }).
             success(function (resultado) { $("#VistaAsientos").html(resultado); })
+    });
+    var a = 0;
+    $("#ACuenta").keypress(function (e) {
+        a = $("#ACuenta").val();
+        if (e.charCode == 45) {
+            e.preventDefault();
+        }
+    });
+    $("#cargaPasaje").keypress(function (e) {
+        a = $("#cargaPasaje").val();
+        if (e.charCode == 45) {
+            e.preventDefault();
+        }
     });
 </script>

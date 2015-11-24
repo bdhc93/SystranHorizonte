@@ -2,11 +2,11 @@
     IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
 }
 
-<h2>Ventas</h2>
+<h2>Reservas</h2>
 
 <div class="row">
     <div class="col-md-12">
-        <a class="btn btn-default pull-right" href="@Url.Action("AgregarVenta", "Venta")">Nueva Venta</a><br />
+        <a class="btn btn-default pull-right" href="@Url.Action("AgregarReserva", "Reserva")">Nueva Reserva</a><br />
     </div>
     <div class="col-md-12">
         <div class="col-md-12">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+
     <br />
     <br />
     <div class="col-md-12" id="listVentas">
@@ -78,7 +78,7 @@
                         <td>@item.Cliente.Telefono</td>
                         <td>@item.TotalVenta</td>
                         <td>@item.Fecha</td>
-                        <td><a href="@Url.Action("FinalVenta", "Venta",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarVenta", "Venta",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+                        <td><a href="@Url.Action("FinalReserva", "Reserva",new {id = @item.Id})" id="btnVer">Ver</a> | <a href="@Url.Action("ModificarReserva", "Reserva",new {id = @item.Id})">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
                     </tr>
                 }
             </tbody>
@@ -156,7 +156,7 @@
         if(listreport.selectedIndex<1)
             alert('Seleccionar una opcion');
         else
-            window.location.href = '@Url.Action("ReportReportesVentas", "Venta")' + "/?" +
+            window.location.href = '@Url.Action("ReportReportesReserva", "Reserva")' + "/?" +
                 "id="+ listreport.options[listreport.selectedIndex].value + "&" +
                 "criterio=" + $("#txtBuscar").val() + "&" + "fechaini=" + $("#txtCalendar").val()
                 + "&" + "fechafin=" + $("#txtCalendar2").val() + "&" + "EstacionOringen=" + $("#IdOrigen").val();

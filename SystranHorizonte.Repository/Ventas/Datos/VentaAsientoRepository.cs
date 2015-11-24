@@ -42,7 +42,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
         public IEnumerable<VentaAsientos> ObtenerVentaAsientosPorHorario(int id, int eve)
         {
             var query = from p in Context.VentaAsientos.Include("Vehiculo").Include("Horario")
-                        where p.IdHorario == id && p.Falsa == true
+                        where p.IdHorario == id && p.Falsa == true && p.Fecha >= System.DateTime.Today
                         orderby p.Asiento
                         select p;
 

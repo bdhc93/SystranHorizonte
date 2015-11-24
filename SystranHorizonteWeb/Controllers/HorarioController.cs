@@ -48,6 +48,15 @@ namespace SystranHorizonteWeb.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult GenerarHorarios()
+        {
+
+            ViewBag.Mensaje = "Horarios creados correctamente";
+
+            return PartialView("Eliminar");
+        }
+
         [HttpPost]
         public ActionResult AddHorario(Horario model)
         {

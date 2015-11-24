@@ -114,5 +114,27 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             }
             return query.ToList();
         }
+
+        public void GenerarHorarios()
+        {
+            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino")
+                        where p.Estado == true
+                        select p;
+
+            foreach (var item in query)
+            {
+                var ventaasientos = new VentaAsientos { Fecha = DateTime.Today, IdHorario = item.Id, IdVehiculo = item.VehiculoId };
+
+                for (int i = 0; i < item.Asientos; i++)
+                {
+                    ventaasientos.Asiento = i + 1;
+                    ventaasientos.Libre = true;
+                    ventaasientos.Falsa = true;
+                    Context.VentaAsientos.Add(ventaasientos);
+                }
+            }
+
+            Context.SaveChanges();
+        }
     }
 }

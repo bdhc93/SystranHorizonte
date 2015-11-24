@@ -14,6 +14,7 @@ namespace SystranHorizonte.Services.Ventas.Interfaces
         IEnumerable<Venta> ObtenerVentas();
         IEnumerable<Venta> ObtenerEncomiendas(String criterio, DateTime fechaIni, DateTime fechaFin, Int32 idestacion);
         IEnumerable<Venta> ObtenerReservas(String criterio, DateTime fechaIni, DateTime fechaFin, Int32 idestacion);
+        Venta ObtenerVentaporNroVenta(Int32 nroVenta);
 
         Int32 ObtenerNroVenta();
 

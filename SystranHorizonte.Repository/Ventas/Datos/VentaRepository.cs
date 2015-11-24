@@ -20,7 +20,13 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 .Include("VentaEncomiendas.Horario.EstacionOrigen")
                 .Include("VentaEncomiendas.Horario.EstacionDestino")
                 .Include("Cliente")
-                .Include("Reseras").Where(p => p.Id.Equals(id)).SingleOrDefault();
+                .Include("Reseras")
+                .Include("Reseras.Horario")
+                .Include("Reseras.Horario.EstacionOrigen")
+                .Include("Reseras.Horario.EstacionDestino")
+                .Include("Reseras.Cliente")
+                .Include("Reseras.Carga")
+                .Where(p => p.Id.Equals(id)).SingleOrDefault();
         }
 
         public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
@@ -115,67 +121,90 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
         public void ModificarVenta(Venta venta)
         {
-                
-                Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
-                + venta.Id + "'");
-
-                foreach (var item in venta.VentaPasajes)
-                {
-                    var asien = Context.VentaAsientos.Where(p => p.IdHorario == item.IdHorario);
-
-                    foreach (var item2 in asien)
-                    {
-                        if (item2.Asiento == item.Asiento)
-                        {
-                            var asientomod = Context.VentaAsientos.Find(item2.Id);
-                            asientomod.Falsa = true;
-                            asientomod.Libre = true;
-                        }
-                    }
-                }
-
-                //Context.Ventas.Add(venta);
-                Context.SaveChanges();
-
+            try
+            {
                 decimal totalVenta = 0;
                 decimal totalCarga = 0;
 
-                foreach (var detalle in venta.VentaPasajes)
+                if (venta.Tipo < 5)
                 {
-                    if (detalle.IdClienteTemp != 0)
+                    Context.Database.ExecuteSqlCommand("dbo.EliminarDetalleVentaPasaje @IdVenta = '"
+                    + venta.Id + "'");
+
+                    foreach (var item in venta.VentaPasajes)
                     {
-                    detalle.IdCliente = detalle.IdClienteTemp;
+                        var asien = Context.VentaAsientos.Where(p => p.IdHorario == item.IdHorario);
+
+                        foreach (var item2 in asien)
+                        {
+                            if (item2.Asiento == item.Asiento)
+                            {
+                                var asientomod = Context.VentaAsientos.Find(item2.Id);
+                                asientomod.Falsa = true;
+                                asientomod.Libre = true;
+                            }
+                        }
                     }
 
-                    String x = detalle.Pago.ToString();
+                    //Context.Ventas.Add(venta);
+                    Context.SaveChanges();
+
                     
-                    Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaPasaje @Pago = '" + decimalAstring(detalle.Pago)
-                    + "', @Asiento = '" + detalle.Asiento
-                    + "', @IdHorario = '" + detalle.IdHorario
-                    + "', @IdCliente = '" + detalle.IdCliente
-                    + "', @IdCarga = '" + detalle.IdCarga
-                    + "', @Carga = '" + decimalAstring(detalle.CargaPasaje)
-                    + "', @IdVenta = '" + venta.Id + "'");
 
-                    totalVenta = totalVenta + detalle.Pago;
-                    totalCarga = totalCarga + detalle.CargaPasaje;
-                
+                    foreach (var detalle in venta.VentaPasajes)
+                    {
+                        if (detalle.IdClienteTemp != 0)
+                        {
+                            detalle.IdCliente = detalle.IdClienteTemp;
+                        }
+
+                        String x = detalle.Pago.ToString();
+
+                        detalle.IdVenta = venta.Id;
+
+                        Context.VentaPasajes.Add(detalle);
+
+                        totalVenta = totalVenta + detalle.Pago;
+                        totalCarga = totalCarga + detalle.CargaPasaje;
+
+                    }
+                    Context.SaveChanges();
+
+                    foreach (var item in venta.VentaPasajes)
+                    {
+                        var asientos = Context.VentaAsientos.Find(item.Asiento);
+
+                        asientos.Libre = false;
+                        asientos.Falsa = false;
+
+                        Context.Entry(asientos).State = EntityState.Modified;
+
+                        item.Asiento = asientos.Asiento;
+                    }
+
+                    //Context.Ventas.Add(venta);
+                    Context.SaveChanges();
                 }
-
-                foreach (var item in venta.VentaPasajes)
+                else
                 {
-                    var asientos = Context.VentaAsientos.Find(item.Asiento);
+                    foreach (var detalle in venta.VentaEncomiendas)
+                    {
+                        if (detalle.IdClienteTemp != 0)
+                        {
+                            detalle.IdCliente = detalle.IdClienteTemp;
+                        }
+                        
+                        detalle.IdVenta = venta.Id;
 
-                    asientos.Libre = false;
-                    asientos.Falsa = false;
+                        Context.VentaEncomiendas.Add(detalle);
 
-                    Context.Entry(asientos).State = EntityState.Modified;
+                        totalVenta = totalVenta + detalle.Pago;
+                        totalCarga = totalCarga + detalle.CargaEncomienda;
+                    }
 
-                    item.Asiento = asientos.Asiento;
+                    Context.SaveChanges();
                 }
-
-                //Context.Ventas.Add(venta);
-                Context.SaveChanges();
+                
 
                 Context.Database.ExecuteSqlCommand("exec dbo.UpdateVentaSUPER @NroVenta = '" + venta.NroVenta
                     + "', @Tipo = '" + venta.Tipo
@@ -183,6 +212,13 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                     + "', @IdCliente = '" + venta.IdCliente
                     + "', @Id = '" + venta.Id
                     + "', @TotalCarga = '" + decimalAstring(totalCarga) + "'");
+            }
+            catch (Exception)
+            {
+                
+            }    
+
+               
         }
 
         public void EliminarVenta(int id)
@@ -360,6 +396,26 @@ namespace SystranHorizonte.Repository.Ventas.Datos
             }
 
             return ventas;
+        }
+
+        public Venta ObtenerVentaporNroVenta(int nroVenta)
+        {
+            try
+            {
+                var query = from p in Context.Ventas
+                            .Include("VentaPasajes").Include("VentaEncomiendas")
+                            .Include("Reseras").Include("Cliente")
+                            where p.NroVenta == nroVenta
+                            select p;
+
+                return query.SingleOrDefault();
+            }
+            catch (Exception)
+            {
+
+                return new Venta();
+            }
+            
         }
     }
 }

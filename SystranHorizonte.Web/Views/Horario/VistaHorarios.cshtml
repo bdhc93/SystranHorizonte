@@ -1,0 +1,13 @@
+﻿
+
+@{
+    foreach (var item in Model)
+    {
+        <a href="#" class="list-group-item">
+            @item.EstacionOrigen.Ciudad - @item.EstacionOrigen.Provincia -> @item.EstacionDestino.Ciudad - @item.EstacionDestino.Provincia
+            <span class="pull-right text-muted small">
+                <em>@item.HoraText</em>
+            </span>
+        </a>
+    }
+}

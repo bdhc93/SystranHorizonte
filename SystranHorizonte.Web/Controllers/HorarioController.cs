@@ -41,7 +41,7 @@ namespace SystranHorizonte.Web.Controllers
         {
             var result = horarioService.ObtenerHorariosPorHora();
 
-            return PartialView("_VistaHorarios");
+            return PartialView("VistaHorarios", result);
         }
 
         [HttpGet]

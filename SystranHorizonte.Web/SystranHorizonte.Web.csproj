@@ -1137,7 +1137,7 @@
     <Content Include="Views\Venta\_FinalVenta.cshtml" />
     <Content Include="Views\Venta\_FinalDatosVenta.cshtml" />
     <Content Include="Views\Venta\FinalDetalleVenta.cshtml" />
-    <Content Include="Views\Horario\_VistaHorarios.cshtml" />
+    <Content Include="Views\Horario\VistaHorarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

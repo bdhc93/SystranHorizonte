@@ -164,7 +164,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="list-group" id="salidaVehiculos">
-                    <a href="#" class="list-group-item">
+                    @*<a href="#" class="list-group-item">
                         Cajamarca - San Miguel
                         <span class="pull-right text-muted small">
                             <em>10:57 PM</em>
@@ -182,7 +182,7 @@
                             <em>10:57 AM </em>
                         </span>
                     </a>
-                    @*<a href="#" class="list-group-item">
+                    <a href="#" class="list-group-item">
                             <i class="fa fa-tasks fa-fw"></i> New Task
                             <span class="pull-right text-muted small">
                                 <em>43 minutes ago</em>
@@ -251,18 +251,16 @@
             cache: false
         });
 
-        setTimeout(reloadAsync, 60000);
+        setTimeout(reloadAsync, 1000);
     });
 
     function reloadAsync() {
 
-        $("#salidaVehiculos").load('@Url.Action("VistaHorarios", "Horario")');
-
-        @*$.get('@Url.Action("VistaHorarios", "Horario")')
+        $.get('@Url.Action("VistaHorarios", "Horario")')
         .success(function (response) {
             $('#salidaVehiculos').html(response);
         });
 
-        setTimeout(reloadAsync, 60000);*@
+        setTimeout(reloadAsync, 900000);
     }
 </script>

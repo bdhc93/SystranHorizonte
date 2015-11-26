@@ -11,6 +11,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
         IEnumerable<Horario> ObtenerHorariosPorCiudades(String origen, String destino);
         IEnumerable<Horario> ObtenerHorariosPorEstacionNoVacio(Int32 idEstacion, Int32 idDestino);
         IEnumerable<Horario> ObtenerHorarios();
+        IEnumerable<Horario> ObtenerHorariosPorHora();
 
         String GenerarHorarios();
 

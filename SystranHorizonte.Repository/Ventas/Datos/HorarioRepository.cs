@@ -162,5 +162,18 @@ namespace SystranHorizonte.Repository.Ventas.Datos
                 return e.Message;
             }
         }
+
+        public IEnumerable<Horario> ObtenerHorariosPorHora()
+        {
+            var query = from p in Context.Horarios.Include("EstacionOrigen").Include("EstacionDestino")
+                        select p;
+
+            query = from p in query
+                    where p.Hora.Hour >= DateTime.Now.Hour - 2 && p.Hora.Hour <= DateTime.Now.Hour + 2
+                    orderby (p.Hora)
+                    select p;
+
+            return query;
+        }
     }
 }

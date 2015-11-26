@@ -168,6 +168,26 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult _FinalVenta()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult FinalDatosVenta(Int32 nroVenta)
+        {
+            var result = ventaService.ObtenerVentaPorId(nroVenta);
+            return PartialView("_FinalDatosVenta", result);
+        }
+
+        [HttpGet]
+        public ActionResult FinalDetalleVenta(Int32 nroVenta)
+        {
+            var result = ventaService.ObtenerVentaPorId(nroVenta);
+            return PartialView("FinalDetalleVenta", result);
+        }
+
+        [HttpGet]
         public ActionResult Buscar(string criterio, DateTime fechaini, DateTime fechafin, Int32 EstacionOringen = 0)
         {
             var result = ventaService.ObtenerVentasPorCriterio(criterio, fechaini, fechafin, EstacionOringen);
@@ -292,12 +312,12 @@ namespace SystranHorizonte.Web.Controllers
 
             if (String.IsNullOrEmpty(criterio))
             {
-                criterio = "Null";
+                criterio = "";
             }
 
             if (EstacionOringen == 0)
             {
-                estmos = "Null";
+                estmos = "";
             }
             else
             {

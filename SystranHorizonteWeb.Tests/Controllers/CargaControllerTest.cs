@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SystranHorizonteWeb;
 using SystranHorizonte.Models;
 using SystranHorizonte.Services.Ventas.Interfaces;
-using SystranHorizonteWeb.Controllers;
+using SystranHorizonte.Web.Controllers;
 
 namespace SystranHorizonteWeb.Tests.Controllers
 {

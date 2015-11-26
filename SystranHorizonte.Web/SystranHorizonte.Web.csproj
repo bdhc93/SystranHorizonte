@@ -220,6 +220,11 @@
     <Compile Include="Controllers\ServiciosJsonTestController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="DBSystranDataSetVistas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSystranDataSetVistas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Data.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -977,6 +982,17 @@
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\sb-admin-2.less" />
     <Content Include="Content\less\variables.less" />
+    <Content Include="DBSystranDataSetVistas.xsc">
+      <DependentUpon>DBSystranDataSetVistas.xsd</DependentUpon>
+    </Content>
+    <None Include="DBSystranDataSetVistas.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBSystranDataSetVistas.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DBSystranDataSetVistas.xss">
+      <DependentUpon>DBSystranDataSetVistas.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\flot-data.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1114,6 +1130,14 @@
     <Content Include="Views\Venta\____AddVenta.cshtml" />
     <Content Include="Views\Estacion\ListarEstaciones.cshtml" />
     <Content Include="Views\Estacion\__Listar.cshtml" />
+    <Content Include="Views\Empleado\ReporteEmpleado.cshtml" />
+    <Content Include="Views\Empleado\__Listar.cshtml" />
+    <Content Include="Views\Horario\ListHorariosMostrar.cshtml" />
+    <Content Include="Views\Horario\__ListHorarios.cshtml" />
+    <Content Include="Views\Venta\_FinalVenta.cshtml" />
+    <Content Include="Views\Venta\_FinalDatosVenta.cshtml" />
+    <Content Include="Views\Venta\FinalDetalleVenta.cshtml" />
+    <Content Include="Views\Horario\_VistaHorarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1137,6 +1161,11 @@
       <Project>{57ed788f-cc86-4ddc-9cdf-ed6a5679e0ae}</Project>
       <Name>SystranHorizonte.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\ComprobantePago.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteEmpleados.rdlc" />
+    <EmbeddedResource Include="Reportes\ReporteVentaPasajes.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

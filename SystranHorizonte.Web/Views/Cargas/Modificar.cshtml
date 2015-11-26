@@ -17,12 +17,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="number" name="Peso" class="form-control" placeholder="0" required value="@Model.Peso" />
+                            <input type="number" name="Peso" id="numero1" class="form-control" placeholder="0" required value="@Model.Peso" min="0" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="number" name="Peso2" class="form-control" placeholder="15" required value="@Model.Peso2" />
+                            <input type="number" name="Peso2" id="numero2" class="form-control" placeholder="15" required value="@Model.Peso2" min="1" />
                         </div>
                     </div>
                 </div>
@@ -67,3 +67,11 @@
         </form>
     </div>
 </div>
+
+<script>
+    $("#numero1").keyup(function (e) {
+        var criterio = $('#numero1').val();
+        var inti = parseInt(criterio) + 1;
+        $("#numero2").attr("min", inti)
+    });
+</script>

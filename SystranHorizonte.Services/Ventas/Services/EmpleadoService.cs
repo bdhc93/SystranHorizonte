@@ -39,5 +39,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             empleadoRepository.EliminarEmpleado(id);
         }
+
+        public IEnumerable<DatosReportEmpleado> ObtenerEmpleadoPorCriterios(int criterio, DateTime fechaini, DateTime fechafin)
+        {
+            return empleadoRepository.ObtenerEmpleadoPorCriterios(criterio, fechaini, fechafin);
+        }
     }
 }

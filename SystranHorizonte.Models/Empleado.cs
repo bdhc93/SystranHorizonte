@@ -17,8 +17,9 @@ namespace SystranHorizonte.Models
         public String Cargo { get; set; }
         public String Comentario { get; set; }
         public Boolean Estado { get; set; }
-        
+
         public String EstadoMostrar { get { if (!Estado) return "Inactivo"; return "Activo"; } }
+        public String NombreMostrar { get { return Nombre + " " + Apellidos; } }
 
         public List<Horario> Horarios { get; set; }
     }

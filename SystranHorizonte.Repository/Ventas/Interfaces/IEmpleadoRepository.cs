@@ -8,6 +8,7 @@ namespace SystranHorizonte.Repository.Ventas.Interfaces
     {
         Empleado ObtenerEmpleadoPorId(Int32 id);
         IEnumerable<Empleado> ObtenerEmpleadoPorCriterio(String criterio);
+        IEnumerable<DatosReportEmpleado> ObtenerEmpleadoPorCriterios(Int32 criterio, DateTime fechaini, DateTime fechafin);
 
         void GuardarEmpleado(Empleado empleado);
         void ModificarEmpleado(Empleado empleado);

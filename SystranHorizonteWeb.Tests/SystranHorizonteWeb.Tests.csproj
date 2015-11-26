@@ -138,9 +138,9 @@
       <Project>{57ed788f-cc86-4ddc-9cdf-ed6a5679e0ae}</Project>
       <Name>SystranHorizonte.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SystranHorizonteWeb\SystranHorizonteWeb.csproj">
-      <Project>{BC5A3EBE-2BE2-4FF5-88E7-FD1425B4FA40}</Project>
-      <Name>SystranHorizonteWeb</Name>
+    <ProjectReference Include="..\SystranHorizonte.Web\SystranHorizonte.Web.csproj">
+      <Project>{3df27dab-165d-42be-b50e-c0449d4be3eb}</Project>
+      <Name>SystranHorizonte.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

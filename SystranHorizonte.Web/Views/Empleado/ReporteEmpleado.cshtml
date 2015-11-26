@@ -1,0 +1,147 @@
+﻿@{
+    IEnumerable<SelectListItem> Empleados = new SelectList(@ViewBag.Empleados, "Id", "NombreMostrar");
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Conductores</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-default pull-right" href="@Url.Action("AgregarEmpleado", "Empleado")">Nuevo Empleado</a><br />
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Empleado:</label>
+                @Html.DropDownList("IdEmpleado", Empleados, "-- Seleccionar --", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Inicio:</label>
+                <input type="date" class="form-control" id="txtCalendar" onkeyup="buscarVentas()" value="@ViewBag.Fecha" max="@ViewBag.Fecha" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Fecha Fin:</label>
+                <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" min="@ViewBag.Fecha" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label>Seleccionar Tipo de Reporte:</label>
+            <select class="form-control" id="listreport">
+                <option value=" ">-- Seleccionar --</option>
+                <option value="PDF">Reporte PDF</option>
+                <option value="Excel">Reporte Excel</option>
+                <option value="Word">Reporte Word</option>
+                <option value="Image">Reporte Image</option>
+            </select>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="col-md-12" id="list">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>PlacaVehiculo</th>
+                    <th>TarjetaVehiculo</th>
+                    <th>EstacionOrigen</th>
+                    <th>EstacionDestino</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Fecha</td>
+                        <td>@item.Hora</td>
+                        <td>@item.PlacaVehiculo</td>
+                        <td>@item.TarjetaVehiculo</td>
+                        <td>@item.EstacionOrigen</td>
+                        <td>@item.EstacionDestino</td>
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="Ver">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Detalle</h4>
+                </div>
+
+                <div class="col-md-12">
+                    <div id="Detalle">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btnCerrarModal" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#txtCalendar").change(function (e) {
+        $("#txtCalendar2").attr("min", $("#txtCalendar").val())
+        var ids = $("#IdEmpleado").val();
+        if (ids < 1) {
+            e.preventDefault();
+            alert('Seleccionar un Empleado');
+        }else
+            $.get("Buscar2", { id: $("#IdEmpleado").val(), fechaIni: $("#txtCalendar").val(), fechaFin: $("#txtCalendar2").val() })
+            .success(function (response) {
+                $('#list').html(response);
+            });
+    });
+    $("#txtCalendar2").change(function (e) {
+        
+        $("#txtCalendar").attr("max", $("#txtCalendar2").val())
+        var ids = $("#IdEmpleado").val();
+        if (ids < 1){
+            e.preventDefault();
+            alert('Seleccionar un Empleado');
+        }else
+            $.get("Buscar2", { id: $("#IdEmpleado").val(), fechaIni: $("#txtCalendar").val(), fechaFin: $("#txtCalendar2").val() })
+            .success(function (response) {
+                $('#list').html(response);
+            });
+    });
+
+    $("#IdEmpleado").change(function (e) {
+        var ids = $("#IdEmpleado").val();
+        if (ids < 1)
+            alert('Seleccionar un Empleado');
+        else
+            $.get('@Url.Action("Buscar2", "Empleado")', { id: $("#IdEmpleado").val(), fechaIni: $("#txtCalendar").val(), fechaFin: $("#txtCalendar2").val() }).
+            success(function (resultado) { $("#list").html(resultado); });
+    });
+
+    $("#listreport").change(function (e) {
+        var ids2 = $("#IdEmpleado").val();
+        if (ids2 < 1) {
+            e.preventDefault();
+            alert('Seleccionar un Empleado');
+        } else {
+            var ids = listreport.options[listreport.selectedIndex].value;
+            if (listreport.selectedIndex < 1)
+                alert('Seleccionar una opcion');
+            else
+                window.location.href = '@Url.Action("ReportEmpleados", "Empleado")' + "/?" +
+                    "id=" + listreport.options[listreport.selectedIndex].value + "&" +
+                    "idempleado=" + $("#IdEmpleado").val() + "&" + "fechaIni=" + $("#txtCalendar").val()
+                    + "&" + "fechaFin=" + $("#txtCalendar2").val();
+        }
+        
+    });
+</script>

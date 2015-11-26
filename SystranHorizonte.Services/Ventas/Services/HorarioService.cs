@@ -59,5 +59,10 @@ namespace SystranHorizonte.Services.Ventas.Services
         {
             return horarioRepository.GenerarHorarios();
         }
+
+        public IEnumerable<Horario> ObtenerHorariosPorHora()
+        {
+            return horarioRepository.ObtenerHorariosPorHora();
+        }
     }
 }

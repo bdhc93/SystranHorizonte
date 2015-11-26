@@ -28,6 +28,25 @@ namespace SystranHorizonte.Web.Controllers
         [HttpGet]
         public ActionResult ListHorarios()
         {
+            ViewBag.horarios = horarioService.ObtenerHorariosPorHora();
+
+            var result = horarioService.ObtenerHorarios();
+            ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
+
+            return View(result);
+        }
+
+        [HttpGet]
+        public ActionResult VistaHorarios()
+        {
+            var result = horarioService.ObtenerHorariosPorHora();
+
+            return PartialView("_VistaHorarios");
+        }
+
+        [HttpGet]
+        public ActionResult ListHorariosMostrar()
+        {
             var result = horarioService.ObtenerHorarios();
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
 
@@ -146,6 +165,27 @@ namespace SystranHorizonte.Web.Controllers
 
             return PartialView("_ListHorarios", result);
         }
+
+        [HttpGet]
+        public ActionResult HorariosEstacionOrigen2(Int32? idEstacion, Int32? idDestino)
+        {
+            Int32 inicio = 0;
+            Int32 fin = 0;
+
+            if (idEstacion != null)
+            {
+                inicio = Int32.Parse(idEstacion.ToString());
+            }
+            if (idDestino != null)
+            {
+                fin = Int32.Parse(idDestino.ToString());
+            }
+
+            var result = horarioService.ObtenerHorariosPorEstacionNoVacio(inicio, fin);
+
+            return PartialView("__ListHorarios", result);
+        }
+
 
         public string decimalAstring(String final)
         {

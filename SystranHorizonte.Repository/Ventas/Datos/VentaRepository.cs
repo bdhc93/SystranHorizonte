@@ -112,7 +112,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
 
                 return venta.Id;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }

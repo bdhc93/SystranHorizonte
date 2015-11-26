@@ -74,6 +74,11 @@ namespace SystranHorizonteWeb.Controllers
 
                 foreach (var item in model.VentaEncomiendas)
                 {
+                    if (String.IsNullOrEmpty(item.Descripcion))
+                    {
+                        item.Descripcion = "";
+                    }
+
                     model.TotalCarga = model.TotalCarga + item.CargaEncomienda;
 
                     var hor = horarioService.ObtenerClientePorId(item.IdHorario);
@@ -115,7 +120,7 @@ namespace SystranHorizonteWeb.Controllers
 
                 return Redirect(@Url.Action("FinalVenta", "Encomienta") + "/" + model.Id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Redirect(@Url.Action("ListarEncomiendas", "Encomienta") + "/" + model.Id);
             }

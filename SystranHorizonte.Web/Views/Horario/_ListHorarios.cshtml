@@ -1,0 +1,29 @@
+﻿<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Hora</th>
+            <th>Costo</th>
+            <th>Asientos</th>
+            <th>EstacionOrigen</th>
+            <th>EstacionDestino</th>
+            <th>Carga Vehiculo</th>
+            <th>EstadoMostrar</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.HoraText</td>
+                <td>@item.Costo</td>
+                <td>@item.Asientos</td>
+                <td>@item.EstacionOrigen.EstacionesT</td>
+                <td>@item.EstacionDestino.EstacionesT</td>
+                <td>@item.CargaActual</td>
+                <td>@item.EstadoMostrar</td>
+                <td><a href="@Url.Action("Modificar", "Horario", new { id = @item.Id })">Editar</a> | <a href="#" onclick="abrirmodalelim(@item.Id)">Eliminar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,108 @@
+﻿ 
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Nuevo Horario</h1>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form action="@Url.Action("AddHorario", "Horario")" method="post">
+            
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Hora*</label>
+                            <input type="time" name="Hora" class="form-control" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Precio*</label>
+                            <input type="number" name="CostoText" class="form-control" placeholder="10.5" min="1.00" required step="0.01"/>
+                        </div>
+                    </div>
+                </div>
+
+                @{
+                    IEnumerable<SelectListItem> Empleado = new SelectList(@ViewBag.Empleado, "Id", "Nombre");
+                    IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
+                    IEnumerable<SelectListItem> Vehiculos = new SelectList(@ViewBag.Vehiculo, "Id", "NroPlaca");
+                }
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>EstacionOringen*</label>
+                            @Html.DropDownList("OrigenId", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>EstacionDestino*</label>
+                            @Html.DropDownList("DestinoId", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Empleado*</label>
+                            @Html.DropDownList("EmpleadoId", Empleado, "-- Seleccionar --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Vehiculo*</label>
+                            @Html.DropDownList("VehiculoId", Vehiculos, "-- Seleccionar --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div id="asientosid">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Asientos</label>
+                                <input type="text" name="Asientos" class="form-control" placeholder="25" readonly="true" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control" name="Estado">
+                                <option value=true>Activo</option>
+                                <option value=false>Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-danger btn-lg pull-right" type="submit">Guardar</button>
+                    <a class="btn btn-default btn-lg pull-right" href="@Url.Action("ListHorarios", "Horario")">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $("#VehiculoId").change(function (e) {
+        $.get("AsientosVehiculo", { idVehiculo: $("#VehiculoId").val() }).
+            success(function (resultado) { $("#asientosid").html(resultado); })
+    });
+</script>

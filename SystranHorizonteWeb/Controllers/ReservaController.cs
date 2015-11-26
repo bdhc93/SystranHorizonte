@@ -114,7 +114,7 @@ namespace SystranHorizonteWeb.Controllers
 
             ventaService.GuardarVenta(model);
 
-            return Redirect(@Url.Action("FinalVenta", "Venta") + "/" + model.Id);
+            return Redirect(@Url.Action("FinalVenta", "Reserva") + "/" + model.Id);
         }
 
         [HttpGet]
@@ -129,6 +129,7 @@ namespace SystranHorizonteWeb.Controllers
         [HttpPost]
         public ActionResult ModificarReserva(Venta model)
         {
+            ViewBag.Fecha = MostrarFecha();
 
             return Redirect(@Url.Action("ListarReservas", "Reserva"));
         }

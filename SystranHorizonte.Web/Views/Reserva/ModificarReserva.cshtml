@@ -1,0 +1,280 @@
+﻿@model SystranHorizonte.Models.Venta
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Modificar Reserva</h1>
+    </div>
+</div>
+
+<div class="row">
+    <form action="@Url.Action("ModificarReserva", "Reserva")" method="post">
+        <fieldset>
+            <legend>Datos Venta</legend>
+            <div class="col-md-12">
+
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Nro Venta</label>
+                            <input type="text" name="NroVenta" id="NroVenta" class="form-control" placeholder="1345" value="@Model.NroVenta" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Fecha</label>
+                            <input type="date" name="Fecha" class="form-control" value="@ViewBag.Fecha" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12" style="margin-left:-16px"><label>DniRuc*</label></div>
+                            <div class="col-md-11" style="margin-left:-16px"><input type="number" name="RucDniCliente" id="RucDniCliente" class="form-control" placeholder="73136701" maxlength="11" required min="10000000" value="@Model.Cliente.DniRuc" /></div>
+                            <div class="col-md-1"><a class="btn btn-info" href="@Url.Action("ClientesPrin", "Venta")" id="btnBuscar">...</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="clients">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <input type="text" name="Direccion" class="form-control" placeholder="Jr. San Miguel 452" value="@Model.Cliente.Direccion" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Nombre*</label>
+                                <input type="text" name="Nombre" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Carlos" value="@Model.Cliente.Nombre" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input type="tel" name="Telefono" id="txttelefono" class="form-control" placeholder="076 365458" value="@Model.Cliente.Telefono" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Apellidos*</label>
+                                <input type="text" name="Apellidos" pattern="[a-zA-Z\sáéíóúñüàè]+" class="form-control" placeholder="Alberto" value="@Model.Cliente.Apellidos" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <br />
+        <br />
+
+        <fieldset>
+            <legend>Detalle Reserva</legend>
+            <a class="btn btn-link pull-right" onclick="abrirModalPasajes()">Agregar Reserva</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>DniRuc</th>
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Precio</th>
+                        <th>A Cuenta</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="VentaTBody">
+
+                    @{
+                        Int32 i = 0;
+
+                        foreach (var item in Model.Reseras)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Cliente.DniRuc
+                                </td>
+                                <td>
+                                    <input type="hidden" value="@Model.Id" />
+                                    @item.Cliente.Nombre
+                                </td>
+                                <td>
+                                    @item.Horario.EstacionOrigen.EstacionesT
+                                </td>
+                                <td>
+                                    @item.Horario.EstacionDestino.EstacionesT
+                                </td>
+                                <td>
+                                    @item.Pago
+                                </td>
+                                <td>
+                                    @item.ACuenta
+                                </td>
+                                <td>
+                                    <a href="#" onclick="EliminarDetalle(@i)">Eliminar</a>
+                                </td>
+                                <td style="display:none">
+                                    @item.Asiento
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].Asiento" value="@item.Asiento" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].IdHorario" value="@item.IdHorario" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].IdCarga" value="@item.IdCarga" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].Pago" value="@item.Pago" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].Acuenta" value="@item.ACuenta" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].CargaReserva" value="@item.CargaReserva" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].IdClienteTemp" value="@item.Cliente.Id" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].DniRucClienteTemp" value="@item.Cliente.DniRuc" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].NombreClienteTemp" value="@item.Cliente.Nombre" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].ApellidosClienteTemp" value="@item.Cliente.Apellidos" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].DireccionClienteTemp" value="@item.Cliente.Direccion" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="Reseras[@i].TelefonoClienteTemp" value="@item.Cliente.Telefono" />
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <div class="col-md-12" id="TotalPrecio">
+                <div class="col-md-1 text-right">
+                    <label>Total:</label>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" name="TotalVenta" id="TotalVenta" readonly value="@Model.TotalVenta" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-danger btn-lg pull-right" type="submit">Guardar</button>
+                    <a class="btn btn-default btn-lg pull-right" href="@Url.Action("ListarReservas", "Reserva")">Cancelar</a>
+                </div>
+            </div>
+
+        </fieldset>
+
+    </form>
+</div>
+
+<div class="modal fade" id="CrearPasaje">
+    <div class="modal-dialog" style="min-width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Detalle Pasaje</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" id="PasajeTable">
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    var a = 0;
+    $("#ACuenta").keypress(function (e) {
+        a = $("#ACuenta").val();
+        if (a < 0) {
+            console.log(a);
+            e.preventDefault();
+        }
+    });
+    function abrirModalPasajes() {
+        $.get('@Url.Action("DetalleVenta", "Reserva")')
+        .success(function (respuesta) {
+            $('#PasajeTable').html(respuesta);
+            $('#CrearPasaje').modal('show');
+        });
+    }
+
+    $("#btnBuscar").click(function (e) {
+        e.preventDefault();
+        $.get(this.href, { dni: $("#RucDniCliente").val() }).
+            success(function (resultado) { $("#clients").html(resultado); })
+    });
+
+    $(document).ready(function () {
+        $("#txttelefono").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function EliminarDetalle(id) {
+
+        var valorelim = 0;
+        var asientoelim = "";
+        $("#VentaTBody tr:eq("+ id +")").find('td:eq(4)').each(function () {
+            valor = $(this).html();
+            valorelim = valor+"";
+        })
+        $("#VentaTBody tr:eq("+ id +")").find('td:eq(7)').each(function () {
+            valor = $(this).html();
+            asientoelim = valor + "";
+        })
+        $.get('@Url.Action("CajaTotalPago", "Reserva")', {
+            pago: valorelim,
+            totalVenta: $("#TotalVenta").val(),
+            estado: false,
+            lbdni: valorelim,
+            asiento: asientoelim
+        })
+        .success(function (response) {
+            $('#TotalPrecio').html(response);
+        });
+
+        $("#VentaTBody tr").on("click", function () {
+            $(this).remove();
+            return false;
+        });
+    }
+
+</script>

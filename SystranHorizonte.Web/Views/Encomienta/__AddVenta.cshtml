@@ -1,0 +1,37 @@
+﻿@{
+    IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
+    IEnumerable<SelectListItem> Asientos = new SelectList(@ViewBag.Asientos, "Id", "Asiento");
+    IEnumerable<SelectListItem> Cargas = new SelectList(@ViewBag.Carga, "Id", "Peso");
+}
+
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Horario*</label>
+        @Html.DropDownList("IdHorario", Horarios, "-- Seleccionar --", new { @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Carga</label>
+        <input type="number" name="cargaPasaje" id="cargaPasaje" value="0" class="form-control" />
+    </div>
+</div>
+<div id="txtPago">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Pago</label>
+            <input name="Pago" id="Pago" class="form-control" readonly="true" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#IdHorario").change(function (e) {
+        $.get('@Url.Action("Pagos", "Encomienta")', { IdHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
+            success(function (resultado) { $("#txtPago").html(resultado); })
+    });
+    $("#cargaPasaje").change(function (e) {
+        $.get('@Url.Action("Pagos", "Encomienta")', { idHorario: $("#IdHorario").val(), cargaPasaje: $("#cargaPasaje").val() }).
+            success(function (resultado) { $("#txtPago").html(resultado); })
+    });
+</script>

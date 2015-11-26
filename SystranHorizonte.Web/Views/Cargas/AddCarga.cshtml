@@ -1,0 +1,70 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Nueva Carga </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="@Url.Action("AddCarga", "Cargas")" method="post">
+            <div class="col-md-6">
+                <div class="col-md-12" title="Rango de carga: 0 - 15 kg">
+                    <div class="col-md-12">
+                        <label>Peso*(Kg)</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" name="Peso" class="form-control" placeholder="0"required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" name="Peso2" class="form-control" placeholder="15" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Precio*</label>
+                            <input type="number" name="PrecioText" class="form-control" placeholder="10.5" min="0.00" required step="0.01" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tipo*</label>
+                            <select class="form-control" name="TipoString" required>
+                                <option value="Encomiendas">Encomiendas</option>
+                                <option value="Pasajes">Pasajes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Estado*</label>
+                            <select class="form-control" name="Estado" required>
+                                <option value=true>Activo</option>
+                                <option value=false>Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button class="btn btn-danger btn-lg pull-right" type="submit">Guardar</button>
+                            <a class="btn btn-default btn-lg pull-right" href="@Url.Action("ListCargas", "Cargas")">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

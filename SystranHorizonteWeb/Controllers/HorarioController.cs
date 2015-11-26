@@ -60,7 +60,7 @@ namespace SystranHorizonteWeb.Controllers
         public ActionResult AddHorario(Horario model)
         {
             model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
-
+            
             horarioService.GuardarHorario(model);
 
             return Redirect("ListHorarios");

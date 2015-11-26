@@ -368,6 +368,9 @@
     <Content Include="Views\Reserva\_Pago.cshtml" />
     <Content Include="Views\Reserva\FinalReserva.cshtml" />
     <Content Include="Views\Reserva\_ListVentas.cshtml" />
+    <Content Include="Views\Reserva\ModificarReserva.cshtml" />
+    <Content Include="Views\Estacion\ListarEstaciones.cshtml" />
+    <Content Include="Views\Estacion\__Listar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

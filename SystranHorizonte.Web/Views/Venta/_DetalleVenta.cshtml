@@ -1,0 +1,93 @@
+﻿
+
+<tr>
+    <td>
+        @Model.DniRuc
+    </td>
+    <td>
+        <input type="hidden" value="@Model.Id" />
+        @Model.Nombre
+    </td>
+    <td>
+        @ViewBag.EstOrigen.EstacionesT
+    </td>
+    <td>
+        @ViewBag.EstDestino.EstacionesT
+    </td>
+    <td>
+        @ViewBag.Pago
+    </td>
+    
+    <td>
+        <a href="#" onclick="EliminarDetalle(@ViewBag.Indice)">Eliminar</a>
+    </td>
+    <td style="display:none">
+        @ViewBag.Asiento.Id
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Asiento" value="@ViewBag.Asiento.Id" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdHorario" value="@ViewBag.IdHorario" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdCarga" value="@ViewBag.IdCarga" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].Pago" value="@ViewBag.Pago" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].CargaPasaje" value="@ViewBag.CargaPasaje" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].IdClienteTemp" value="@Model.Id" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DniRucClienteTemp" value="@Model.DniRuc" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].NombreClienteTemp" value="@Model.Nombre" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].ApellidosClienteTemp" value="@Model.Apellidos" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].DireccionClienteTemp" value="@Model.Direccion" />
+    </td>
+    <td>
+        <input type="hidden" name="VentaPasajes[@ViewBag.Indice].TelefonoClienteTemp" value="@Model.Telefono" />
+    </td>
+</tr>
+
+<script>
+
+    function EliminarDetalle(id) {
+
+        var valorelim = 0;
+        var asientoelim = "";
+        $("#VentaTBody tr:eq("+ id +")").find('td:eq(4)').each(function () {
+            valor = $(this).html();
+            valorelim = valor+"";
+        })
+        $("#VentaTBody tr:eq("+ id +")").find('td:eq(6)').each(function () {
+            valor = $(this).html();
+            asientoelim = valor + "";
+        })
+        $.get('@Url.Action("CajaTotalPago", "Venta")', {
+            pago: valorelim,
+            totalVenta: $("#TotalVenta").val(),
+            estado: false,
+            lbdni: valorelim,
+            asiento: asientoelim
+        })
+        .success(function (response) {
+            $('#TotalPrecio').html(response);
+        });
+
+        $("#VentaTBody tr").on("click", function () {
+            $(this).remove();
+            return false;
+        });
+    }
+
+</script>

@@ -1,0 +1,201 @@
+﻿@model SystranHorizonte.Models.VentaEncomienda
+
+<div class="col-md-6">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label>DniRuc*</label>
+            <input type="text" name="DniRuc" id="lbdni" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label></label>
+            <a class="btn btn-info pull-right" href="@Url.Action("Clientes", "Encomienta")" id="btnBuscar2">...</a>
+        </div>
+    </div>
+    <div id="idnombres">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Nombre*</label>
+                <input name="Nombres" id="Nombres" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Apellidos</label>
+                <input name="Apellidos" id="Apellidos" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Telefono</label>
+                <input name="Telefono" id="Telefono" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Direccion</label>
+                <input name="Direccion" id="Direccion" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-6">
+    @{
+        IEnumerable<SelectListItem> Horarios = new SelectList(@ViewBag.Horarios, "Id", "HoraText");
+        IEnumerable<SelectListItem> Estaciones = new SelectList(@ViewBag.Estacion, "Id", "EstacionesT");
+    }
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>EstacionOringen*</label>
+            <label style="color: red">@ViewBag.IdOrigen</label>
+            @Html.DropDownList("IdOrigen", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>EstacionDestino*</label>
+            <label style="color: red">@ViewBag.IdDestino</label>
+            @Html.DropDownList("IdDestino", Estaciones, "-- Seleccionar --", new { @class = "form-control" })
+        </div>
+    </div>
+    <div id="ddlHorarios">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Horario*</label>
+                <label style="color: red">@ViewBag.IdHorario</label>
+                @Html.DropDownList("IdHorario", Horarios, "-- Seleccionar --", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Carga</label>
+                <input type="number" name="cargaPasaje" value="0" class="form-control" disabled />
+            </div>
+        </div>
+        <div id="txtPago">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Pago</label>
+                    <input name="Pago" id="Pago" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.TextArea("Descripcion", new { @class = "form-control" }) 
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+    <button type="button" class="btn btn-default pull-right" onclick="AgregarEncomiendaAVenta()">Agregar</button>
+</div>
+
+<script>
+    $("#btnBuscar2").click(function (e) {
+        e.preventDefault();
+        $.get(this.href, { dni: $("#lbdni").val() }).
+            success(function (resultado) { $("#idnombres").html(resultado); })
+    });
+    $("#IdOrigen").change(function (e) {
+        $.get('@Url.Action("HorariosEstacionOrigen", "Encomienta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+            success(function (resultado) { $("#ddlHorarios").html(resultado); })
+    });
+    $("#IdDestino").change(function (e) {
+        $.get('@Url.Action("HorariosEstacionOrigen", "Encomienta")', { idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val() }).
+            success(function (resultado) { $("#ddlHorarios").html(resultado); })
+    });
+    $("#IdHorario").change(function (e) {
+        $.get('@Url.Action("Pagos", "Encomienta")', { idHorario: $("#IdHorario").val(), idCarga: $("#IdCarga").val() }).
+            success(function (resultado) { $("#txtPago").html(resultado); })
+    });
+    function AgregarEncomiendaAVenta() {
+        if ($("#lbdni").val() != "" && $("#Nombres").val() != "" && $("#Apellidos").val() != "" && $("#IdHorario").val() != "" && $("#IdOrigen").val() != "" && $("#IdDestino").val() != "" && $("#cargaPasaje").val() >= 0 && $("#Pago").val() != "Carga Superada") {
+            var indice = $('#VentaTBody').find('tr').length;
+            $.get('@Url.Action("AgregarDetalle", "Encomienta")', {
+                'indice': indice, idHorario: $("#IdHorario").val(),
+                idEstacion: $("#IdOrigen").val(), idDestino: $("#IdDestino").val(),
+                pago: $("#Pago").val(), lbdni: $("#lbdni").val(),
+                Nombres: $("#Nombres").val(), Apellidos: $("#Apellidos").val(),
+                Telefono: $("#Telefono").val(), Direccion: $("#Direccion").val(),
+                CargaPasaje: $("#cargaPasaje").val(),
+                descripcion: $("#Descripcion").val(),
+            })
+            .success(function (respuesta) {
+                $('#VentaTBody').append(respuesta);
+            });
+
+            $.get('@Url.Action("CajaTotalPago", "Encomienta")', {
+                pago: $("#Pago").val(),
+                totalVenta: $("#TotalVenta").val(),
+                estado: true,
+                lbdni: $("#lbdni").val()
+            })
+            .success(function (response) {
+                $('#TotalPrecio').html(response);
+            });
+        }
+    }
+
+    var a = 0;
+    $("#lbdni").keypress(function (e) {
+        a = $("#lbdni").val().length;
+        if (a > 10) {
+            e.preventDefault();
+        }
+    });
+
+    $("#Nombres").keypress(function (key) {
+        window.console.log(key.charCode)
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+            && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+            && (key.charCode != 45) //retroceso
+            && (key.charCode != 241) //ñ
+             && (key.charCode != 209) //Ñ
+             && (key.charCode != 32) //espacio
+             && (key.charCode != 225) //á
+             && (key.charCode != 233) //é
+             && (key.charCode != 237) //í
+             && (key.charCode != 243) //ó
+             && (key.charCode != 250) //ú
+             && (key.charCode != 193) //Á
+             && (key.charCode != 201) //É
+             && (key.charCode != 205) //Í
+             && (key.charCode != 211) //Ó
+             && (key.charCode != 218) //Ú
+
+            )
+            return false;
+    });
+    $("#Apellidos").keypress(function (key) {
+        window.console.log(key.charCode)
+        if ((key.charCode < 97 || key.charCode > 122)//letras mayusculas
+            && (key.charCode < 65 || key.charCode > 90) //letras minusculas
+            && (key.charCode != 45) //retroceso
+            && (key.charCode != 241) //ñ
+             && (key.charCode != 209) //Ñ
+             && (key.charCode != 32) //espacio
+             && (key.charCode != 225) //á
+             && (key.charCode != 233) //é
+             && (key.charCode != 237) //í
+             && (key.charCode != 243) //ó
+             && (key.charCode != 250) //ú
+             && (key.charCode != 193) //Á
+             && (key.charCode != 201) //É
+             && (key.charCode != 205) //Í
+             && (key.charCode != 211) //Ó
+             && (key.charCode != 218) //Ú
+
+            )
+            return false;
+    });
+</script>

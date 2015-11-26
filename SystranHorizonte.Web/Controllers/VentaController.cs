@@ -265,7 +265,7 @@ namespace SystranHorizonte.Web.Controllers
             ReportDataSource rd = new ReportDataSource("ComprobantePago", cm);
             lr.DataSources.Add(rd);
 
-            ReportParameter[] parametros = new ReportParameter[6];
+            ReportParameter[] parametros = new ReportParameter[7];
 
             parametros[0] = new ReportParameter("NroVenta", pru.NroVenta + "");
             parametros[1] = new ReportParameter("Nombre", pru.Cliente.Nombre + " " + pru.Cliente.Apellidos);
@@ -273,6 +273,7 @@ namespace SystranHorizonte.Web.Controllers
             parametros[3] = new ReportParameter("DniRuc", pru.Cliente.DniRuc + "");
             parametros[4] = new ReportParameter("Direccion", pru.Cliente.Direccion + "");
             parametros[5] = new ReportParameter("Telefono", pru.Cliente.Telefono + "");
+            parametros[6] = new ReportParameter("Tipo", "Venta");
 
             lr.SetParameters(parametros);
 
@@ -387,12 +388,13 @@ namespace SystranHorizonte.Web.Controllers
             ReportDataSource rd = new ReportDataSource("DataSet1", cm);
             lr.DataSources.Add(rd);
 
-            ReportParameter[] parametros = new ReportParameter[4];
+            ReportParameter[] parametros = new ReportParameter[5];
 
             parametros[0] = new ReportParameter("Cliente", criterio);
             parametros[1] = new ReportParameter("EstOrigen", estmos);
             parametros[2] = new ReportParameter("FechaInicio", fechaini.Date.Day + "/" + fechaini.Date.Month + "/" + fechaini.Date.Year + "");
             parametros[3] = new ReportParameter("FechaFin", fechafin.Date.Day + "/" + fechafin.Date.Month + "/" + fechafin.Date.Year + "");
+            parametros[4] = new ReportParameter("Tipo", "Venta - Pasajes");
 
             lr.SetParameters(parametros);
 

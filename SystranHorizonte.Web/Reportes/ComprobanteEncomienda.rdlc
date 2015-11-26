@@ -29,7 +29,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.254cm</Top>
+        <Top>0.16256cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>13.89933cm</Width>
@@ -60,7 +60,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.143cm</Top>
+        <Top>1.05156cm</Top>
         <Left>10.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>3.60067cm</Width>
@@ -110,7 +110,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>1.143cm</Top>
+        <Top>1.05156cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -140,7 +140,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>2.04584cm</Top>
+        <Top>1.9544cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -173,7 +173,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.143cm</Top>
+        <Top>1.05156cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
@@ -203,7 +203,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox21</rd:DefaultName>
-        <Top>2.82223cm</Top>
+        <Top>2.73079cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -233,7 +233,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Nombre</rd:DefaultName>
-        <Top>3.59861cm</Top>
+        <Top>3.50717cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
@@ -263,7 +263,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DniRuc</rd:DefaultName>
-        <Top>3.59861cm</Top>
+        <Top>3.50717cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>6.10067cm</Width>
@@ -313,7 +313,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox24</rd:DefaultName>
-        <Top>2.82223cm</Top>
+        <Top>2.73079cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -343,7 +343,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Telefono</rd:DefaultName>
-        <Top>5.369cm</Top>
+        <Top>5.27756cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>6.10067cm</Width>
@@ -397,7 +397,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox26</rd:DefaultName>
-        <Top>4.59261cm</Top>
+        <Top>4.50117cm</Top>
         <Left>7.59884cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -427,7 +427,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Direccion</rd:DefaultName>
-        <Top>5.369cm</Top>
+        <Top>5.27756cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
@@ -481,7 +481,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox28</rd:DefaultName>
-        <Top>4.59261cm</Top>
+        <Top>4.50117cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -514,7 +514,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox29</rd:DefaultName>
-        <Top>6.30034cm</Top>
+        <Top>6.2089cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>3.7065cm</Width>
@@ -547,7 +547,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox29</rd:DefaultName>
-        <Top>2.04584cm</Top>
+        <Top>1.9544cm</Top>
         <Left>0.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -579,7 +579,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Fecha</rd:DefaultName>
-        <Top>2.04584cm</Top>
+        <Top>1.9544cm</Top>
         <Left>10.09883cm</Left>
         <Height>0.6cm</Height>
         <Width>3.60067cm</Width>
@@ -624,13 +624,10 @@
               <Width>3.04654cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.82413cm</Width>
+              <Width>2.5273cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.20134cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>1.39933cm</Width>
+              <Width>2.89752cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.39933cm</Width>
@@ -796,38 +793,6 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox37</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox39">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Asiento</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox39</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1038,38 +1003,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Asiento">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!Asiento.Value</Value>
-                              <Style>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Asiento</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Pago">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -1114,7 +1047,6 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
-            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -1128,10 +1060,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ComprobantePago</DataSetName>
-        <Top>7.33637cm</Top>
+        <Top>7.24493cm</Top>
         <Left>0.41487cm</Left>
         <Height>1.2cm</Height>
-        <Width>13.28462cm</Width>
+        <Width>13.28464cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -1158,8 +1090,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox43</rd:DefaultName>
-        <Top>8.53637cm</Top>
-        <Left>10.79501cm</Left>
+        <Top>8.44493cm</Top>
+        <Left>10.79502cm</Left>
         <Height>0.6cm</Height>
         <Width>1.39933cm</Width>
         <ZIndex>17</ZIndex>
@@ -1209,7 +1141,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox44</rd:DefaultName>
-        <Top>8.53637cm</Top>
+        <Top>8.44493cm</Top>
         <Left>12.19434cm</Left>
         <Height>0.6cm</Height>
         <Width>1.50516cm</Width>
@@ -1249,7 +1181,7 @@
     <Height>3.66667in</Height>
     <Style />
   </Body>
-  <Width>5.56143in</Width>
+  <Width>5.58333in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
@@ -1262,25 +1194,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DBSystranDataSet">
+    <DataSource Name="DBSystranDataSetVistas">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>9cbda592-952f-4650-919e-e6e8e2881a37</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="DBSystranDataSet2">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>06457d8c-78ee-4ef8-a445-b753db588bc7</rd:DataSourceID>
+      <rd:DataSourceID>46fb78ea-41cf-41d8-b091-9b59ca214e75</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="ComprobantePago">
       <Query>
-        <DataSourceName>DBSystranDataSet2</DataSourceName>
+        <DataSourceName>DBSystranDataSetVistas</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1354,22 +1279,22 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Fecha">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="DniRuc">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Direccion">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Telefono">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Fecha">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DniRuc">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
@@ -1381,5 +1306,5 @@
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>62502ea6-bcff-4e17-99d7-9a09d211c6f3</rd:ReportID>
+  <rd:ReportID>6837be2b-d56a-4fa3-a9bf-4d1992e2d0b7</rd:ReportID>
 </Report>

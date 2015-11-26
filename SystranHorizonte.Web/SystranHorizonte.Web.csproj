@@ -1163,6 +1163,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\ComprobanteEncomienda.rdlc" />
     <EmbeddedResource Include="Reportes\ComprobantePago.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteEmpleados.rdlc" />
     <EmbeddedResource Include="Reportes\ReporteVentaPasajes.rdlc" />

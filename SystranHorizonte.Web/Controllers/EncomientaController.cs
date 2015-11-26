@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using SystranHorizonte.Services.Ventas.Interfaces;
 using SystranHorizonte.Models;
+using Microsoft.Reporting.WebForms;
+using System.IO;
+using System.Collections.Generic;
 
 namespace SystranHorizonte.Web.Controllers
 {
@@ -55,6 +58,233 @@ namespace SystranHorizonte.Web.Controllers
             var result = ventaService.ObtenerEncomiendas(criterio, fechaini, fechafin, EstacionOringen);
 
             return PartialView("_ListVentas", result);
+        }
+
+        public ActionResult Report(string id, Int32? idventa)
+        {
+            LocalReport lr = new LocalReport();
+
+            Int32 idVenta;
+            string path = Path.Combine(Server.MapPath("~/Reportes"), "ComprobanteEncomienda.rdlc");
+            if (System.IO.File.Exists(path))
+            {
+                if (idventa != null)
+                {
+                    idVenta = Int32.Parse(idventa.ToString());
+                }
+                else
+                {
+                    return View("ListarReservas");
+                }
+
+                lr.ReportPath = path;
+            }
+            else
+            {
+                return View("ListarReservas");
+            }
+
+
+            string reportType = id;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+
+
+            string deviceInfo =
+
+            "<DeviceInfo>" +
+            "  <OutputFormat>" + id + "</OutputFormat>" +
+            "  <PageWidth>16cm</PageWidth>" +
+            "  <PageHeight>12cm</PageHeight>" +
+            "  <MarginTop>0.5cm</MarginTop>" +
+            "  <MarginLeft>0.5cm</MarginLeft>" +
+            "  <MarginRight>0.5cm</MarginRight>" +
+            "  <MarginBottom>0.5cm</MarginBottom>" +
+            "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            List<DatosReportVentaComprobante> cm = new List<DatosReportVentaComprobante>();
+            Venta pru = ventaService.ObtenerVentaPorId(idVenta);
+
+            foreach (var item in pru.VentaEncomiendas)
+            {
+                var datos = new DatosReportVentaComprobante
+                {
+                    DniRuc = item.Cliente.DniRuc,
+                    Apellidos = item.Cliente.Nombre + " " + item.Cliente.Apellidos,
+                    OrigenId = item.Horario.EstacionOrigen.Provincia,
+                    DestinoId = item.Horario.EstacionDestino.Provincia,
+                    Hora = item.Horario.HoraText,
+                    Pago = item.Pago
+                };
+
+                cm.Add(datos);
+            }
+
+            ReportDataSource rd = new ReportDataSource("ComprobantePago", cm);
+            lr.DataSources.Add(rd);
+
+            ReportParameter[] parametros = new ReportParameter[7];
+
+            parametros[0] = new ReportParameter("NroVenta", pru.NroVenta + "");
+            parametros[1] = new ReportParameter("Nombre", pru.Cliente.Nombre + " " + pru.Cliente.Apellidos);
+            parametros[2] = new ReportParameter("Fecha", pru.Fecha + "");
+            parametros[3] = new ReportParameter("DniRuc", pru.Cliente.DniRuc + "");
+            parametros[4] = new ReportParameter("Direccion", pru.Cliente.Direccion + "");
+            parametros[5] = new ReportParameter("Telefono", pru.Cliente.Telefono + "");
+            parametros[6] = new ReportParameter("Tipo", "Encomienda");
+
+            lr.SetParameters(parametros);
+
+            renderedBytes = lr.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+
+            switch (id)
+            {
+                case "PDF":
+                    return File(renderedBytes, mimeType);
+                case "Excel":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".xls");
+                case "Word":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".doc");
+                case "Image":
+                    return File(renderedBytes, mimeType, pru.NroVenta + ".png");
+                default:
+                    break;
+            }
+
+            return File(renderedBytes, mimeType);
+        }
+
+        public ActionResult ReportReportesEncomienda(string id, string criterio, DateTime fechaini, DateTime fechafin, int EstacionOringen = 0)
+        {
+            LocalReport lr = new LocalReport();
+
+            var estmos = "";
+            var pru = ventaService.ObtenerEncomiendas(criterio, fechaini, fechafin, EstacionOringen);
+
+            if (String.IsNullOrEmpty(criterio))
+            {
+                criterio = "";
+            }
+
+            if (EstacionOringen == 0)
+            {
+                estmos = "";
+            }
+            else
+            {
+                var est = estacionService.ObtenerEstacionPorId(EstacionOringen);
+                estmos = est.EstacionesT;
+            }
+
+            string path = Path.Combine(Server.MapPath("~/Reportes"), "ReporteVentaPasajes.rdlc");
+            if (System.IO.File.Exists(path))
+            {
+                lr.ReportPath = path;
+            }
+            else
+            {
+                return View("ListarVentas");
+            }
+
+
+            string reportType = id;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+
+
+            string deviceInfo =
+
+            "<DeviceInfo>" +
+            "  <OutputFormat>" + id + "</OutputFormat>" +
+            "  <PageWidth>21cm</PageWidth>" +
+            "  <PageHeight>29.7cm</PageHeight>" +
+            "  <MarginTop>1.54cm</MarginTop>" +
+            "  <MarginLeft>1.54cm</MarginLeft>" +
+            "  <MarginRight>1.54cm</MarginRight>" +
+            "  <MarginBottom>1.54cm</MarginBottom>" +
+            "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            List<DatosReportVentaPasaje> cm = new List<DatosReportVentaPasaje>();
+
+            foreach (var item in pru)
+            {
+                foreach (var item2 in item.VentaEncomiendas)
+                {
+                    var datos = new DatosReportVentaPasaje
+                    {
+                        NroVenta = item.NroVenta + "",
+                        Fecha = item.Fecha.Day + "/" + item.Fecha.Month + "/" + item.Fecha.Year,
+                        Id = item.TotalVenta + "",
+                        TotalVenta = item.EstadoMostrar,
+
+                        DniRuc = item2.Cliente.DniRuc,
+                        Nombre = item2.Cliente.Nombre,
+                        OrigenId = item2.Horario.EstacionOrigen.Provincia,
+                        DestinoId = item2.Horario.EstacionDestino.Provincia,
+                        Hora = item2.Horario.HoraText,
+                        Pago = item2.Pago
+                    };
+                    cm.Add(datos);
+                }
+
+            }
+
+            ReportDataSource rd = new ReportDataSource("DataSet1", cm);
+            lr.DataSources.Add(rd);
+
+            ReportParameter[] parametros = new ReportParameter[5];
+
+            parametros[0] = new ReportParameter("Cliente", criterio);
+            parametros[1] = new ReportParameter("EstOrigen", estmos);
+            parametros[2] = new ReportParameter("FechaInicio", fechaini.Date.Day + "/" + fechaini.Date.Month + "/" + fechaini.Date.Year + "");
+            parametros[3] = new ReportParameter("FechaFin", fechafin.Date.Day + "/" + fechafin.Date.Month + "/" + fechafin.Date.Year + "");
+            parametros[4] = new ReportParameter("Tipo", "Encomienda");
+
+            lr.SetParameters(parametros);
+
+            renderedBytes = lr.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out fileNameExtension,
+                out streams,
+                out warnings);
+
+            switch (id)
+            {
+                case "PDF":
+                    return File(renderedBytes, mimeType);
+                case "Excel":
+                    return File(renderedBytes, mimeType, "Encomienda " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".xls");
+                case "Word":
+                    return File(renderedBytes, mimeType, "Encomienda " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".doc");
+                case "Image":
+                    return File(renderedBytes, mimeType, "Encomienda " + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Year + ".png");
+                default:
+                    break;
+            }
+
+            return File(renderedBytes, mimeType);
         }
 
         [HttpPost]

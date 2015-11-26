@@ -151,4 +151,14 @@
             document.getElementById("listreport").disabled = false;
         })
     });
+    $("#listreport").change(function (e) {
+        var ids = listreport.options[listreport.selectedIndex].value;
+        if(listreport.selectedIndex<1)
+            alert('Seleccionar una opcion');
+        else
+            window.location.href = '@Url.Action("ReportReportesEncomienda", "Encomienta")' + "/?" +
+                "id="+ listreport.options[listreport.selectedIndex].value + "&" +
+                "criterio=" + $("#txtBuscar").val() + "&" + "fechaini=" + $("#txtCalendar").val()
+                + "&" + "fechafin=" + $("#txtCalendar2").val() + "&" + "EstacionOringen=" + $("#IdOrigen").val();
+    });
 </script>

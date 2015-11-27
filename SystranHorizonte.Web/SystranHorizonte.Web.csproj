@@ -208,6 +208,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CargasController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EncomientaController.cs" />
     <Compile Include="Controllers\EstacionController.cs" />
@@ -1138,6 +1139,7 @@
     <Content Include="Views\Venta\_FinalDatosVenta.cshtml" />
     <Content Include="Views\Venta\FinalDetalleVenta.cshtml" />
     <Content Include="Views\Horario\VistaHorarios.cshtml" />
+    <Content Include="Views\Cuenta\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

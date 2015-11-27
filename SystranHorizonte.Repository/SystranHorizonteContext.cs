@@ -23,6 +23,9 @@ namespace SystranHorizonte.Repository
         public DbSet<VentaAsientos> VentaAsientos { get; set; }
         public DbSet<VentaEncomienda> VentaEncomiendas { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Roles> Roless { get; set; }
+        public DbSet<DetalleUsuario> DetalleUsuarios { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,6 +40,9 @@ namespace SystranHorizonte.Repository
             modelBuilder.Configurations.Add(new VentaAsientosMap());
             modelBuilder.Configurations.Add(new VentaEncomiendaMap());
             modelBuilder.Configurations.Add(new ReservaMap());
+            modelBuilder.Configurations.Add(new RolesMap());
+            modelBuilder.Configurations.Add(new DetalleUsuarioMap());
+            modelBuilder.Configurations.Add(new AccountMap());
         }
     }
 }

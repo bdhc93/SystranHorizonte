@@ -1,0 +1,105 @@
+﻿@model SystranHorizonte.Models.Venta
+<thead>
+    <tr>
+        <th>DniRuc</th>
+        <th>Nombre</th>
+        <th>Origen</th>
+        <th>Destino</th>
+        <th>Hora</th>
+        <th>Asiento</th>
+        <th>Precio</th>
+    </tr>
+</thead>
+<tbody id="VentaTBody">
+    @{
+        Int32 i = 0;
+
+        foreach (var item in Model.VentaPasajes)
+        {
+            <tr>
+                <td>
+                    @item.Cliente.DniRuc
+                </td>
+                <td>
+                    @item.Cliente.Nombre @item.Cliente.Apellidos
+                </td>
+                <td>
+                    @item.Horario.EstacionOrigen.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.EstacionDestino.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.HoraText
+                </td>
+                <td>
+                    @item.Asiento
+                </td>
+                <td>
+                    @item.Pago
+                </td>
+            </tr>
+            i++;
+        }
+        i = 0;
+
+        foreach (var item in Model.Reseras)
+        {
+            <tr>
+                <td>
+                    @item.Cliente.DniRuc
+                </td>
+                <td>
+                    @item.Cliente.Nombre @item.Cliente.Apellidos
+                </td>
+                <td>
+                    @item.Horario.EstacionOrigen.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.EstacionDestino.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.HoraText
+                </td>
+                <td>
+                    @item.Asiento
+                </td>
+                <td>
+                    @item.Pago
+                </td>
+            </tr>
+            i++;
+        }
+
+        i = 0;
+
+        foreach (var item in Model.VentaEncomiendas)
+        {
+            <tr>
+                <td>
+                    @item.Cliente.DniRuc
+                </td>
+                <td>
+                    @item.Cliente.Nombre @item.Cliente.Apellidos
+                </td>
+                <td>
+                    @item.Horario.EstacionOrigen.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.EstacionDestino.EstacionesT
+                </td>
+                <td>
+                    @item.Horario.HoraText
+                </td>
+                <td>
+                    -
+                </td>
+                <td>
+                    @item.Pago
+                </td>
+            </tr>
+            i++;
+        }
+    }
+
+</tbody>

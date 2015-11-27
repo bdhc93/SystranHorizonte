@@ -16,41 +16,41 @@ namespace SystranHorizonteWeb.Tests.Controllers
     {
         public ICargaService cargaService { get; set; }
         
-        [TestMethod]
-        public void CargaControllerGuardar()
-        {
-            CargasController controller = new CargasController(cargaService);
+        //[TestMethod]
+        //public void CargaControllerGuardar()
+        //{
+        //    CargasController controller = new CargasController(cargaService);
 
-            Carga model = new Carga
-            {
-                Estado = true,
-                Peso = 0,
-                Precio = 10,
-                Tipo = true,
-                TipoString = "Encomiendas"
-            };
+        //    Carga model = new Carga
+        //    {
+        //        Estado = true,
+        //        Peso = 0,
+        //        Precio = 10,
+        //        Tipo = true,
+        //        TipoString = "Encomiendas"
+        //    };
 
-            ViewResult result = controller.AddCarga() as ViewResult;
-        }
+        //    ViewResult result = controller.AddCarga() as ViewResult;
+        //}
 
-        [TestMethod]
-        public void CargaControllerModificar()
-        {
-            CargasController controller = new CargasController(cargaService);
+        //[TestMethod]
+        //public void CargaControllerModificar()
+        //{
+        //    CargasController controller = new CargasController(cargaService);
             
-            ViewResult result = controller.AddCarga() as ViewResult;
+        //    ViewResult result = controller.AddCarga() as ViewResult;
 
-            Assert.IsNotNull(result);
-        }
+        //    Assert.IsNotNull(result);
+        //}
 
-        [TestMethod]
-        public void CargaControllerEliminar()
-        {
-            CargasController controller = new CargasController(cargaService);
+        //[TestMethod]
+        //public void CargaControllerEliminar()
+        //{
+        //    CargasController controller = new CargasController(cargaService);
                         
-            ViewResult result = controller.AddCarga() as ViewResult;
+        //    ViewResult result = controller.AddCarga() as ViewResult;
 
-            Assert.IsNotNull(result);
-        }
+        //    Assert.IsNotNull(result);
+        //}
     }
 }

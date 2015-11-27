@@ -139,7 +139,7 @@
       <Name>SystranHorizonte.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\SystranHorizonte.Web\SystranHorizonte.Web.csproj">
-      <Project>{3df27dab-165d-42be-b50e-c0449d4be3eb}</Project>
+      <Project>{57e3ca44-07d9-41d6-9d59-ac2176157235}</Project>
       <Name>SystranHorizonte.Web</Name>
     </ProjectReference>
   </ItemGroup>

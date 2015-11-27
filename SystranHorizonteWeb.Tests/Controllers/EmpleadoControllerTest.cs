@@ -11,39 +11,39 @@ namespace SystranHorizonteWeb.Tests.Controllers
     {
         public IEmpleadoService empleadoService { get; set; }
 
-        [TestMethod]
-        public void EmpleadoControllerGuardar()
-        {
-            EmpleadoController controller = new EmpleadoController(empleadoService);
+        //[TestMethod]
+        //public void EmpleadoControllerGuardar()
+        //{
+        //    EmpleadoController controller = new EmpleadoController(empleadoService);
 
-            Empleado model = new Empleado
-            {
-                Nombre = "NombreTest",
-                Apellidos = "ApellidosTest"
-            };
+        //    Empleado model = new Empleado
+        //    {
+        //        Nombre = "NombreTest",
+        //        Apellidos = "ApellidosTest"
+        //    };
 
-            ViewResult result = controller.AgregarEmpleado() as ViewResult;
-        }
+        //    ViewResult result = controller.AgregarEmpleado() as ViewResult;
+        //}
         
-        [TestMethod]
-        public void EmpleadoControllerModificar()
-        {
-            EmpleadoController controller = new EmpleadoController(empleadoService);
+        //[TestMethod]
+        //public void EmpleadoControllerModificar()
+        //{
+        //    EmpleadoController controller = new EmpleadoController(empleadoService);
 
-            Empleado p = new Empleado
-            {
-                Id = 12344,
-            };
+        //    Empleado p = new Empleado
+        //    {
+        //        Id = 12344,
+        //    };
 
-            ViewResult result = controller.AgregarEmpleado(p) as ViewResult;
-        }
+        //    ViewResult result = controller.AgregarEmpleado(p) as ViewResult;
+        //}
 
-        [TestMethod]
-        public void EmpleadoControllerEliminar()
-        {
-            EmpleadoController controller = new EmpleadoController(empleadoService);
+        //[TestMethod]
+        //public void EmpleadoControllerEliminar()
+        //{
+        //    EmpleadoController controller = new EmpleadoController(empleadoService);
             
-            ViewResult result = controller.AgregarEmpleado() as ViewResult;
-        }
+        //    ViewResult result = controller.AgregarEmpleado() as ViewResult;
+        //}
     }
 }

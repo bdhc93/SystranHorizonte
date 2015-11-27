@@ -9,40 +9,40 @@ namespace SystranHorizonteWeb.Tests.Controllers
     [TestClass]
     public class HorarioControllerTest
     {
-        public IHorarioService horarioService { get; set; }
-        public IEmpleadoService empleadoService { get; set; }
-        public IEstacionService estacionService { get; set; }
-        public IVehiculoService vehiculoService { get; set; }
+        //public IHorarioService horarioService { get; set; }
+        //public IEmpleadoService empleadoService { get; set; }
+        //public IEstacionService estacionService { get; set; }
+        //public IVehiculoService vehiculoService { get; set; }
 
-        [TestMethod]
-        public void HorarioControllerGuardar()
-        {
-            HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
+        //[TestMethod]
+        //public void HorarioControllerGuardar()
+        //{
+        //    HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
 
-            Horario model = new Horario
-            {
-                Hora = System.DateTime.Now,
+        //    Horario model = new Horario
+        //    {
+        //        Hora = System.DateTime.Now,
 
-            };
+        //    };
 
-            ViewResult result = controller.Index() as ViewResult;
-        }
+        //    ViewResult result = controller.Index() as ViewResult;
+        //}
 
-        [TestMethod]
-        public void HorarioControllerModificar()
-        {
-            HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
+        //[TestMethod]
+        //public void HorarioControllerModificar()
+        //{
+        //    HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
 
-            ViewResult result = controller.Index() as ViewResult;
-        }
+        //    ViewResult result = controller.Index() as ViewResult;
+        //}
 
-        [TestMethod]
-        public void HorarioControllerEliminar()
-        {
-            HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
+        //[TestMethod]
+        //public void HorarioControllerEliminar()
+        //{
+        //    HorarioController controller = new HorarioController(horarioService, empleadoService, estacionService, vehiculoService);
 
 
-            ViewResult result = controller.Index() as ViewResult;
-        }
+        //    ViewResult result = controller.Index() as ViewResult;
+        //}
     }
 }

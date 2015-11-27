@@ -29,8 +29,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.254cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>0.13489cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>13.89933cm</Width>
         <Style>
@@ -60,8 +60,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>1.143cm</Top>
-        <Left>10.09883cm</Left>
+        <Top>1.02389cm</Top>
+        <Left>10.00144cm</Left>
         <Height>0.6cm</Height>
         <Width>3.60067cm</Width>
         <ZIndex>1</ZIndex>
@@ -110,8 +110,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>1.143cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>1.02389cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>2</ZIndex>
@@ -140,8 +140,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>2.04584cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>1.92673cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>3</ZIndex>
@@ -173,8 +173,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>1.143cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>1.02389cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
         <ZIndex>4</ZIndex>
@@ -203,8 +203,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox21</rd:DefaultName>
-        <Top>2.82223cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>2.70312cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>5</ZIndex>
@@ -233,8 +233,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Nombre</rd:DefaultName>
-        <Top>3.59861cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>3.4795cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
         <ZIndex>6</ZIndex>
@@ -263,8 +263,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DniRuc</rd:DefaultName>
-        <Top>3.59861cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>3.4795cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>6.10067cm</Width>
         <ZIndex>7</ZIndex>
@@ -313,8 +313,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox24</rd:DefaultName>
-        <Top>2.82223cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>2.70312cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>8</ZIndex>
@@ -343,8 +343,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Telefono</rd:DefaultName>
-        <Top>5.369cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>5.24989cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>6.10067cm</Width>
         <ZIndex>9</ZIndex>
@@ -397,8 +397,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox26</rd:DefaultName>
-        <Top>4.59261cm</Top>
-        <Left>7.59884cm</Left>
+        <Top>4.4735cm</Top>
+        <Left>7.50145cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>10</ZIndex>
@@ -427,8 +427,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Direccion</rd:DefaultName>
-        <Top>5.369cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>5.24989cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>7.3895cm</Width>
         <ZIndex>11</ZIndex>
@@ -481,8 +481,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox28</rd:DefaultName>
-        <Top>4.59261cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>4.4735cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>12</ZIndex>
@@ -514,8 +514,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox29</rd:DefaultName>
-        <Top>6.30034cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>6.18123cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>3.7065cm</Width>
         <ZIndex>13</ZIndex>
@@ -547,8 +547,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox29</rd:DefaultName>
-        <Top>2.04584cm</Top>
-        <Left>0.09883cm</Left>
+        <Top>1.92673cm</Top>
+        <Left>0.13075cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>14</ZIndex>
@@ -579,8 +579,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Fecha</rd:DefaultName>
-        <Top>2.04584cm</Top>
-        <Left>10.09883cm</Left>
+        <Top>1.92673cm</Top>
+        <Left>10.00144cm</Left>
         <Height>0.6cm</Height>
         <Width>3.60067cm</Width>
         <ZIndex>15</ZIndex>
@@ -1128,8 +1128,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ComprobantePago</DataSetName>
-        <Top>7.33637cm</Top>
-        <Left>0.41487cm</Left>
+        <Top>7.21726cm</Top>
+        <Left>0.31748cm</Left>
         <Height>1.2cm</Height>
         <Width>13.28462cm</Width>
         <ZIndex>16</ZIndex>
@@ -1158,8 +1158,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox43</rd:DefaultName>
-        <Top>8.53637cm</Top>
-        <Left>10.79501cm</Left>
+        <Top>8.41726cm</Top>
+        <Left>10.69762cm</Left>
         <Height>0.6cm</Height>
         <Width>1.39933cm</Width>
         <ZIndex>17</ZIndex>
@@ -1209,8 +1209,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox44</rd:DefaultName>
-        <Top>8.53637cm</Top>
-        <Left>12.19434cm</Left>
+        <Top>8.41726cm</Top>
+        <Left>12.09695cm</Left>
         <Height>0.6cm</Height>
         <Width>1.50516cm</Width>
         <ZIndex>18</ZIndex>
@@ -1246,10 +1246,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.66667in</Height>
+    <Height>3.78876in</Height>
     <Style />
   </Body>
-  <Width>5.56143in</Width>
+  <Width>5.61201in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
@@ -1262,25 +1262,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="DBSystranDataSet">
+    <DataSource Name="DBSystranDataSetVistas">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>9cbda592-952f-4650-919e-e6e8e2881a37</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="DBSystranDataSet2">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>06457d8c-78ee-4ef8-a445-b753db588bc7</rd:DataSourceID>
+      <rd:DataSourceID>e3601360-5292-4a25-9e85-8ad70f80395e</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="ComprobantePago">
       <Query>
-        <DataSourceName>DBSystranDataSet2</DataSourceName>
+        <DataSourceName>DBSystranDataSetVistas</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1381,5 +1374,5 @@
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>62502ea6-bcff-4e17-99d7-9a09d211c6f3</rd:ReportID>
+  <rd:ReportID>21a2c144-d646-4359-91c9-7599f74b15c6</rd:ReportID>
 </Report>

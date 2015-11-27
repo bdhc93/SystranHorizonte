@@ -38,6 +38,8 @@ namespace SystranHorizonte.Web.Domain
             menu.Add(new Navbar { Id = 25, nameOption = "La Empresa", imageClass = "fa fa-hospital-o", status = true, isParent = true, parentId = 0 });
             menu.Add(new Navbar { Id = 26, nameOption = "Quienes Somos", controller = "Home", action = "Forms", status = true, isParent = false, parentId = 25 });
             menu.Add(new Navbar { Id = 27, nameOption = "Contatos", controller = "Home", action = "Forms", status = true, isParent = false, parentId = 25 });
+            menu.Add(new Navbar { Id = 28, nameOption = "Usuarios", imageClass = "fa fa-user", status = true, isParent = true, parentId = 0 });
+            menu.Add(new Navbar { Id = 29, nameOption = "Registrar Usuario", controller = "Cuenta", action = "Registrar", status = true, isParent = false, parentId = 28 });
 
             return menu.ToList();
         }

@@ -56,7 +56,6 @@
     <Compile Include="Validators\ClienteValidator.cs" />
     <Compile Include="Ventas\Interfaces\ICargaService.cs" />
     <Compile Include="Ventas\Interfaces\IClienteService.cs" />
-    <Compile Include="Ventas\Interfaces\ICuentasService.cs" />
     <Compile Include="Ventas\Interfaces\IEmpleadoService.cs" />
     <Compile Include="Ventas\Interfaces\IEstacionService.cs" />
     <Compile Include="Ventas\Interfaces\IHorarioService.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="Ventas\Interfaces\IVentaService.cs" />
     <Compile Include="Ventas\Services\CargaService.cs" />
     <Compile Include="Ventas\Services\ClienteService.cs" />
-    <Compile Include="Ventas\Services\CuentasService.cs" />
     <Compile Include="Ventas\Services\EmpleadoService.cs" />
     <Compile Include="Ventas\Services\EstacionService.cs" />
     <Compile Include="Ventas\Services\HorarioService.cs" />

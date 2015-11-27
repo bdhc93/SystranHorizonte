@@ -11,41 +11,41 @@ namespace SystranHorizonteWeb.Tests.Controllers
     {
         public IClienteService clienteService { get; set; }
 
-        [TestMethod]
-        public void ClienteControllerGuardar()
-        {
-            ClienteController controller = new ClienteController(clienteService);
+        //[TestMethod]
+        //public void ClienteControllerGuardar()
+        //{
+        //    ClienteController controller = new ClienteController(clienteService);
 
-            Carga model = new Carga
-            {
-                Estado = true,
-                Peso = 0,
-                Precio = 10,
-                Tipo = true,
-                TipoString = "Encomiendas"
-            };
+        //    Carga model = new Carga
+        //    {
+        //        Estado = true,
+        //        Peso = 0,
+        //        Precio = 10,
+        //        Tipo = true,
+        //        TipoString = "Encomiendas"
+        //    };
 
-            ViewResult result = controller.Agregar() as ViewResult;
-        }
+        //    ViewResult result = controller.Agregar() as ViewResult;
+        //}
 
-        [TestMethod]
-        public void ClienteControllerModificar()
-        {
-            ClienteController controller = new ClienteController(clienteService);
+        //[TestMethod]
+        //public void ClienteControllerModificar()
+        //{
+        //    ClienteController controller = new ClienteController(clienteService);
 
-            ViewResult result = controller.Agregar() as ViewResult;
+        //    ViewResult result = controller.Agregar() as ViewResult;
 
-            Assert.IsNotNull(result);
-        }
+        //    Assert.IsNotNull(result);
+        //}
 
-        [TestMethod]
-        public void ClienteControllerEliminar()
-        {
-            ClienteController controller = new ClienteController(clienteService);
+        //[TestMethod]
+        //public void ClienteControllerEliminar()
+        //{
+        //    ClienteController controller = new ClienteController(clienteService);
 
-            ViewResult result = controller.Agregar() as ViewResult;
+        //    ViewResult result = controller.Agregar() as ViewResult;
 
-            Assert.IsNotNull(result);
-        }
+        //    Assert.IsNotNull(result);
+        //}
     }
 }

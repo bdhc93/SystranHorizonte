@@ -22,8 +22,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.18934cm</Top>
-        <Left>0.27517cm</Left>
+        <Top>0.18317cm</Top>
+        <Left>0.18142cm</Left>
         <Height>0.6cm</Height>
         <Width>16.61817cm</Width>
         <Style>
@@ -449,8 +449,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>1.39584cm</Top>
-        <Left>0.27517cm</Left>
+        <Top>1.38967cm</Top>
+        <Left>0.18142cm</Left>
         <Height>4.278cm</Height>
         <Width>16.61817cm</Width>
         <ZIndex>1</ZIndex>
@@ -482,8 +482,8 @@
         </Style>
       </Rectangle>
       <Line Name="Line1">
-        <Top>2.24251cm</Top>
-        <Left>0.55034cm</Left>
+        <Top>2.23634cm</Top>
+        <Left>0.45659cm</Left>
         <Height>0cm</Height>
         <Width>15.6445cm</Width>
         <ZIndex>2</ZIndex>
@@ -767,6 +767,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -954,8 +955,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>VistaEmpleados</DataSetName>
-        <Top>6.98331cm</Top>
-        <Left>0.27517cm</Left>
+        <Top>6.97714cm</Top>
+        <Left>0.18142cm</Left>
         <Height>1.2cm</Height>
         <Width>16.61816cm</Width>
         <ZIndex>3</ZIndex>
@@ -983,8 +984,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox74</rd:DefaultName>
-        <Top>6.20692cm</Top>
-        <Left>0.27517cm</Left>
+        <Top>6.20075cm</Top>
+        <Left>0.18142cm</Left>
         <Height>0.6cm</Height>
         <Width>3.4525cm</Width>
         <ZIndex>4</ZIndex>
@@ -999,10 +1000,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>4.33333in</Height>
+    <Height>3.48057in</Height>
     <Style />
   </Body>
-  <Width>6.83276in</Width>
+  <Width>6.7173in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
@@ -1020,7 +1021,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>c9ed928c-e920-44d1-b15b-03a845d3b487</rd:DataSourceID>
+      <rd:DataSourceID>009bb247-b0be-47f8-a9ac-41379a3bad73</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -1085,6 +1086,7 @@
     </ReportParameter>
     <ReportParameter Name="Apellidos">
       <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Telefono">
@@ -1099,6 +1101,7 @@
     </ReportParameter>
     <ReportParameter Name="FechaFin">
       <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="TotalHoras">
@@ -1108,5 +1111,5 @@
     </ReportParameter>
   </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>724fb21b-b58e-4dfb-8563-91c87294c8f1</rd:ReportID>
+  <rd:ReportID>5df660df-b989-4d11-ba36-63ee2b3c147a</rd:ReportID>
 </Report>

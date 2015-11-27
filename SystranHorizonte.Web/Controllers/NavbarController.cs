@@ -6,7 +6,6 @@ namespace SystranHorizonte.Web.Controllers
 {
     public class NavbarController : Controller
     {
-        // GET: Navbar
         public ActionResult Index()
         {
             var data = new Data();

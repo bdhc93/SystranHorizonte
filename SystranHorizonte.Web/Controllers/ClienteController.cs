@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using SystranHorizonte.Services.Ventas.Interfaces;
 using SystranHorizonte.Models;
+using System.Web.Security;
 
 namespace SystranHorizonte.Web.Controllers
 {
@@ -14,7 +15,7 @@ namespace SystranHorizonte.Web.Controllers
         {
             this.clienteService = clienteService;
         }
-        
+
         [HttpGet]
         public ActionResult Listar()
         {

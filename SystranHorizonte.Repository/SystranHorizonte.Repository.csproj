@@ -61,15 +61,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping\AccountMap.cs" />
     <Compile Include="Mapping\CargaMap.cs" />
     <Compile Include="Mapping\ClienteMap.cs" />
-    <Compile Include="Mapping\DetalleUsuarioMap.cs" />
     <Compile Include="Mapping\EmpleadoMap.cs" />
     <Compile Include="Mapping\EstacionesMap.cs" />
     <Compile Include="Mapping\HorarioMap.cs" />
+    <Compile Include="Mapping\RegUsuariosMap.cs" />
     <Compile Include="Mapping\ReservaMap.cs" />
-    <Compile Include="Mapping\RolesMap.cs" />
     <Compile Include="Mapping\VehiculosMap.cs" />
     <Compile Include="Mapping\VentaAsientosMap.cs" />
     <Compile Include="Mapping\VentaEncomiendaMap.cs" />
@@ -80,7 +78,6 @@
     <Compile Include="SystranHorizonteContext.cs" />
     <Compile Include="Ventas\Datos\CargaRepository.cs" />
     <Compile Include="Ventas\Datos\ClienteRepository.cs" />
-    <Compile Include="Ventas\Datos\CuentasReporsitory.cs" />
     <Compile Include="Ventas\Datos\EmpleadoRepository.cs" />
     <Compile Include="Ventas\Datos\EstacionRepository.cs" />
     <Compile Include="Ventas\Datos\HorarioRepository.cs" />
@@ -91,7 +88,6 @@
     <Compile Include="Ventas\Datos\VentaRepository.cs" />
     <Compile Include="Ventas\Interfaces\ICargaRepository.cs" />
     <Compile Include="Ventas\Interfaces\IClienteRepository.cs" />
-    <Compile Include="Ventas\Interfaces\ICuentasReporsitory.cs" />
     <Compile Include="Ventas\Interfaces\IEmpleadoRepository.cs" />
     <Compile Include="Ventas\Interfaces\IEstacionRepository.cs" />
     <Compile Include="Ventas\Interfaces\IHorarioRepository.cs" />

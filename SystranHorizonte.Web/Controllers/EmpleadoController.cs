@@ -37,7 +37,7 @@ namespace SystranHorizonte.Web.Controllers
             ViewBag.Empleados = empleadoService.ObtenerEmpleadoPorCriterio("Conductor");
             return View();
         }
-        
+
         [HttpGet]
         public ActionResult AgregarEmpleado()
         {
@@ -103,9 +103,9 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult ReportEmpleados(string id, Int32 idempleado, DateTime fechaIni, DateTime fechaFin)
         {
             LocalReport lr = new LocalReport();
-            
+
             var pru = empleadoService.ObtenerEmpleadoPorCriterios(idempleado, fechaIni, fechaFin);
-            
+
             string path = Path.Combine(Server.MapPath("~/Reportes"), "ReporteEmpleados.rdlc");
             if (System.IO.File.Exists(path))
             {
@@ -139,7 +139,7 @@ namespace SystranHorizonte.Web.Controllers
             Warning[] warnings;
             string[] streams;
             byte[] renderedBytes;
-            
+
             ReportDataSource rd = new ReportDataSource("VistaEmpleados", pru);
             lr.DataSources.Add(rd);
 
@@ -152,7 +152,7 @@ namespace SystranHorizonte.Web.Controllers
             parametros[2] = new ReportParameter("Telefono", empleado.Telefono);
             parametros[3] = new ReportParameter("FechaIni", fechaIni.Date.Day + "/" + fechaIni.Date.Month + "/" + fechaIni.Date.Year + "");
             parametros[4] = new ReportParameter("FechaFin", fechaFin.Date.Day + "/" + fechaFin.Date.Month + "/" + fechaFin.Date.Year + "");
-            parametros[5] = new ReportParameter("TotalHoras", pru.Count()+"");
+            parametros[5] = new ReportParameter("TotalHoras", pru.Count() + "");
 
             lr.SetParameters(parametros);
 

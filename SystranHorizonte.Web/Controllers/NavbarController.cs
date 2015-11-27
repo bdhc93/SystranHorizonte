@@ -9,7 +9,22 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult Index()
         {
             var data = new Data();
-            return PartialView("_Navbar", data.navbarItems().ToList());
+            if (User.IsInRole("SuperAdmin"))
+            {
+                return PartialView("_Navbar", data.navbarItems().ToList());
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return PartialView("_Navbar", data.navbarItems().ToList());
+            }
+            else if (User.IsInRole("Vendedor"))
+            {
+                return PartialView("_Navbar", data.navbarItems().ToList());
+            }
+            else
+            {
+                return PartialView("_Navbar", data.navbarItemspublic().ToList());
+            }
         }
     }
 }

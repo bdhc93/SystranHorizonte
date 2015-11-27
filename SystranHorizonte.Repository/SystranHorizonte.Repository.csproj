@@ -109,7 +109,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Datos\BD.sql" />
     <Content Include="Datos\Datos.sql" />
+    <Content Include="Datos\DatosUsuarios.sql" />
     <Content Include="Datos\Procedimientos.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

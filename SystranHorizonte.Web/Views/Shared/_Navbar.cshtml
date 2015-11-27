@@ -200,52 +200,73 @@
                 </ul>
             </li>*@
         <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> Iniciar Sesión
-            </a>
-            <ul id="login-dp" class="dropdown-menu" style="width:300px">
-                <li>
-                    <div class="row">
-                        <div class="col-md-10" style="left:25px; top:10px; ">
-                            <form class="form" role="form" method="post" action="@Url.Action("Login", "Cuenta")" accept-charset="UTF-8" id="login-nav">
-                                <div class="form-group">
-                                    <label>Usuario</label>
-                                    <input type="text" name="Usuario" class="form-control" id="exampleInputEmail2" placeholder="Usuario" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Contraseña</label>
-                                    <input type="password" name="Contrasenia" class="form-control" id="exampleInputPassword2" placeholder="Contraseña" required>
-                                    @*<div class="help-block text-right"><a href="">Forget the password ?</a></div>*@
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="Recuerdame"> Recordarme
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <strong>@User.Identity.Name</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configuración</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logout", "Cuentas")"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-            @*<ul class="dropdown-menu dropdown-user">
-                    <li>
-                        <a href="@Url.Action("Login", "Cuenta")"><i class="fa fa-user fa-fw"></i> Iniciar sesión</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>*@
-            <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
+            }
+            else
+            {
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> Iniciar Sesión
+                    </a>
+                    <ul id="login-dp" class="dropdown-menu" style="width:300px">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-10" style="left:25px; top:10px; ">
+                                    <form class="form" role="form" method="post" action="@Url.Action("Login", "Cuentas")" accept-charset="UTF-8" id="login-nav">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label>Usuario</label>
+                                            <input type="text" name="Usuario" class="form-control" id="exampleInputEmail2" placeholder="Usuario" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Contraseña</label>
+                                            <input type="password" name="Contrasenia" class="form-control" id="exampleInputPassword2" placeholder="Contraseña" required>
+                                            @*<div class="help-block text-right"><a href="">Forget the password ?</a></div>*@
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                                        </div>
+                                        @*<div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="Recuerdame"> Recordarme
+                                            </label>
+                                        </div>*@
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    @*<ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="@Url.Action("Login", "Cuenta")"><i class="fa fa-user fa-fw"></i> Iniciar sesión</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>*@
+                    <!-- /.dropdown-user -->
+                </li>
+            }
+        }
     </ul>
     <!-- /.navbar-top-links -->
     <div class="navbar-default sidebar" role="navigation">

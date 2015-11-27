@@ -1,0 +1,100 @@
+﻿@using SystranHorizonte.Web.Models
+@model RegistroUsuarios
+
+@{
+    List<SelectListItem> roles = new List<SelectListItem>()
+    {
+        new SelectListItem()
+        {
+            Text = "SuperAdmin",
+            Value = "SuperAdmin"
+        },
+        new SelectListItem()
+        {
+            Text = "Admin",
+            Value = "Admin"
+        },
+        new SelectListItem()
+        {
+            Text = "Vendedor",
+            Value = "Vendedor"
+        }
+    };
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Registro de Usuario</h1>
+    </div>
+</div>
+<div class="row" style="margin-left:50px">
+    <div class="col-md-4">
+        <form action="@Url.Action("Register", "Cuentas")" method="post">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", required = "required", placeholder = "Usuario" })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label id="lb1">Contraseña</label>
+                    @Html.PasswordFor(m => m.Contrasenia, new { id= "contra1", @class = "form-control", required = "required", placeholder = "Contraseña" })
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label id="lb2">Repetir la Contraseña</label>
+                    <input type="password" name="Contrasenia2" id="contra2" class="form-control" placeholder="Repetir la Contraseña" required />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Rol en el Sistema</label>
+                    @Html.DropDownList("role", roles, "-- Seleccionar --", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-12" style="top:15px">
+                <div class="form-group col-md-12">
+                    <button class="btn btn-primary btn-lg pull-right" id="btnGuardar" type="submit">Crear</button>
+                    @*<a class="btn btn-default btn-lg pull-right" href="@Url.Action("Index", "Home")">Cancelar</a>*@
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $("#contra2").focusout(function (e) {
+        if ($("#contra1").val() != $("#contra2").val()) {
+            $("#lb2").attr("style", "color:red")
+            $("#lb1").attr("style", "color:red")
+            alert("Las contraseñas no coinciden.")
+        }
+    });
+    $("#contra1").keypress(function (e) {
+        $("#lb2").attr("style", "color:black")
+        $("#lb1").attr("style", "color:black")
+    });
+    $("#contra2").keypress(function (e) {
+        $("#lb2").attr("style", "color:black")
+        $("#lb1").attr("style", "color:black")
+    });
+    $("#btnGuardar").click(function (e) {
+        var ids2 = $("#role").val();
+        if ($("#contra1").val() != $("#contra2").val()) {
+            e.preventDefault();
+            $("#lb2").attr("style", "color:red")
+            $("#lb1").attr("style", "color:red")
+            alert("Las contraseñas no coinciden.")
+        } else if (ids2 < 1) {
+            e.preventDefault();
+            alert('Seleccionar un Rol');
+        }
+    });
+</script>

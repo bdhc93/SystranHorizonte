@@ -56,22 +56,6 @@
                     <input type="date" class="form-control" id="txtCalendar2" onkeyup="buscarVentas()" value="@ViewBag.Fecha" min="@ViewBag.Fecha" />
                 </div>
             </div>
-            @{
-                if (User.IsInRole("Admin"))
-                {
-                    <div class="col-md-3">
-                        <label>Reportes:</label><br />
-                        <a class="btn btn-default" id="btnreport" href="#">Activar Reportes</a>
-                    </div>
-                }
-                else if (User.IsInRole("SuperAdmin"))
-                {
-                    <div class="col-md-3">
-                        <label>Reportes:</label><br />
-                        <a class="btn btn-default" id="btnreport" href="#">Activar Reportes</a>
-                    </div>
-                }
-            }
             <div class="col-md-3">
                 <label>Seleccionar Tipo de Reporte:</label>
                 <select class="form-control" id="listreport" disabled>

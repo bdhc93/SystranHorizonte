@@ -141,65 +141,96 @@
                 </ul>
             </li>*@
         <!-- /.dropdown -->
-        @*<li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-comment fa-fw"></i> New Comment
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                <span class="pull-right text-muted small">12 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-tasks fa-fw"></i> New Task
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a class="text-center" href="#">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>*@
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i> <strong>Movimientos</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        @{
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <label>Movimiento</label>
+                                        <span class="pull-right"><label>Fecha</label></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            foreach (var item in ViewBag.Movimientos)
+                            {
+                                <li>
+                                    <a href="#">
+                                        <div>
+                                            @item.Cambio
+                                            <span class="pull-right text-muted small">@item.Fecha.Day/@item.Fecha.Month/@item.Fecha.Year @item.Fecha.Hour:@item.Fecha.Minute</span>
+
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                            }
+                        }
+                        @*<li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-comment fa-fw"></i> New Comment
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                        <span class="pull-right text-muted small">12 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-tasks fa-fw"></i> New Task
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>*@
+                        @*<li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>*@
+                    </ul>
+                </li>
         <!-- /.dropdown -->
+                            }
+        }
+
+
         @{
             if (User.Identity.IsAuthenticated)
             {
@@ -363,37 +394,37 @@
         </div>
     </div>
 
-<script>
-    
-    $("#btnCambiarContrasenia").click(function (e) {
-        console.log("");
-        $('#PopupInicio').modal('show');
-    });
+    <script>
 
-    $("#contra2").focusout(function (e) {
-        if ($("#contra1").val() != $("#contra2").val()) {
-            $("#lb2").attr("style", "color:red")
-            $("#lb1").attr("style", "color:red")
-            alert("Las contraseñas no coinciden.")
-        } else {
-            $("#btnNewContrasenia").attr("disabled", false)
-        }
-    });
-    $("#contra1").keypress(function (e) {
-        $("#lb2").attr("style", "color:black")
-        $("#lb1").attr("style", "color:black")
-    });
-    $("#contra1").focusout(function (e) {
-        if ($("#contra1").val() != $("#contra2").val()) {
-            $("#btnNewContrasenia").attr("disabled", true)
-        } else {
-            $("#btnNewContrasenia").attr("disabled", false)
-        }
-    });
-    $(document).ready(function () {
-        if ($("#contra1").val() != $("#contra2").val() || $("#contra1").val() == "" || $("#contra2").val() == "") {
-            $("#btnNewContrasenia").attr("disabled", "disabled")
-        }
+        $("#btnCambiarContrasenia").click(function (e) {
+            console.log("");
+            $('#PopupInicio').modal('show');
+        });
 
-    });
-</script>
+        $("#contra2").focusout(function (e) {
+            if ($("#contra1").val() != $("#contra2").val()) {
+                $("#lb2").attr("style", "color:red")
+                $("#lb1").attr("style", "color:red")
+                alert("Las contraseñas no coinciden.")
+            } else {
+                $("#btnNewContrasenia").attr("disabled", false)
+            }
+        });
+        $("#contra1").keypress(function (e) {
+            $("#lb2").attr("style", "color:black")
+            $("#lb1").attr("style", "color:black")
+        });
+        $("#contra1").focusout(function (e) {
+            if ($("#contra1").val() != $("#contra2").val()) {
+                $("#btnNewContrasenia").attr("disabled", true)
+            } else {
+                $("#btnNewContrasenia").attr("disabled", false)
+            }
+        });
+        $(document).ready(function () {
+            if ($("#contra1").val() != $("#contra2").val() || $("#contra1").val() == "" || $("#contra2").val() == "") {
+                $("#btnNewContrasenia").attr("disabled", "disabled")
+            }
+
+        });
+    </script>

@@ -1,13 +1,24 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using SystranHorizonte.Web.Domain;
+using SystranHorizonte.Services.Ventas.Interfaces;
+using SystranHorizonte.Models;
 
 namespace SystranHorizonte.Web.Controllers
 {
     public class NavbarController : Controller
     {
+        public IMovCuentaService movCuentaService { get; set; }
+
+        public NavbarController(IMovCuentaService movCuentaService)
+        {
+            this.movCuentaService = movCuentaService;
+        }
+
         public ActionResult Index()
         {
+            ViewBag.Movimientos = movCuentaService.ObtenerMovimientosPorUsuario(User.Identity.Name);
+
             var data = new Data();
             if (User.IsInRole("SuperAdmin"))
             {

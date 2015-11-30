@@ -17,11 +17,12 @@ namespace SystranHorizonte.Web.Controllers
         public ICargaService cargaService { get; set; }
         public IClienteService clienteService { get; set; }
         public IVehiculoService vehiculoService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
         public EncomientaController(IVentaService ventaService, IEstacionService estacionService,
             IHorarioService horarioService, IVentaAsientoService ventaAsientoService,
             ICargaService cargaService, IClienteService clienteService,
-            IVehiculoService vehiculoService)
+            IVehiculoService vehiculoService, IMovCuentaService movCuentaService)
         {
             this.ventaService = ventaService;
             this.estacionService = estacionService;
@@ -30,6 +31,7 @@ namespace SystranHorizonte.Web.Controllers
             this.cargaService = cargaService;
             this.clienteService = clienteService;
             this.vehiculoService = vehiculoService;
+            this.movCuentaService = movCuentaService;
         }
 
         [HttpGet]
@@ -168,6 +170,19 @@ namespace SystranHorizonte.Web.Controllers
                     break;
             }
 
+            var venta = ventaService.ObtenerVentaPorId(idVenta);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Venta",
+                Cambio = "Reporte Encomienda",
+                IdModulo = venta.NroVenta + "",
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
+
             return File(renderedBytes, mimeType);
         }
 
@@ -288,6 +303,17 @@ namespace SystranHorizonte.Web.Controllers
                 default:
                     break;
             }
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Venta",
+                Cambio = "Reporte Encomiendas",
+                IdModulo = "",
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return File(renderedBytes, mimeType);
         }
@@ -350,6 +376,17 @@ namespace SystranHorizonte.Web.Controllers
                 }
 
                 ventaService.GuardarVenta(model);
+                
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Venta",
+                    Cambio = "Nueva Encomienda",
+                    IdModulo = model.NroVenta + "",
+                    Fecha = DateTime.Now
+                };
+
+                movCuentaService.GuardarMovimiento(movimiento);
 
                 return Redirect(@Url.Action("FinalVenta", "Encomienta") + "/" + model.Id);
             }
@@ -424,6 +461,17 @@ namespace SystranHorizonte.Web.Controllers
             model.Tipo = 5;
             model.Estado = 5;
             ventaService.ModificarVenta(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Venta",
+                Cambio = "Modificar Encomienda",
+                IdModulo = model.NroVenta + "",
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(@Url.Action("ListarVentas", "Venta"));
         }
@@ -525,7 +573,21 @@ namespace SystranHorizonte.Web.Controllers
 
                 }//Eliminar Carga
 
+                var vent = ventaService.ObtenerVentaPorId(idve);
+
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Venta",
+                    Cambio = "Eliminar Encomienda",
+                    IdModulo = vent.NroVenta + "",
+                    Fecha = DateTime.Now
+                };
+
                 ventaService.EliminarVenta(idve);
+
+                movCuentaService.GuardarMovimiento(movimiento);
+
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }
             catch (Exception)

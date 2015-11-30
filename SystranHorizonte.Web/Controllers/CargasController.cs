@@ -8,10 +8,12 @@ namespace SystranHorizonte.Web.Controllers
     public class CargasController : Controller
     {
         public ICargaService cargaService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public CargasController(ICargaService cargaService)
+        public CargasController(ICargaService cargaService, IMovCuentaService movCuentaService)
         {
             this.cargaService = cargaService;
+            this.movCuentaService = movCuentaService;
         }
 
         [HttpGet]
@@ -47,6 +49,17 @@ namespace SystranHorizonte.Web.Controllers
 
             cargaService.GuardarCarga(model);
 
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Carga",
+                Cambio = "Nueva Carga",
+                IdModulo = model.PesoMostrar,
+                Fecha = DateTime.Today
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
+
             return Redirect("ListCargas");
         }
 
@@ -56,13 +69,28 @@ namespace SystranHorizonte.Web.Controllers
         {
             try
             {
+                var car = cargaService.ObtenerCargaPorId(idve);
+
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Carga",
+                    Cambio = "Eliminar Carga",
+                    IdModulo = car.PesoMostrar,
+                    Fecha = DateTime.Today
+                };
+
                 cargaService.EliminarCarga(idve);
+
+                movCuentaService.GuardarMovimiento(movimiento);
+
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }
             catch (Exception)
             {
                 ViewBag.Mensaje = "No se puedo eliminar la carga realizada";
             }
+
 
             return PartialView("Eliminar");
         }
@@ -92,6 +120,17 @@ namespace SystranHorizonte.Web.Controllers
             }
             model.Precio = Decimal.Parse(decimalAstring(model.PrecioText));
             cargaService.ModificarCarga(model);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Carga",
+                Cambio = "Modificar Carga",
+                IdModulo = model.PesoMostrar,
+                Fecha = DateTime.Today
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("ListCargas"));
         }

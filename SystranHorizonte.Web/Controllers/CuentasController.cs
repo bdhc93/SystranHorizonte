@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using SystranHorizonte.Services.Ventas.Interfaces;
+using SystranHorizonte.Models;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using SystranHorizonte.Web.Models;
@@ -11,6 +10,13 @@ namespace SystranHorizonte.Web.Controllers
 {
     public class CuentasController : Controller
     {
+        public IMovCuentaService movCuentaService { get; set; }
+
+        public CuentasController(IMovCuentaService movCuentaService)
+        {
+            this.movCuentaService = movCuentaService;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login logindata, string ReturnUrl)
@@ -54,6 +60,18 @@ namespace SystranHorizonte.Web.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(registrardata.Usuario, registrardata.Contrasenia);
                     Roles.AddUserToRole(registrardata.Usuario, role);
+
+                    RegUsuarios movimiento = new RegUsuarios
+                    {
+                        Usuario = User.Identity.Name,
+                        Modulo = "Usuario",
+                        Cambio = "Nuevo Usuario",
+                        IdModulo = registrardata.Usuario,
+                        Fecha = DateTime.Now
+                    };
+
+                    movCuentaService.GuardarMovimiento(movimiento);
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -86,6 +104,18 @@ namespace SystranHorizonte.Web.Controllers
                     if (a)
                     {
                         var res = "Contraseña cambiada correctamente";
+                        
+                        RegUsuarios movimiento = new RegUsuarios
+                        {
+                            Usuario = User.Identity.Name,
+                            Modulo = "Usuario",
+                            Cambio = "CambioContraseña",
+                            IdModulo = User.Identity.Name,
+                            Fecha = DateTime.Now
+                        };
+
+                        movCuentaService.GuardarMovimiento(movimiento);
+
                         return RedirectToAction("Index", "Home", new { error = res });
                     }
                     else

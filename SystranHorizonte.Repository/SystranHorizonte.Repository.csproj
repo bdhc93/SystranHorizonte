@@ -81,6 +81,7 @@
     <Compile Include="Ventas\Datos\EmpleadoRepository.cs" />
     <Compile Include="Ventas\Datos\EstacionRepository.cs" />
     <Compile Include="Ventas\Datos\HorarioRepository.cs" />
+    <Compile Include="Ventas\Datos\MovCuentaRepository.cs" />
     <Compile Include="Ventas\Datos\VehiculoRepository.cs" />
     <Compile Include="Ventas\Datos\VentaAsientoRepository.cs" />
     <Compile Include="Ventas\Datos\VentaEncomiendaRepository.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Ventas\Interfaces\IEmpleadoRepository.cs" />
     <Compile Include="Ventas\Interfaces\IEstacionRepository.cs" />
     <Compile Include="Ventas\Interfaces\IHorarioRepository.cs" />
+    <Compile Include="Ventas\Interfaces\IMovCuentaRepository.cs" />
     <Compile Include="Ventas\Interfaces\IVehiculoRepository.cs" />
     <Compile Include="Ventas\Interfaces\IVentaAsientoRepository.cs" />
     <Compile Include="Ventas\Interfaces\IVentaEncomiendaRepository.cs" />

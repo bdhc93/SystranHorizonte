@@ -8,10 +8,12 @@ namespace SystranHorizonte.Web.Controllers
     public class VehiculoController : Controller
     {
         public IVehiculoService vehiculoService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public VehiculoController(IVehiculoService vehiculoService)
+        public VehiculoController(IVehiculoService vehiculoService, IMovCuentaService movCuentaService)
         {
             this.vehiculoService = vehiculoService;
+            this.movCuentaService = movCuentaService;
         }
 
         public ActionResult Index()
@@ -47,6 +49,17 @@ namespace SystranHorizonte.Web.Controllers
             model.CargaActual = 0;
 
             vehiculoService.GuardarVehiculo(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Vehículo",
+                Cambio = "Nuevo Vehículo",
+                IdModulo = model.NroPlaca,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect("ListarVehiculo");
         }
@@ -57,7 +70,19 @@ namespace SystranHorizonte.Web.Controllers
         {
             try
             {
+                var ve = vehiculoService.ObtenerVehiculoPorId(idve);
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Vehículo",
+                    Cambio = "Eliminar Vehículo",
+                    IdModulo = ve.NroPlaca,
+                    Fecha = DateTime.Now
+                };
+
                 vehiculoService.EliminarVehiculo(idve);
+
+                movCuentaService.GuardarMovimiento(movimiento);
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }
             catch (Exception)
@@ -88,6 +113,17 @@ namespace SystranHorizonte.Web.Controllers
             model.Largo = Decimal.Parse(decimalAstring(model.LargoText));
 
             vehiculoService.ModificarVehiculo(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Vehículo",
+                Cambio = "Modificar Vehículo",
+                IdModulo = model.NroPlaca,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("ListarVehiculo"));
         }

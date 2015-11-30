@@ -15,13 +15,15 @@ namespace SystranHorizonte.Repository.Mapping
             this.Property(p => p.Modulo).IsRequired();
             this.Property(p => p.Cambio).IsRequired();
             this.Property(p => p.IdModulo).IsRequired();
-            
+            this.Property(p => p.Fecha).IsRequired();
+
             this.ToTable("RegUsuarios");
             this.Property(c => c.Id).HasColumnName("Id");
             this.Property(c => c.Usuario).HasColumnName("Usuario");
             this.Property(c => c.Cambio).HasColumnName("Cambio");
             this.Property(c => c.IdModulo).HasColumnName("IdModulo");
             this.Property(c => c.Modulo).HasColumnName("Modulo");
+            this.Property(c => c.Fecha).HasColumnName("Fecha");
         }
     }
 }

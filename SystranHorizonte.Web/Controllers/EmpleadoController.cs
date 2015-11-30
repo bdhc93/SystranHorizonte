@@ -11,10 +11,12 @@ namespace SystranHorizonte.Web.Controllers
     public class EmpleadoController : Controller
     {
         public IEmpleadoService empleadoService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public EmpleadoController(IEmpleadoService empleadoService)
+        public EmpleadoController(IEmpleadoService empleadoService, IMovCuentaService movCuentaService)
         {
             this.empleadoService = empleadoService;
+            this.movCuentaService = movCuentaService;
         }
 
         public ActionResult Index()
@@ -52,6 +54,17 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult AgregarEmpleado(Empleado model)
         {
             empleadoService.GuardarEmpleado(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Empleado",
+                Cambio = "Nuevo Empleado",
+                IdModulo = model.Nombre + " " + model.Apellidos,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect("ListarEmpleado");
         }
@@ -62,13 +75,27 @@ namespace SystranHorizonte.Web.Controllers
         {
             try
             {
+                var emp = empleadoService.ObtenerEmpleadoPorId(idve);
+
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Empleado",
+                    Cambio = "Eliminar Empleado",
+                    IdModulo = emp.Nombre + " " + emp.Apellidos,
+                    Fecha = DateTime.Now
+                };
+
                 empleadoService.EliminarEmpleado(idve);
+
+                movCuentaService.GuardarMovimiento(movimiento);
                 ViewBag.Mensaje = "Eliminado Correctamente";
             }
             catch (Exception)
             {
                 ViewBag.Mensaje = "No se puede eliminar";
             }
+
 
             return PartialView("Eliminar");
         }
@@ -87,6 +114,17 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult Modificar(Empleado model)
         {
             empleadoService.ModificarEmpleado(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Empleado",
+                Cambio = "Modificar Empleado",
+                IdModulo = model.Nombre + " " + model.Apellidos,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("ListarEmpleado"));
         }
@@ -188,6 +226,19 @@ namespace SystranHorizonte.Web.Controllers
                 default:
                     break;
             }
+
+            var emp = empleadoService.ObtenerEmpleadoPorId(idempleado);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Empleado",
+                Cambio = "Reporte",
+                IdModulo = emp.NombreMostrar,
+                Fecha = DateTime.Today
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return File(renderedBytes, mimeType);
         }

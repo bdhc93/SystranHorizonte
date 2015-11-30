@@ -59,6 +59,7 @@
     <Compile Include="Ventas\Interfaces\IEmpleadoService.cs" />
     <Compile Include="Ventas\Interfaces\IEstacionService.cs" />
     <Compile Include="Ventas\Interfaces\IHorarioService.cs" />
+    <Compile Include="Ventas\Interfaces\IMovCuentaService.cs" />
     <Compile Include="Ventas\Interfaces\IVehiculoService.cs" />
     <Compile Include="Ventas\Interfaces\IVentaAsientoService.cs" />
     <Compile Include="Ventas\Interfaces\IVentaEncomiendaService.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Ventas\Services\EmpleadoService.cs" />
     <Compile Include="Ventas\Services\EstacionService.cs" />
     <Compile Include="Ventas\Services\HorarioService.cs" />
+    <Compile Include="Ventas\Services\MovCuentaService.cs" />
     <Compile Include="Ventas\Services\VehiculoService.cs" />
     <Compile Include="Ventas\Services\VentaAsientoService.cs" />
     <Compile Include="Ventas\Services\VentaEncomiendaService.cs" />

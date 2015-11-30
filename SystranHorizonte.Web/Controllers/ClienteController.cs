@@ -10,10 +10,12 @@ namespace SystranHorizonte.Web.Controllers
     public class ClienteController : Controller
     {
         public IClienteService clienteService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public ClienteController(IClienteService clienteService)
+        public ClienteController(IClienteService clienteService, IMovCuentaService movCuentaService)
         {
             this.clienteService = clienteService;
+            this.movCuentaService = movCuentaService;
         }
 
         [HttpGet]
@@ -52,6 +54,17 @@ namespace SystranHorizonte.Web.Controllers
                 ViewBag.RucDni = "";
             }
 
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Cliente",
+                Cambio = "Nuevo Cliente",
+                IdModulo = model.DniRuc,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
+
             return Redirect("Listar");
         }
 
@@ -68,6 +81,19 @@ namespace SystranHorizonte.Web.Controllers
             {
                 ViewBag.Mensaje = "No se puede eliminar";
             }
+
+            var client = clienteService.ObtenerClientePorId(idve);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Cliente",
+                Cambio = "Eliminar Cliente",
+                IdModulo = client.DniRuc,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return PartialView("Eliminar");
         }
@@ -86,6 +112,17 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult Modificar(Cliente model)
         {
             clienteService.ModificarCliente(model);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Cliente",
+                Cambio = "Modifiar Cliente",
+                IdModulo = model.DniRuc,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("Listar"));
 

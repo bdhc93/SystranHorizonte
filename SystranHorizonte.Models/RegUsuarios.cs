@@ -9,6 +9,7 @@ namespace SystranHorizonte.Models
 
         public String Modulo { get; set; }
         public String Cambio { get; set; }
-        public Int32 IdModulo { get; set; }
+        public String IdModulo { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

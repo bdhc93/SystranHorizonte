@@ -8,10 +8,12 @@ namespace SystranHorizonte.Web.Controllers
     public class EstacionController : Controller
     {
         public IEstacionService estacionService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public EstacionController(IEstacionService estacionService)
+        public EstacionController(IEstacionService estacionService, IMovCuentaService movCuentaService)
         {
             this.estacionService = estacionService;
+            this.movCuentaService = movCuentaService;
         }
 
         public ActionResult Index()
@@ -46,6 +48,17 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult AgregarEstacion(Estacion model)
         {
             estacionService.GuardarEstacion(model);
+            
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Estación",
+                Cambio = "Nueva Estación",
+                IdModulo = model.EstacionesT,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect("ListarEstacion");
         }
@@ -56,8 +69,21 @@ namespace SystranHorizonte.Web.Controllers
         {
             try
             {
+                var emp = estacionService.ObtenerEstacionPorId(idve);
+
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Estación",
+                    Cambio = "Eliminar Estación",
+                    IdModulo = emp.EstacionesT,
+                    Fecha = DateTime.Now
+                };
+
                 estacionService.EliminarEstacion(idve);
                 ViewBag.Mensaje = "Eliminado Correctamente";
+
+                movCuentaService.GuardarMovimiento(movimiento);
             }
             catch (Exception)
             {
@@ -81,6 +107,17 @@ namespace SystranHorizonte.Web.Controllers
         public ActionResult Modificar(Estacion model)
         {
             estacionService.ModificarEstacion(model);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Estación",
+                Cambio = "Modificar Estación",
+                IdModulo = model.EstacionesT,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("ListarEstacion"));
         }

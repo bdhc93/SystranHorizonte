@@ -11,13 +11,15 @@ namespace SystranHorizonte.Web.Controllers
         public IEmpleadoService empleadoService { get; set; }
         public IEstacionService estacionService { get; set; }
         public IVehiculoService vehiculoService { get; set; }
+        public IMovCuentaService movCuentaService { get; set; }
 
-        public HorarioController(IHorarioService horarioService, IEmpleadoService empleadoService, IEstacionService estacionService, IVehiculoService vehiculoService)
+        public HorarioController(IHorarioService horarioService, IMovCuentaService movCuentaService, IEmpleadoService empleadoService, IEstacionService estacionService, IVehiculoService vehiculoService)
         {
             this.horarioService = horarioService;
             this.empleadoService = empleadoService;
             this.estacionService = estacionService;
             this.vehiculoService = vehiculoService;
+            this.movCuentaService = movCuentaService;
         }
 
         public ActionResult Index()
@@ -69,7 +71,18 @@ namespace SystranHorizonte.Web.Controllers
         [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult GenerarHorarios()
         {
-            ViewBag.Mensaje = horarioService.GenerarHorarios(); ;
+            ViewBag.Mensaje = horarioService.GenerarHorarios();
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Horario",
+                Cambio = "Generar Horarios",
+                IdModulo = "",
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return PartialView("Eliminar");
         }
@@ -82,6 +95,17 @@ namespace SystranHorizonte.Web.Controllers
 
             horarioService.GuardarHorario(model);
 
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Horario",
+                Cambio = "Nuevo Horario",
+                IdModulo = model.HoraText,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
+
             return Redirect("ListHorarios");
         }
 
@@ -91,8 +115,21 @@ namespace SystranHorizonte.Web.Controllers
         {
             try
             {
+                var hor = horarioService.ObtenerClientePorId(idve);
+
+                RegUsuarios movimiento = new RegUsuarios
+                {
+                    Usuario = User.Identity.Name,
+                    Modulo = "Horario",
+                    Cambio = "Eliminar Horario",
+                    IdModulo = hor.HoraText,
+                    Fecha = DateTime.Now
+                };
+
                 horarioService.EliminarHorario(idve);
                 ViewBag.Mensaje = "Eliminado Correctamente";
+                
+                movCuentaService.GuardarMovimiento(movimiento);
             }
             catch (Exception)
             {
@@ -132,6 +169,17 @@ namespace SystranHorizonte.Web.Controllers
             model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
 
             horarioService.ModificarHorario(model);
+
+            RegUsuarios movimiento = new RegUsuarios
+            {
+                Usuario = User.Identity.Name,
+                Modulo = "Horario",
+                Cambio = "Modificar Horario",
+                IdModulo = model.HoraText,
+                Fecha = DateTime.Now
+            };
+
+            movCuentaService.GuardarMovimiento(movimiento);
 
             return Redirect(Url.Action("ListHorarios"));
         }

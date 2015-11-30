@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CargasController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CuentasController.cs" />
@@ -1079,9 +1080,11 @@
     <Content Include="Views\Venta\___AddVenta.cshtml" />
     <Content Include="Views\Venta\____AddVenta.cshtml" />
     <Content Include="Views\Cuentas\Register.cshtml" />
+    <Content Include="Views\Cuentas\CambiarContrasenia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Cuenta\" />
     <Folder Include="Views\ServiciosJsonTest\" />
     <Folder Include="Views\ServiciosJson\" />

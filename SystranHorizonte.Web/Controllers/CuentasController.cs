@@ -27,7 +27,8 @@ namespace SystranHorizonte.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    var res = "Usuario o contraseña incorrectos";
+                    return RedirectToAction("Index", "Home", new { error = res });
                 }
 
 
@@ -36,6 +37,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Register()
         {
             return View();
@@ -43,6 +45,7 @@ namespace SystranHorizonte.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Register(RegistroUsuarios registrardata, string role)
         {
             if (ModelState.IsValid)
@@ -68,5 +71,38 @@ namespace SystranHorizonte.Web.Controllers
             WebSecurity.Logout();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult CambiarContrasenia(String oldpass, String newpass)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var u = Membership.GetUser(User.Identity.Name);
+                    var a = WebSecurity.ChangePassword(User.Identity.Name, oldpass, newpass);
+                    if (a)
+                    {
+                        var res = "Contraseña cambiada correctamente";
+                        return RedirectToAction("Index", "Home", new { error = res });
+                    }
+                    else
+                    {
+                        var res = "Contraseña erronea";
+                        return RedirectToAction("Index", "Home", new { error = res });
+                        //return PartialView();
+                    }
+                }
+                catch (Exception e)
+                {
+                    var res = "Error: " + e.Message +"";
+                    return RedirectToAction("Index", "Home", new { error = res });
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        
     }
 }

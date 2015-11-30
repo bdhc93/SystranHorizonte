@@ -15,6 +15,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ListCargas()
         {
             ViewBag.Cargas = cargaService.ObtenerCargasPorCriterio("");
@@ -23,12 +24,14 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AddCarga()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AddCarga(Carga model)
         {
             if (model.TipoString == "Encomiendas")
@@ -48,6 +51,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -64,6 +68,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Int32 id)
         {
             var result = cargaService.ObtenerCargaPorId(id);
@@ -74,6 +79,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Carga model)
         {
             if (model.TipoString == "Encomiendas")
@@ -91,6 +97,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar(String criterio)
         {
             var result = cargaService.ObtenerCargasPorCriterio(criterio);

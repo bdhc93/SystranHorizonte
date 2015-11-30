@@ -26,6 +26,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ListHorarios()
         {
             ViewBag.horarios = horarioService.ObtenerHorariosPorHora();
@@ -54,6 +55,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AddHorario()
         {
             ViewBag.Estacion = estacionService.ObtenerEstacionsPorCriterio("");
@@ -64,6 +66,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult GenerarHorarios()
         {
             ViewBag.Mensaje = horarioService.GenerarHorarios(); ;
@@ -72,6 +75,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AddHorario(Horario model)
         {
             model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
@@ -82,6 +86,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -98,6 +103,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Int32 id)
         {
             var result = horarioService.ObtenerClientePorId(id);
@@ -120,6 +126,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Horario model)
         {
             model.Costo = Decimal.Parse(decimalAstring(model.CostoText));
@@ -130,6 +137,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AsientosVehiculo(Int32? idVehiculo)
         {
             int id = 0;
@@ -147,6 +155,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult HorariosEstacionOrigen(Int32? idEstacion, Int32? idDestino)
         {
             Int32 inicio = 0;
@@ -167,6 +176,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult HorariosEstacionOrigen2(Int32? idEstacion, Int32? idDestino)
         {
             Int32 inicio = 0;

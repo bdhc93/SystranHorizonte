@@ -8,9 +8,11 @@ namespace SystranHorizonte.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string error)
         {
-            return View();
+            ViewBag.Mensaje = error;
+            var res = "";
+            return View(res);
         }
 
         public ActionResult About()

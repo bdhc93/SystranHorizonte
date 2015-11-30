@@ -17,6 +17,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Listar()
         {
             var result = clienteService.ObtenerClientesPorCriterio("");
@@ -24,6 +25,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Agregar()
         {
             ViewBag.RucDni = "";
@@ -31,6 +33,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Agregar(Cliente model)
         {
             var x = clienteService.GuardarCliente(model);
@@ -53,6 +56,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -69,6 +73,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Modificar(Int32 id)
         {
             var result = clienteService.ObtenerClientePorId(id);
@@ -77,6 +82,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Modificar(Cliente model)
         {
             clienteService.ModificarCliente(model);
@@ -86,6 +92,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Buscar(String criterio)
         {
             var result = clienteService.ObtenerClientesPorCriterio(criterio);

@@ -35,6 +35,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult ListarReservas()
         {
             ViewBag.Fecha = MostrarFecha();
@@ -45,6 +46,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult AgregarReserva()
         {
             ViewBag.NroVenta = ventaService.ObtenerNroVenta();
@@ -55,6 +57,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult AgregarReserva(Venta model)
         {
             var clien = clienteService.ObtenerClientePorRucDni(model.RucDniCliente);
@@ -118,6 +121,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult ModificarReserva(Int32 id)
         {
             var result = ventaService.ObtenerVentaPorId(id);
@@ -127,6 +131,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult ModificarReserva(Venta model)
         {
             ViewBag.Fecha = MostrarFecha();
@@ -135,6 +140,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult FinalReserva(Int32 id)
         {
             var result = ventaService.ObtenerVentaPorId(id);
@@ -142,6 +148,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Buscar(string criterio, DateTime fechaini, DateTime fechafin, Int32 EstacionOringen = 0)
         {
             var result = ventaService.ObtenerReservas(criterio, fechaini, fechafin, EstacionOringen);
@@ -149,6 +156,7 @@ namespace SystranHorizonte.Web.Controllers
             return PartialView("_ListVentas", result);
         }
 
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Report(string id, Int32? idventa)
         {
             LocalReport lr = new LocalReport();
@@ -257,6 +265,7 @@ namespace SystranHorizonte.Web.Controllers
             return File(renderedBytes, mimeType);
         }
 
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ReportReportesReserva(string id, string criterio, DateTime fechaini, DateTime fechafin, int EstacionOringen = 0)
         {
             LocalReport lr = new LocalReport();
@@ -378,6 +387,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Pagos(Int32? IdHorario, Decimal? cargaPasaje, Decimal? ACuenta)
         {
             Int32 idhor = 0;
@@ -425,6 +435,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Asientos(Int32? IdHorario, String asientos)
         {
             Int32 idhor = 0;
@@ -440,6 +451,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult AsientosPrevio(Int32? IdHorario, Int32? asiento, String asientos)
         {
             Int32 idhor = 0;
@@ -640,6 +652,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult EliminarVenta(Int32 idve)
         {
             try
@@ -667,6 +680,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult DetalleVenta()
         {
             ViewBag.Horarios = horarioService.ObtenerHorariosPorEstacion(0, 0);
@@ -681,6 +695,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult AgregarDetalle(Int32? indice, Int32? idHorario,
             Int32? idEstacion, Int32? idDestino, Int32? idAsiento, Decimal CargaPasaje,
             String pago, String lbdni, String Nombres, String Apellidos,
@@ -745,6 +760,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult ClientesPrin(String dni)
         {
             Cliente result = clienteService.ObtenerClientePorRucDni(dni);
@@ -752,6 +768,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult Clientes(String dni)
         {
             Cliente result = clienteService.ObtenerClientePorRucDni(dni);
@@ -759,6 +776,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult HorariosEstacionOrigen(Int32? idEstacion, Int32? idDestino)
         {
             Int32 inicio = 0;
@@ -808,6 +826,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin, Vendedor")]
         public ActionResult CajaTotalPago(String pago, String totalVenta, Boolean estado, String lbdni, String asiento)
         {
             Decimal pagod = 0;

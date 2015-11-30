@@ -209,7 +209,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configuración</a>
+                            <a href="#" id="btnCambiarContrasenia"><i class="fa fa-gear fa-fw"></i> Cambiar Contraseña</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Logout", "Cuentas")"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
@@ -242,10 +242,10 @@
                                             <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                                         </div>
                                         @*<div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="Recuerdame"> Recordarme
-                                            </label>
-                                        </div>*@
+                                                <label>
+                                                    <input type="checkbox" name="Recuerdame"> Recordarme
+                                                </label>
+                                            </div>*@
                                     </form>
                                 </div>
                             </div>
@@ -318,3 +318,82 @@
         </div>
         <!-- /.navbar-static-side -->
     </nav>
+    <div class="modal fade" id="PopupInicio">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Cambiar Contraseña</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="@Url.Action("CambiarContrasenia", "Cuentas")" method="post">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary()
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Contraseña Antigua</label>
+                                        <input type="password" name="oldpass" id="contra0" class="form-control" placeholder="Contraseña Antigua" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label id="lb1">Contraseña Nueva</label>
+                                        <input type="password" name="newpass" id="contra1" class="form-control" placeholder="Contraseña Nueva" required />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label id="lb2">Repetir Nueva Contraseña</label>
+                                        <input type="password" name="newpass2" id="contra2" class="form-control" placeholder="Repetir la Contraseña" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right" id="btnNewContrasenia">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    
+    $("#btnCambiarContrasenia").click(function (e) {
+        console.log("");
+        $('#PopupInicio').modal('show');
+    });
+
+    $("#contra2").focusout(function (e) {
+        if ($("#contra1").val() != $("#contra2").val()) {
+            $("#lb2").attr("style", "color:red")
+            $("#lb1").attr("style", "color:red")
+            alert("Las contraseñas no coinciden.")
+        } else {
+            $("#btnNewContrasenia").attr("disabled", false)
+        }
+    });
+    $("#contra1").keypress(function (e) {
+        $("#lb2").attr("style", "color:black")
+        $("#lb1").attr("style", "color:black")
+    });
+    $("#contra1").focusout(function (e) {
+        if ($("#contra1").val() != $("#contra2").val()) {
+            $("#btnNewContrasenia").attr("disabled", true)
+        } else {
+            $("#btnNewContrasenia").attr("disabled", false)
+        }
+    });
+    $(document).ready(function () {
+        if ($("#contra1").val() != $("#contra2").val() || $("#contra1").val() == "" || $("#contra2").val() == "") {
+            $("#btnNewContrasenia").attr("disabled", "disabled")
+        }
+
+    });
+</script>

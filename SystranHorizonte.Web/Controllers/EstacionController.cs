@@ -20,6 +20,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ListarEstacion()
         {
             var result = estacionService.ObtenerEstacionsPorCriterio("");
@@ -34,12 +35,14 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarEstacion()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarEstacion(Estacion model)
         {
             estacionService.GuardarEstacion(model);
@@ -48,6 +51,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -64,6 +68,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Int32 id)
         {
             var result = estacionService.ObtenerEstacionPorId(id);
@@ -72,6 +77,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Estacion model)
         {
             estacionService.ModificarEstacion(model);
@@ -80,6 +86,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar(String criterio)
         {
             var result = estacionService.ObtenerEstacionsPorCriterio(criterio);
@@ -88,6 +95,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar2(String criterio)
         {
             var result = estacionService.ObtenerEstacionsPorCriterio(criterio);

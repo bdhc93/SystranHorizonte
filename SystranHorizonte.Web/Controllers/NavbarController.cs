@@ -15,11 +15,11 @@ namespace SystranHorizonte.Web.Controllers
             }
             else if (User.IsInRole("Admin"))
             {
-                return PartialView("_Navbar", data.navbarItems().ToList());
+                return PartialView("_Navbar", data.navbarItemsadmin().ToList());
             }
             else if (User.IsInRole("Vendedor"))
             {
-                return PartialView("_Navbar", data.navbarItems().ToList());
+                return PartialView("_Navbar", data.navbarItemsvendedor().ToList());
             }
             else
             {

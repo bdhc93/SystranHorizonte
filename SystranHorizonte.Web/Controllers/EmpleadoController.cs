@@ -24,6 +24,7 @@ namespace SystranHorizonte.Web.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ListarEmpleado()
         {
             var result = empleadoService.ObtenerEmpleadoPorCriterio("");
@@ -31,6 +32,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ReporteEmpleado()
         {
             ViewBag.Fecha = MostrarFecha();
@@ -39,12 +41,14 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarEmpleado()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarEmpleado(Empleado model)
         {
             empleadoService.GuardarEmpleado(model);
@@ -53,6 +57,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -69,6 +74,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Int32 id)
         {
             var result = empleadoService.ObtenerEmpleadoPorId(id);
@@ -77,6 +83,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Empleado model)
         {
             empleadoService.ModificarEmpleado(model);
@@ -85,6 +92,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar(String criterio)
         {
             var result = empleadoService.ObtenerEmpleadoPorCriterio(criterio);
@@ -93,6 +101,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar2(Int32 id, DateTime fechaIni, DateTime fechaFin)
         {
             var result = empleadoService.ObtenerEmpleadoPorCriterios(id, fechaIni, fechaFin);
@@ -100,6 +109,7 @@ namespace SystranHorizonte.Web.Controllers
             return PartialView("__Listar", result);
         }
 
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ReportEmpleados(string id, Int32 idempleado, DateTime fechaIni, DateTime fechaFin)
         {
             LocalReport lr = new LocalReport();

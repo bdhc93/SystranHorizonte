@@ -20,6 +20,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult ListarVehiculo()
         {
             var result = vehiculoService.ObtenerVehiculosPorCriterio("");
@@ -27,6 +28,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarVehiculo()
         {
             ViewBag.FechaSoat = MostrarFecha();
@@ -36,6 +38,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult AgregarVehiculo(Vehiculo model)
         {
             model.Ancho = Decimal.Parse(decimalAstring(model.AnchoText));
@@ -49,6 +52,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Eliminar(Int32 idve)
         {
             try
@@ -65,6 +69,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Int32 id)
         {
             var result = vehiculoService.ObtenerVehiculoPorId(id);
@@ -76,6 +81,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Modificar(Vehiculo model)
         {
             model.Ancho = Decimal.Parse(decimalAstring(model.AnchoText));
@@ -114,6 +120,7 @@ namespace SystranHorizonte.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public ActionResult Buscar(String criterio)
         {
             var result = vehiculoService.ObtenerVehiculosPorCriterio(criterio);

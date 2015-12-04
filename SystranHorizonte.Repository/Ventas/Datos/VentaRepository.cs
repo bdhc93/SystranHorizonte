@@ -32,7 +32,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
         public IEnumerable<Venta> ObtenerVentasPorCriterio(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
             var query = from p in Context.VentaPasajes
-                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Venta").Include("Venta.Cliente").Include("Cliente")
                         .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
                         .ToList()
                         select p;
@@ -285,7 +285,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
         public IEnumerable<Venta> ObtenerEncomiendas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
             var query = from p in Context.VentaEncomiendas
-                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Venta").Include("Venta.Cliente").Include("Cliente")
                         .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
                         .ToList()
                         select p;
@@ -343,7 +343,7 @@ namespace SystranHorizonte.Repository.Ventas.Datos
         public IEnumerable<Venta> ObtenerReservas(string criterio, DateTime fechaIni, DateTime fechaFin, int idestacion)
         {
             var query = from p in Context.Reservas
-                        .Include("Venta").Include("Venta.Cliente")
+                        .Include("Venta").Include("Venta.Cliente").Include("Cliente")
                         .Include("Horario").Include("Horario.EstacionOrigen").Include("Horario.EstacionDestino")
                         .ToList()
                         select p;
